@@ -300,21 +300,29 @@ function HomePage() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
-          {FEATURED_NEWS.map((n) => (
+          {FEATURED_NEWS.map((n, i) => (
             <article
               key={n.title}
-              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"
+              className="reveal card-soft group flex flex-col overflow-hidden"
+              style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary via-[oklch(0.4_0.15_25)] to-navy">
-                <div className="absolute inset-0 opacity-30" style={{
-                  backgroundImage: "radial-gradient(circle at 30% 70%, oklch(0.78 0.14 80) 0%, transparent 50%)"
-                }} />
-                <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-gold-foreground">
+              <div
+                className="relative aspect-[16/10] overflow-hidden"
+                style={{ backgroundImage: "var(--gradient-primary)" }}
+              >
+                <div
+                  className="absolute inset-0 opacity-40"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle at 30% 70%, oklch(0.85 0.15 220) 0%, transparent 60%)",
+                  }}
+                />
+                <span className="absolute left-4 top-4 rounded-full bg-card/95 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary backdrop-blur">
                   {n.tag}
                 </span>
               </div>
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="font-display text-lg font-bold leading-snug text-foreground transition-colors group-hover:text-primary">
+                <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-foreground transition-colors group-hover:text-primary">
                   {n.title}
                 </h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{n.excerpt}</p>
@@ -325,24 +333,24 @@ function HomePage() {
         </div>
       </section>
 
-      {/* MULTIMEDIA STRIP */}
-      <section className="bg-foreground py-20 text-background">
+      {/* MULTIMEDIA STRIP — light variant */}
+      <section className="border-y border-border bg-secondary/40 py-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
-            <div>
-              <span className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+            <div className="reveal">
+              <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
                 Series multimedia
               </span>
-              <h2 className="mt-2 font-display text-3xl font-bold lg:text-4xl">
+              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-foreground lg:text-4xl">
                 "60 giây đầu tư" <br />
-                <span className="text-gold">— Mỗi clip một con số</span>
+                <span className="text-gradient">— Mỗi clip một con số</span>
               </h2>
-              <p className="mt-5 max-w-md text-sm leading-relaxed text-background/75">
+              <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
                 Mini series video ngắn — mỗi tập chia sẻ một con số, một lợi thế hoặc một câu chuyện đầu tư của địa phương. Dễ hiểu, dễ chia sẻ, đăng đa nền tảng TikTok · YouTube · Facebook.
               </p>
               <Link
                 to="/multimedia/video"
-                className="mt-7 inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3 text-sm font-semibold text-gold-foreground shadow-[var(--shadow-gold)] transition-transform hover:scale-105"
+                className="btn-gradient mt-7 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold"
               >
                 <PlayCircle className="h-4 w-4" />
                 Xem playlist
@@ -359,15 +367,19 @@ function HomePage() {
               ].map((title, i) => (
                 <div
                   key={title}
-                  className="group relative aspect-[9/16] overflow-hidden rounded-lg bg-gradient-to-br from-primary via-[oklch(0.35_0.13_25)] to-navy transition-transform hover:-translate-y-1"
-                  style={{ transform: `translateY(${i % 2 ? 12 : 0}px)` }}
+                  className="reveal group relative aspect-[9/16] overflow-hidden rounded-xl shadow-[var(--shadow-card)] transition-transform hover:-translate-y-1"
+                  style={{
+                    transform: `translateY(${i % 2 ? 12 : 0}px)`,
+                    backgroundImage: "var(--gradient-primary)",
+                    transitionDelay: `${i * 60}ms`,
+                  }}
                 >
-                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-foreground/90 via-transparent to-transparent p-3">
-                    <p className="font-display text-xs font-bold leading-tight text-background">
+                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-foreground/85 via-transparent to-transparent p-3">
+                    <p className="font-display text-xs font-semibold leading-tight text-background">
                       {title}
                     </p>
                   </div>
-                  <PlayCircle className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 text-background/80 transition-all group-hover:scale-110 group-hover:text-gold" />
+                  <PlayCircle className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 text-background/85 transition-all group-hover:scale-110" />
                 </div>
               ))}
             </div>
