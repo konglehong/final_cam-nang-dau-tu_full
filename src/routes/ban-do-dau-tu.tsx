@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import {
   Factory,
   Ship,
@@ -11,10 +11,15 @@ import {
   Eye,
   EyeOff,
   Layers,
+  MapPin,
 } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+
+const InvestmentMap = lazy(() =>
+  import("@/components/map/InvestmentMap").then((m) => ({ default: m.InvestmentMap })),
+);
 
 export const Route = createFileRoute("/ban-do-dau-tu")({
   head: () => ({
