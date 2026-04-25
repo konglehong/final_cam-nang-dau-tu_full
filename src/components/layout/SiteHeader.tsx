@@ -12,7 +12,7 @@ export function SiteHeader() {
   const { lang, setLang } = useLanguage();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+    <header className="sticky top-0 z-[1200] border-b border-border/60 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       {/* Top utility bar */}
       <div className="hidden border-b border-border/40 bg-primary/95 text-primary-foreground lg:block">
         <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 text-xs">
@@ -37,7 +37,7 @@ export function SiteHeader() {
                 <ChevronDown className="h-3 w-3" />
               </button>
               {langOpen && (
-                <div className="absolute right-0 top-full mt-1 w-44 rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg">
+                <div className="absolute right-0 top-full z-[1300] mt-1 w-44 rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg">
                   {LANGUAGES.map((l) => (
                     <button
                       key={l.code}
@@ -96,7 +96,7 @@ export function SiteHeader() {
                 {item.children && <ChevronDown className="h-3.5 w-3.5" />}
               </Link>
               {item.children && openDropdown === item.to && (
-                <div className="absolute left-0 top-full w-56 rounded-md border border-border bg-popover py-2 shadow-lg">
+                <div className="absolute left-0 top-full z-[1300] w-56 rounded-md border border-border bg-popover py-2 shadow-lg">
                   {item.children.map((c) => (
                     <Link
                       key={c.to}
@@ -137,7 +137,7 @@ export function SiteHeader() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="border-t border-border bg-background lg:hidden">
+        <div className="relative z-[1300] border-t border-border bg-background lg:hidden">
           <nav className="mx-auto max-w-7xl space-y-1 px-4 py-3">
             {PRIMARY_NAV.map((item) => (
               <div key={item.to}>
