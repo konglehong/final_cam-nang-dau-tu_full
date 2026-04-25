@@ -6,7 +6,7 @@ import { Building2, CheckCircle2, Phone } from "lucide-react";
 export const Route = createFileRoute("/dia-phuong/dang-ky-tu-van")({
   head: () => ({
     meta: [
-      { title: "Đăng ký tư vấn gói dịch vụ — Cẩm nang Đầu tư × Địa phương" },
+      { title: "Đăng ký tư vấn — Cẩm nang Đầu tư × Địa phương" },
       { name: "description", content: "Form đăng ký tư vấn cho UBND tỉnh/thành — nhận báo giá và lộ trình triển khai trong 24h." },
       { property: "og:title", content: "Đăng ký tư vấn xúc tiến đầu tư địa phương" },
     ],
@@ -77,10 +77,10 @@ function DangKyTuVan() {
                 <h2 className="font-display text-xl font-bold pt-2">Nhu cầu hợp tác</h2>
                 <div>
                   <label className="mb-1.5 block text-sm font-semibold">
-                    Gói dịch vụ quan tâm
+                    Phạm vi quan tâm
                   </label>
                   <div className="grid gap-2 md:grid-cols-3">
-                    {["Cơ bản (1 tỷ)", "Nâng cao (3 tỷ)", "Premium (theo nhu cầu)"].map((p) => (
+                    {["Tư vấn ban đầu", "Triển khai trọng điểm", "Đồng hành dài hạn"].map((p) => (
                       <label
                         key={p}
                         className="flex items-center gap-2 rounded-md border border-border p-3 text-sm hover:border-primary/40"
