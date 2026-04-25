@@ -134,4 +134,69 @@ export const COUNTRY_LABELS: CountryLabel[] = [
     lng: 101.0,
     names: { vi: "THÁI LAN", en: "THAILAND", zh: "泰国", ko: "태국", ja: "タイ" },
   },
+  {
+    id: "philippines",
+    lat: 14.5,
+    lng: 121.5,
+    names: { vi: "PHILIPPINES", en: "PHILIPPINES", zh: "菲律宾", ko: "필리핀", ja: "フィリピン" },
+  },
+  {
+    id: "malaysia",
+    lat: 4.0,
+    lng: 102.5,
+    names: { vi: "MALAYSIA", en: "MALAYSIA", zh: "马来西亚", ko: "말레이시아", ja: "マレーシア" },
+  },
+  {
+    id: "myanmar",
+    lat: 21.0,
+    lng: 96.0,
+    names: { vi: "MYANMAR", en: "MYANMAR", zh: "缅甸", ko: "미얀마", ja: "ミャンマー" },
+  },
+  {
+    id: "hainan",
+    lat: 19.2,
+    lng: 109.5,
+    names: { vi: "Đảo Hải Nam (TQ)", en: "Hainan I. (CN)", zh: "海南岛", ko: "하이난섬", ja: "海南島" },
+  },
+];
+
+// Thành phố/địa danh nước ngoài — vẽ overlay khi không phải tiếng Việt
+// để tile nền (light_nolabels) không bị trống tên thành phố.
+export type ForeignCityLabel = {
+  id: string;
+  lat: number;
+  lng: number;
+  names: LangMap;
+  // Cấp độ ưu tiên: 1 = thủ đô/megacity (luôn hiện), 2 = thành phố lớn (zoom >= 6)
+  tier: 1 | 2;
+};
+
+export const FOREIGN_CITIES: ForeignCityLabel[] = [
+  // Trung Quốc — vùng giáp VN
+  { id: "nanning",  lat: 22.82, lng: 108.37, tier: 1, names: { vi: "Nam Ninh",   en: "Nanning",    zh: "南宁",   ko: "난닝",      ja: "南寧" } },
+  { id: "kunming",  lat: 25.05, lng: 102.72, tier: 1, names: { vi: "Côn Minh",   en: "Kunming",    zh: "昆明",   ko: "쿤밍",      ja: "昆明" } },
+  { id: "guangzhou",lat: 23.13, lng: 113.27, tier: 1, names: { vi: "Quảng Châu", en: "Guangzhou",  zh: "广州",   ko: "광저우",    ja: "広州" } },
+  { id: "haikou",   lat: 20.04, lng: 110.32, tier: 2, names: { vi: "Hải Khẩu",   en: "Haikou",     zh: "海口",   ko: "하이커우",  ja: "海口" } },
+  { id: "sanya",    lat: 18.25, lng: 109.51, tier: 2, names: { vi: "Tam Á",      en: "Sanya",      zh: "三亚",   ko: "싼야",      ja: "三亜" } },
+  { id: "hongkong", lat: 22.30, lng: 114.17, tier: 2, names: { vi: "Hồng Kông",  en: "Hong Kong",  zh: "香港",   ko: "홍콩",      ja: "香港" } },
+
+  // Lào
+  { id: "vientiane",  lat: 17.97, lng: 102.60, tier: 1, names: { vi: "Viêng Chăn",   en: "Vientiane",    zh: "万象",   ko: "비엔티안",  ja: "ビエンチャン" } },
+  { id: "luangprabang", lat: 19.88, lng: 102.13, tier: 2, names: { vi: "Luang Prabang", en: "Luang Prabang", zh: "琅勃拉邦", ko: "루앙프라방", ja: "ルアンパバーン" } },
+  { id: "savannakhet",lat: 16.55, lng: 104.75, tier: 2, names: { vi: "Savannakhet",  en: "Savannakhet",  zh: "沙湾拿吉", ko: "사완나켓",  ja: "サワンナケート" } },
+
+  // Campuchia
+  { id: "phnompenh",  lat: 11.56, lng: 104.92, tier: 1, names: { vi: "Phnôm Pênh",   en: "Phnom Penh",   zh: "金边",   ko: "프놈펜",    ja: "プノンペン" } },
+  { id: "siemreap",   lat: 13.36, lng: 103.86, tier: 2, names: { vi: "Siem Reap",    en: "Siem Reap",    zh: "暹粒",   ko: "시엠레아프",ja: "シェムリアップ" } },
+  { id: "sihanoukville", lat: 10.63, lng: 103.52, tier: 2, names: { vi: "Sihanoukville", en: "Sihanoukville", zh: "西哈努克", ko: "시아누크빌", ja: "シアヌークビル" } },
+
+  // Thái Lan
+  { id: "bangkok",    lat: 13.75, lng: 100.50, tier: 1, names: { vi: "Bangkok",      en: "Bangkok",      zh: "曼谷",   ko: "방콕",      ja: "バンコク" } },
+  { id: "chiangmai",  lat: 18.79, lng: 98.99,  tier: 2, names: { vi: "Chiang Mai",   en: "Chiang Mai",   zh: "清迈",   ko: "치앙마이",  ja: "チェンマイ" } },
+  { id: "udonthani",  lat: 17.41, lng: 102.79, tier: 2, names: { vi: "Udon Thani",   en: "Udon Thani",   zh: "乌隆他尼", ko: "우돈타니",  ja: "ウドンタニ" } },
+
+  // Khác
+  { id: "manila",     lat: 14.60, lng: 120.98, tier: 1, names: { vi: "Manila",       en: "Manila",       zh: "马尼拉", ko: "마닐라",    ja: "マニラ" } },
+  { id: "kualalumpur",lat: 3.14,  lng: 101.69, tier: 1, names: { vi: "Kuala Lumpur", en: "Kuala Lumpur", zh: "吉隆坡", ko: "쿠알라룸푸르", ja: "クアラルンプール" } },
+  { id: "yangon",     lat: 16.84, lng: 96.17,  tier: 2, names: { vi: "Yangon",       en: "Yangon",       zh: "仰光",   ko: "양곤",      ja: "ヤンゴン" } },
 ];

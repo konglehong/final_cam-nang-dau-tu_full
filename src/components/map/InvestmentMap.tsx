@@ -11,6 +11,7 @@ import {
   getProvinceName,
   SEA_LABELS,
   COUNTRY_LABELS,
+  FOREIGN_CITIES,
 } from "@/data/province-i18n";
 import { useLanguage } from "@/lib/i18n";
 import { getMapStrings, getStandardTile, getTerrainTile, getSatelliteTile } from "@/lib/map-i18n";
@@ -82,7 +83,37 @@ const countryLabelIcon = (name: string) =>
     iconAnchor: [90, 10],
   });
 
-// Hook nhỏ để track zoom hiện tại — dùng để ẩn các chấm đảo ở zoom thấp
+// Nhãn thành phố nước ngoài — chữ xám trung tính, có chấm tròn nhỏ
+const foreignCityLabelIcon = (name: string) =>
+  L.divIcon({
+    className: "",
+    html: `<div style="
+      display:flex;align-items:center;gap:4px;
+      pointer-events:none;
+      transform:translate(-50%,-50%);
+      white-space:nowrap;
+    ">
+      <span style="
+        width:5px;height:5px;border-radius:50%;
+        background:#6b7280;border:1px solid #fff;
+        box-shadow:0 1px 2px rgba(0,0,0,.3);
+        flex-shrink:0;
+      "></span>
+      <span style="
+        font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        color: #4b5563;
+        text-shadow:
+          -1px -1px 0 #fff, 1px -1px 0 #fff,
+          -1px 1px 0 #fff, 1px 1px 0 #fff,
+          0 0 3px rgba(255,255,255,.85);
+      ">${name}</span>
+    </div>`,
+    iconSize: [120, 14],
+    iconAnchor: [60, 7],
+  });
+
 function ZoomTracker({ onZoom }: { onZoom: (z: number) => void }) {
   useMapEvent("zoomend", (e) => onZoom(e.target.getZoom()));
   return null;
@@ -396,6 +427,16 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
               key={`country-${c.id}`}
               position={[c.lat, c.lng]}
               icon={countryLabelIcon(c.names[lang] || c.names.en)}
+              interactive={false}
+              keyboard={false}
+            />
+          ))}
+          {/* Thành phố nước ngoài — tier 1 (thủ đô) hiện sớm, tier 2 hiện khi zoom kỹ hơn */}
+          {FOREIGN_CITIES.filter((c) => (c.tier === 1 ? zoom >= 5 : zoom >= 6)).map((c) => (
+            <Marker
+              key={`fcity-${c.id}`}
+              position={[c.lat, c.lng]}
+              icon={foreignCityLabelIcon(c.names[lang] || c.names.en)}
               interactive={false}
               keyboard={false}
             />
