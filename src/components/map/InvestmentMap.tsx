@@ -85,9 +85,9 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
 
   return (
     <MapContainer
-      center={[16.0, 107.5]}
+      center={[14.5, 110.5]}
       zoom={5}
-      minZoom={5}
+      minZoom={4}
       maxZoom={12}
       scrollWheelZoom
       zoomControl={false}
@@ -96,27 +96,60 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
     >
       <ZoomControl position="topright" />
       <LayersControl position="topleft">
-        <LayersControl.BaseLayer checked name="Bản đồ (sáng)">
+        <LayersControl.BaseLayer checked name="Bản đồ (chuẩn VN)">
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-            subdomains="abcd"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            subdomains={["a", "b", "c"]}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Bản đồ (xám)">
+        <LayersControl.BaseLayer name="Bản đồ địa hình">
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            subdomains="abcd"
+            attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'
+            url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+            subdomains={["a", "b", "c"]}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Vệ tinh">
+        <LayersControl.BaseLayer name="Vệ tinh (Esri)">
           <TileLayer
-            attribution='Tiles &copy; Esri'
+            attribution='Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics'
             url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
           />
         </LayersControl.BaseLayer>
       </LayersControl>
+
+      {/* Hoàng Sa & Trường Sa — luôn hiển thị, khẳng định chủ quyền VN */}
+      <LayerGroup>
+        {VN_ARCHIPELAGOS.map((a) => (
+          <LayerGroup key={a.name}>
+            <Rectangle
+              bounds={a.bounds}
+              pathOptions={{
+                color: "oklch(0.55 0.18 25)",
+                weight: 2,
+                fillColor: "oklch(0.55 0.18 25)",
+                fillOpacity: 0.08,
+                dashArray: "6 4",
+              }}
+            />
+            <Marker position={[a.lat, a.lng]} icon={archipelagoIcon}>
+              <Tooltip permanent direction="bottom" offset={[0, 10]} className="vn-archipelago-label">
+                <strong>{a.name}</strong>
+                <div style={{ fontSize: 10, color: "#666" }}>{a.sub}</div>
+              </Tooltip>
+              <Popup>
+                <div style={{ minWidth: 200 }}>
+                  <strong style={{ fontSize: 14 }}>{a.name}</strong>
+                  <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>{a.sub}</div>
+                  <div style={{ fontSize: 11, marginTop: 6, padding: "4px 6px", background: "#fef3c7", borderRadius: 4, color: "#92400e" }}>
+                    Thuộc chủ quyền không thể tranh cãi của Việt Nam
+                  </div>
+                </div>
+              </Popup>
+            </Marker>
+          </LayerGroup>
+        ))}
+      </LayerGroup>
 
       {layers.provinces && (
         <LayerGroup>
