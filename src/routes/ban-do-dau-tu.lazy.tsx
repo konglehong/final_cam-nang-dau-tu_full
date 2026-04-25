@@ -157,6 +157,11 @@ function BanDoPage() {
     provinces: active.tinh,
     airports: active.sanbay,
     seaports: active.cang,
+    industrial: active.kcn,
+    highways: active.caotoc,
+    projects: active.duan,
+    power: active.nangluong,
+    tourism: active.dulich,
   };
 
   return (
