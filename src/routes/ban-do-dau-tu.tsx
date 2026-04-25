@@ -1,3 +1,4 @@
+// Trang Bản đồ đầu tư — i18n đầy đủ
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import {
