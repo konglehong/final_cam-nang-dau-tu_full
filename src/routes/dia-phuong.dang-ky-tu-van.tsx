@@ -36,7 +36,7 @@ function DangKyTuVan() {
       <PageHero
         eyebrow="Liên hệ"
         title="Nhận tư vấn miễn phí cho địa phương"
-        description="Đội ngũ Greencom & Báo Tiền Phong sẽ phản hồi trong 24h với báo giá và lộ trình triển khai chi tiết cho tỉnh/thành của bạn."
+        description="Đội ngũ của chúng tôi sẽ phản hồi trong 24h với báo giá và lộ trình triển khai chi tiết cho tỉnh/thành của bạn."
       />
 
       <section className="mx-auto max-w-7xl px-6 py-12">
@@ -47,7 +47,7 @@ function DangKyTuVan() {
                 <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-600" />
                 <h2 className="mt-4 font-display text-2xl font-bold">Đã gửi yêu cầu!</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Chuyên viên Greencom sẽ liên hệ trong 24h để đặt lịch khảo sát.
+                  Chuyên viên sẽ liên hệ trong 24h để đặt lịch khảo sát.
                 </p>
               </div>
             ) : (
