@@ -42,6 +42,13 @@ export const Route = createRootRoute({
       { property: "og:site_name", content: "Cẩm nang Đầu tư Việt Nam" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#8b1a1a" },
+      { property: "og:title", content: "Cẩm nang Đầu tư Việt Nam" },
+      { name: "twitter:title", content: "Cẩm nang Đầu tư Việt Nam" },
+      { name: "description", content: "Investment Guide Map provides a comprehensive sitemap for an investment handbook." },
+      { property: "og:description", content: "Investment Guide Map provides a comprehensive sitemap for an investment handbook." },
+      { name: "twitter:description", content: "Investment Guide Map provides a comprehensive sitemap for an investment handbook." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7af78919-d9b4-4b88-b193-e50d3f23f104/id-preview-451c6e0f--7dfb15b8-60db-469e-90bf-75054fc8b4ba.lovable.app-1777095548938.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7af78919-d9b4-4b88-b193-e50d3f23f104/id-preview-451c6e0f--7dfb15b8-60db-469e-90bf-75054fc8b4ba.lovable.app-1777095548938.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
