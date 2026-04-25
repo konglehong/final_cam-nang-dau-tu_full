@@ -7,7 +7,7 @@ export const Route = createFileRoute("/lien-he")({
   head: () => ({
     meta: [
       { title: "Liên hệ — Cẩm nang Đầu tư Việt Nam" },
-      { name: "description", content: "Liên hệ với Cẩm nang Đầu tư Việt Nam — Báo Tiền Phong và Greencom." },
+      { name: "description", content: "Liên hệ với Cẩm nang Đầu tư Việt Nam — cổng thông tin đầu tư chính thống cho 34 tỉnh thành." },
       { property: "og:title", content: "Liên hệ Cẩm nang Đầu tư Việt Nam" },
     ],
   }),
@@ -95,21 +95,20 @@ function LienHePage() {
 
           <aside className="space-y-5">
             <ContactCard
-              title="Báo Tiền Phong"
-              icon={Building2}
-              lines={[
-                { i: MapPin, t: "15 Hồ Xuân Hương, Hai Bà Trưng, Hà Nội" },
-                { i: Phone, t: "(024) 3943 4031" },
-                { i: Mail, t: "online@tienphong.vn" },
-              ]}
-            />
-            <ContactCard
-              title="Greencom"
+              title="Văn phòng chính"
               icon={Building2}
               lines={[
                 { i: MapPin, t: "Tầng 12, Tòa nhà Hà Nội Center, Cầu Giấy, Hà Nội" },
+                { i: Phone, t: "(024) 3943 4031" },
+                { i: Mail, t: "contact@camnangdautu.vn" },
+              ]}
+            />
+            <ContactCard
+              title="Bộ phận hỗ trợ"
+              icon={Building2}
+              lines={[
+                { i: Mail, t: "support@camnangdautu.vn" },
                 { i: Phone, t: "0934 567 890" },
-                { i: Mail, t: "hello@greencom.vn" },
               ]}
             />
             <div className="rounded-2xl border border-gold/30 bg-gold/5 p-6">
