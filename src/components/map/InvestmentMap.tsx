@@ -1,11 +1,20 @@
-import { useEffect, useMemo } from "react";
-import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl, Polygon, Tooltip } from "react-leaflet";
+import { useEffect, useMemo, useState } from "react";
+import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl, Polygon, Tooltip, useMapEvent } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+import MarkerClusterGroup from "react-leaflet-cluster";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
 import { ARCHIPELAGOS, type IslandPoint } from "@/data/archipelagos";
 import { useLanguage } from "@/lib/i18n";
 import { getMapStrings, getStandardTile, getTerrainTile, getSatelliteTile } from "@/lib/map-i18n";
+
+// Hook nhỏ để track zoom hiện tại — dùng để ẩn các chấm đảo ở zoom thấp
+function ZoomTracker({ onZoom }: { onZoom: (z: number) => void }) {
+  useMapEvent("zoomend", (e) => onZoom(e.target.getZoom()));
+  return null;
+}
 
 // Label chính cho quần đảo (kiểu Google Maps: chữ in hoa, có viền trắng)
 const archipelagoLabelIcon = (name: string, sub: string) =>
@@ -107,6 +116,11 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
   const standardTile = useMemo(() => getStandardTile(lang), [lang]);
   const terrainTile = useMemo(() => getTerrainTile(), []);
   const satelliteTile = useMemo(() => getSatelliteTile(), []);
+  const [zoom, setZoom] = useState(5);
+
+  // Ngưỡng zoom để hiện chấm đảo HS/TS — dưới ngưỡng chỉ vẽ polygon + label quần đảo
+  const SHOW_ISLAND_DOTS_FROM = 7;
+  const showIslandDots = zoom >= SHOW_ISLAND_DOTS_FROM;
 
   // Re-invalidate map size on container resize
   useEffect(() => {
@@ -147,6 +161,7 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
       style={{ height: "100%", width: "100%", background: "oklch(0.95 0.01 80)" }}
     >
       <ZoomControl position="topright" />
+      <ZoomTracker onZoom={setZoom} />
       <LayersControl position="topleft">
         <LayersControl.BaseLayer checked name={t.baseStandard}>
           <TileLayer
@@ -208,7 +223,7 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
                 </Popup>
               </Polygon>
 
-              {a.islands.map((island) => (
+              {showIslandDots && a.islands.map((island) => (
                 <Marker
                   key={island.name}
                   position={[island.lat, island.lng]}
@@ -273,7 +288,13 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
       )}
 
       {layers.airports && (
-        <LayerGroup>
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={40}
+          spiderfyOnMaxZoom
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
           {AIRPORTS.map((a) => (
             <Marker key={a.code} position={[a.lat, a.lng]} icon={airportIcon}>
               <Popup>
@@ -284,11 +305,17 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
               </Popup>
             </Marker>
           ))}
-        </LayerGroup>
+        </MarkerClusterGroup>
       )}
 
       {layers.seaports && (
-        <LayerGroup>
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={40}
+          spiderfyOnMaxZoom
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
           {SEAPORTS.map((s) => (
             <Marker key={s.name} position={[s.lat, s.lng]} icon={seaportIcon}>
               <Popup>
@@ -299,7 +326,7 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
               </Popup>
             </Marker>
           ))}
-        </LayerGroup>
+        </MarkerClusterGroup>
       )}
     </MapContainer>
   );
