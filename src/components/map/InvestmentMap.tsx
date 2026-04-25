@@ -6,7 +6,8 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
-import { ARCHIPELAGOS, type IslandPoint } from "@/data/archipelagos";
+import { ARCHIPELAGOS, HOANG_SA, TRUONG_SA, type IslandPoint } from "@/data/archipelagos";
+import { VIETNAM_MAINLAND, WORLD_BBOX } from "@/data/vietnam-outline";
 import {
   getProvinceName,
   SEA_LABELS,
@@ -293,6 +294,19 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
           />
         </LayersControl.BaseLayer>
       </LayersControl>
+
+      {/* Mask làm mờ các nước khác — Việt Nam (đất liền + HS + TS) là "lỗ" trong mask.
+          Polygon nhận mảng nhiều ring: ring đầu = ngoài, các ring sau = hole. */}
+      <Polygon
+        positions={[WORLD_BBOX, VIETNAM_MAINLAND, HOANG_SA.outline, TRUONG_SA.outline]}
+        pathOptions={{
+          stroke: false,
+          fillColor: "#0f172a",
+          fillOpacity: 0.35,
+          fillRule: "evenodd",
+          interactive: false,
+        }}
+      />
 
       {/* Hoàng Sa & Trường Sa — overlay chủ quyền VN, label theo ngôn ngữ đang chọn */}
       <LayerGroup>
