@@ -7,7 +7,7 @@ export const Route = createFileRoute("/tin-tuc")({
       {
         name: "description",
         content:
-          "Tin tức đầu tư, chính sách, FDI, hạ tầng và xúc tiến địa phương cập nhật liên tục từ Báo Tiền Phong và Greencom.",
+          "Tin tức đầu tư, chính sách, FDI, hạ tầng và xúc tiến địa phương cập nhật liên tục.",
       },
       { property: "og:title", content: "Tin tức Đầu tư Việt Nam" },
       {

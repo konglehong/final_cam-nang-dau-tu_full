@@ -178,7 +178,7 @@ export const EVENTS: Event[] = [
     format: "hybrid",
     category: "summit",
     description: "Diễn đàn đầu tư thường niên với sự tham gia của Thủ tướng, lãnh đạo địa phương và 800+ nhà đầu tư quốc tế.",
-    organizer: "Bộ KH&ĐT × Báo Tiền Phong",
+    organizer: "Bộ Kế hoạch & Đầu tư",
     registrationOpen: true,
   },
   {
