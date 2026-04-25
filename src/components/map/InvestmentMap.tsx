@@ -1,11 +1,20 @@
-import { useEffect, useMemo } from "react";
-import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl, Polygon, Tooltip } from "react-leaflet";
+import { useEffect, useMemo, useState } from "react";
+import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl, Polygon, Tooltip, useMapEvent } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+import MarkerClusterGroup from "react-leaflet-cluster";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
 import { ARCHIPELAGOS, type IslandPoint } from "@/data/archipelagos";
 import { useLanguage } from "@/lib/i18n";
 import { getMapStrings, getStandardTile, getTerrainTile, getSatelliteTile } from "@/lib/map-i18n";
+
+// Hook nhỏ để track zoom hiện tại — dùng để ẩn các chấm đảo ở zoom thấp
+function ZoomTracker({ onZoom }: { onZoom: (z: number) => void }) {
+  useMapEvent("zoomend", (e) => onZoom(e.target.getZoom()));
+  return null;
+}
 
 // Label chính cho quần đảo (kiểu Google Maps: chữ in hoa, có viền trắng)
 const archipelagoLabelIcon = (name: string, sub: string) =>
