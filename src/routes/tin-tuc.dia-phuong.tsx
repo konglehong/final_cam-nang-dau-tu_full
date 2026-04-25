@@ -1,35 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHero, PlaceholderBlock } from "@/components/layout/PageHero";
+import { NewsCategoryPage } from "@/components/news/NewsCategoryPage";
 
 export const Route = createFileRoute("/tin-tuc/dia-phuong")({
   head: () => ({
     meta: [
-      { title: "Tin tức xúc tiến đầu tư địa phương — 34 tỉnh thành" },
-      {
-        name: "description",
-        content:
-          "Tin tức xúc tiến đầu tư, hoạt động kinh tế và sự kiện của 34 tỉnh thành sau sáp nhập.",
-      },
-      { property: "og:title", content: "Tin tức địa phương — Cẩm nang Đầu tư" },
+      { title: "Tin Địa phương — 34 tỉnh thành sau sáp nhập" },
+      { name: "description", content: "Tin tức xúc tiến đầu tư, PCI, dự án mới của 34 tỉnh thành Việt Nam sau sáp nhập 01/07/2025." },
+      { property: "og:title", content: "Tin Địa phương Việt Nam" },
     ],
   }),
   component: () => (
-    <>
-      <PageHero
-        eyebrow="Chuyên mục"
-        title="Tin tức địa phương"
-        description="Xúc tiến đầu tư, hoạt động kinh tế và sự kiện nổi bật của 34 tỉnh thành."
-      />
-      <PlaceholderBlock
-        title="Bài viết Địa phương"
-        description="Lọc theo vùng và tỉnh, hiển thị mật độ tin tức trên bản đồ."
-        blocks={[
-          "Bản đồ heatmap mật độ tin tức theo tỉnh",
-          "Featured: 3 tỉnh nổi bật trong tháng",
-          "List bài viết theo tỉnh",
-          "Sidebar: Lịch sự kiện xúc tiến tỉnh",
-        ]}
-      />
-    </>
+    <NewsCategoryPage
+      category="dia-phuong"
+      eyebrow="Chuyên mục"
+      title="Địa phương & Vùng kinh tế"
+      description="Câu chuyện xúc tiến đầu tư, PCI, dự án trọng điểm của 34 tỉnh thành sau sáp nhập."
+    />
   ),
 });
