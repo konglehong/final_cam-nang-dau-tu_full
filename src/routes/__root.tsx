@@ -3,6 +3,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import appCss from "../styles.css?url";
 import { SiteHeader } from "../components/layout/SiteHeader";
 import { SiteFooter } from "../components/layout/SiteFooter";
+import { LanguageProvider } from "../lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -58,6 +59,14 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap",
       },
+      // Preconnect tile servers — giúp map load nhanh hơn nhiều khi user vào /ban-do-dau-tu
+      { rel: "preconnect", href: "https://a.tile.openstreetmap.org", crossOrigin: "" },
+      { rel: "preconnect", href: "https://b.tile.openstreetmap.org", crossOrigin: "" },
+      { rel: "preconnect", href: "https://c.tile.openstreetmap.org", crossOrigin: "" },
+      { rel: "preconnect", href: "https://a.basemaps.cartocdn.com", crossOrigin: "" },
+      { rel: "preconnect", href: "https://b.basemaps.cartocdn.com", crossOrigin: "" },
+      { rel: "preconnect", href: "https://server.arcgisonline.com", crossOrigin: "" },
+      { rel: "dns-prefetch", href: "https://a.tile.opentopomap.org" },
     ],
   }),
   shellComponent: RootShell,
@@ -81,12 +90,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-1">
-        <Outlet />
-      </main>
-      <SiteFooter />
-    </div>
+    <LanguageProvider>
+      <div className="flex min-h-screen flex-col">
+        <SiteHeader />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <SiteFooter />
+      </div>
+    </LanguageProvider>
   );
 }
