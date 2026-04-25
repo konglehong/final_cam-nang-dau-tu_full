@@ -227,18 +227,21 @@ function BanDoPage() {
 
         <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
           {/* Map area */}
-          <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-border bg-gradient-to-br from-muted/40 to-muted shadow-[var(--shadow-card)] lg:aspect-auto lg:min-h-[640px]">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <Layers className="mx-auto mb-3 h-12 w-12 text-muted-foreground/40" />
-                <p className="font-display text-lg font-semibold text-muted-foreground">
-                  Bản đồ Việt Nam
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground/70">
-                  SVG/Mapbox — 34 tỉnh thành color-coded
-                </p>
-              </div>
-            </div>
+          <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-border bg-muted shadow-[var(--shadow-card)] lg:aspect-auto lg:min-h-[640px]">
+            <Suspense
+              fallback={
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <Layers className="mx-auto mb-3 h-12 w-12 animate-pulse text-muted-foreground/40" />
+                    <p className="text-sm text-muted-foreground">
+                      Đang tải bản đồ…
+                    </p>
+                  </div>
+                </div>
+              }
+            >
+              <InvestmentMap layers={mapLayers} region={region} />
+            </Suspense>
 
             {/* In-map legend */}
             <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-xs rounded-md border border-border/80 bg-background/95 p-3 shadow-[var(--shadow-elegant)] backdrop-blur">
