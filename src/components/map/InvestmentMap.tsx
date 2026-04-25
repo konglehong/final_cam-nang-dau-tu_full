@@ -283,12 +283,24 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
       {/* Mask phủ kín các nước khác — Việt Nam (đất liền + HS + TS) là "lỗ" trong mask.
           Dùng màu nền sáng để các nước khác gần như "biến mất", chỉ còn VN nổi rõ. */}
       <Polygon
-        positions={[WORLD_BBOX, VIETNAM_MAINLAND, HOANG_SA.outline, TRUONG_SA.outline]}
+        positions={[WORLD_BBOX, VIETNAM_MAINLAND, ...VIETNAM_ISLANDS, HOANG_SA.outline, TRUONG_SA.outline]}
         pathOptions={{
           stroke: false,
           fillColor: "#ffffff",
           fillOpacity: 1,
           fillRule: "evenodd",
+          interactive: false,
+        }}
+      />
+
+      {/* Đường biên Việt Nam — vẽ viền mảnh để ranh giới sắc nét */}
+      <Polygon
+        positions={[VIETNAM_MAINLAND, ...VIETNAM_ISLANDS]}
+        pathOptions={{
+          color: "#94a3b8",
+          weight: 1,
+          opacity: 0.7,
+          fill: false,
           interactive: false,
         }}
       />
