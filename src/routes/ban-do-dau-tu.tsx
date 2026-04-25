@@ -167,6 +167,21 @@ function BanDoPage() {
   });
   const [region, setRegion] = useState<"all" | "bac" | "trung" | "nam">("all");
 
+  // Prefetch chunk InvestmentMap ngay khi page mount (song song với render UI khác)
+  // → khi React render Suspense, chunk thường đã sẵn sàng → giảm thời gian thấy bản đồ.
+  useEffect(() => {
+    const start = () => {
+      void loadMap();
+    };
+    if (typeof window === "undefined") return;
+    const w = window as Window & { requestIdleCallback?: (cb: () => void) => number };
+    if (typeof w.requestIdleCallback === "function") {
+      w.requestIdleCallback(start);
+    } else {
+      setTimeout(start, 0);
+    }
+  }, []);
+
   const grouped = useMemo(() => {
     const map: Record<string, LayerDef[]> = {};
     for (const l of LAYERS) {
