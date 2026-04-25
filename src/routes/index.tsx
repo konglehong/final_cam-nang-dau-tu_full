@@ -78,46 +78,54 @@ const FEATURED_NEWS = [
 function HomePage() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt="Toàn cảnh thành phố Việt Nam hiện đại lúc hoàng hôn"
-            className="h-full w-full object-cover"
-            width={1920}
-            height={1080}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent" />
-        </div>
+      {/* HERO — Stripe-style light gradient */}
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="pointer-events-none absolute inset-0 bg-mesh opacity-90" aria-hidden />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
+            backgroundSize: "32px 32px",
+            color: "var(--color-foreground)",
+          }}
+          aria-hidden
+        />
 
-        <div className="relative mx-auto grid min-h-[640px] max-w-7xl items-center px-6 py-20 lg:py-28">
-          <div className="max-w-3xl text-background">
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gold backdrop-blur">
+        <div className="relative mx-auto grid min-h-[600px] max-w-7xl items-center px-6 py-24 lg:py-32">
+          <div className="max-w-3xl">
+            <span className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-primary backdrop-blur">
               <Sparkles className="h-3.5 w-3.5" />
               Báo Tiền Phong × Greencom
             </span>
-            <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
+            <h1
+              className="animate-fade-up mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
+              style={{ animationDelay: "60ms" }}
+            >
               Cẩm nang Đầu tư <br />
-              <span className="bg-gradient-to-r from-gold to-[oklch(0.85_0.14_75)] bg-clip-text text-transparent">
-                Việt Nam
-              </span>
+              <span className="text-gradient">Việt Nam</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-background/85 sm:text-xl">
-              Cổng thông tin đầu tư chính thống cho <strong className="text-background">34 tỉnh thành</strong> Việt Nam sau sáp nhập đơn vị hành chính. Bản đồ, dữ liệu, chính sách ưu đãi và cơ hội đầu tư — tất cả ở một nơi.
+            <p
+              className="animate-fade-up mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
+              style={{ animationDelay: "140ms" }}
+            >
+              Cổng thông tin đầu tư chính thống cho{" "}
+              <strong className="font-semibold text-foreground">34 tỉnh thành</strong> Việt Nam sau sáp nhập đơn vị hành chính. Bản đồ, dữ liệu, chính sách ưu đãi và cơ hội đầu tư — tất cả ở một nơi.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div
+              className="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row"
+              style={{ animationDelay: "220ms" }}
+            >
               <Link
                 to="/ban-do-dau-tu"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] transition-all hover:scale-[1.02] hover:bg-primary-glow"
+                className="btn-gradient inline-flex items-center justify-center gap-2 rounded-lg px-7 py-3.5 text-sm font-semibold"
               >
                 <Map className="h-4 w-4" />
                 Khám phá bản đồ đầu tư
               </Link>
               <Link
                 to="/nha-dau-tu/tai-lieu"
-                className="inline-flex items-center justify-center gap-2 rounded-md border border-background/30 bg-background/10 px-7 py-3.5 text-sm font-semibold text-background backdrop-blur transition-all hover:bg-background/20"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-7 py-3.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:text-primary"
               >
                 <FileText className="h-4 w-4" />
                 Tải tài liệu xúc tiến
@@ -126,20 +134,24 @@ function HomePage() {
           </div>
         </div>
 
-        {/* Stats overlay */}
+        {/* Stats — clean white card grid */}
         <div className="relative">
-          <div className="mx-auto -mt-12 max-w-7xl px-6">
-            <div className="grid grid-cols-2 gap-px rounded-xl border border-border bg-border shadow-[var(--shadow-elegant)] lg:grid-cols-4">
-              {STATS.map((s) => (
+          <div className="mx-auto -mt-16 max-w-7xl px-6 pb-2">
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+              {STATS.map((s, i) => (
                 <div
                   key={s.label}
-                  className="flex items-center gap-4 bg-card p-6 first:rounded-l-xl last:rounded-r-xl"
+                  className="reveal card-soft flex items-center gap-4 p-6"
+                  style={{ transitionDelay: `${i * 80}ms` }}
                 >
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-glow text-primary-foreground">
+                  <div
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-primary-foreground"
+                    style={{ backgroundImage: "var(--gradient-primary)" }}
+                  >
                     <s.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="font-display text-3xl font-bold text-foreground">{s.value}</p>
+                    <p className="font-display text-3xl font-semibold tracking-tight text-foreground">{s.value}</p>
                     <p className="text-xs text-muted-foreground">{s.label}</p>
                   </div>
                 </div>
