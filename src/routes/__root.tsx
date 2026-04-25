@@ -1,9 +1,10 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 import { SiteHeader } from "../components/layout/SiteHeader";
 import { SiteFooter } from "../components/layout/SiteFooter";
 import { LanguageProvider } from "../lib/i18n";
+import { useReveal } from "../hooks/use-reveal";
 
 function NotFoundComponent() {
   return (
@@ -89,9 +90,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  // Re-run reveal observer on every route change
+  const location = useRouterState({ select: (s) => s.location.pathname });
+  useReveal();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  void location;
   return (
     <LanguageProvider>
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col bg-background">
         <SiteHeader />
         <main className="flex-1">
           <Outlet />
