@@ -11,6 +11,7 @@ import {
   getProvinceName,
   SEA_LABELS,
   COUNTRY_LABELS,
+  FOREIGN_CITIES,
 } from "@/data/province-i18n";
 import { useLanguage } from "@/lib/i18n";
 import { getMapStrings, getStandardTile, getTerrainTile, getSatelliteTile } from "@/lib/map-i18n";
