@@ -21,7 +21,7 @@ export type MapLayers = {
   seaports: boolean;
 };
 
-type Props = {
+export type InvestmentMapProps = {
   layers: MapLayers;
   region: "all" | Region;
   className?: string;
@@ -45,7 +45,7 @@ const makeIcon = (emoji: string, bg: string) =>
 const airportIcon = makeIcon("✈", "oklch(0.5 0.18 250)");
 const seaportIcon = makeIcon("⚓", "oklch(0.4 0.12 230)");
 
-export function InvestmentMap({ layers, region, className }: Props) {
+export function InvestmentMap({ layers, region, className }: InvestmentMapProps) {
   // Re-invalidate map size on container resize
   useEffect(() => {
     const t = setTimeout(() => {

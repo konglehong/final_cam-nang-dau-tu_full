@@ -17,9 +17,15 @@ import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
-const InvestmentMap = lazy(() =>
-  import("@/components/map/InvestmentMap").then((m) => ({ default: m.InvestmentMap })),
-);
+const InvestmentMap = lazy(async () => {
+  if (typeof window === "undefined") {
+    // SSR stub — returns empty fragment instead of null to satisfy ReactNode type
+    const Stub = (() => <></>) as unknown as typeof import("@/components/map/InvestmentMap").InvestmentMap;
+    return { default: Stub };
+  }
+  const m = await import("@/components/map/InvestmentMap");
+  return { default: m.InvestmentMap };
+});
 
 export const Route = createFileRoute("/ban-do-dau-tu")({
   head: () => ({
