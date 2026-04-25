@@ -29,7 +29,7 @@ function TinhDetailPage() {
   const { slug } = Route.useParams();
   const name = slug
     .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(" ");
 
   return (

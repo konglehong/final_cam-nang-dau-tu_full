@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import {
   Factory,
   Ship,
@@ -11,10 +11,15 @@ import {
   Eye,
   EyeOff,
   Layers,
+  MapPin,
 } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+
+const InvestmentMap = lazy(() =>
+  import("@/components/map/InvestmentMap").then((m) => ({ default: m.InvestmentMap })),
+);
 
 export const Route = createFileRoute("/ban-do-dau-tu")({
   head: () => ({
@@ -36,6 +41,7 @@ export const Route = createFileRoute("/ban-do-dau-tu")({
 });
 
 type LayerId =
+  | "tinh"
   | "kcn"
   | "cang"
   | "sanbay"
@@ -50,15 +56,46 @@ type LayerDef = {
   description: string;
   count: number;
   icon: typeof Factory;
-  color: string; // oklch reference via css var name
-  group: "Khu kinh tế" | "Hạ tầng giao thông" | "Dự án trọng điểm";
+  color: string;
+  group: "Hành chính" | "Khu kinh tế" | "Hạ tầng giao thông" | "Dự án trọng điểm";
+  live?: boolean; // có data thật trên map
 };
 
 const LAYERS: LayerDef[] = [
   {
+    id: "tinh",
+    label: "34 Tỉnh thành",
+    description: "Sau sáp nhập 01/07/2025",
+    count: 34,
+    icon: MapPin,
+    color: "var(--primary)",
+    group: "Hành chính",
+    live: true,
+  },
+  {
+    id: "sanbay",
+    label: "Sân bay quốc tế",
+    description: "Đang khai thác & xây dựng",
+    count: 12,
+    icon: Plane,
+    color: "oklch(0.5 0.18 250)",
+    group: "Hạ tầng giao thông",
+    live: true,
+  },
+  {
+    id: "cang",
+    label: "Cảng biển lớn",
+    description: "Loại đặc biệt & loại I",
+    count: 13,
+    icon: Ship,
+    color: "oklch(0.4 0.12 230)",
+    group: "Hạ tầng giao thông",
+    live: true,
+  },
+  {
     id: "kcn",
     label: "Khu công nghiệp",
-    description: "418 KCN đang hoạt động",
+    description: "418 KCN (đang cập nhật)",
     count: 418,
     icon: Factory,
     color: "var(--primary)",
@@ -72,24 +109,6 @@ const LAYERS: LayerDef[] = [
     icon: Trees,
     color: "var(--gold)",
     group: "Khu kinh tế",
-  },
-  {
-    id: "cang",
-    label: "Cảng biển & ICD",
-    description: "Cảng nước sâu, cảng cạn",
-    count: 34,
-    icon: Ship,
-    color: "var(--navy)",
-    group: "Hạ tầng giao thông",
-  },
-  {
-    id: "sanbay",
-    label: "Sân bay",
-    description: "Quốc tế & nội địa",
-    count: 22,
-    icon: Plane,
-    color: "var(--accent)",
-    group: "Hạ tầng giao thông",
   },
   {
     id: "caotoc",
@@ -129,15 +148,16 @@ const REGIONS = [
 
 function BanDoPage() {
   const [active, setActive] = useState<Record<LayerId, boolean>>({
-    kcn: true,
-    cang: true,
+    tinh: true,
     sanbay: true,
+    cang: true,
+    kcn: false,
     caotoc: false,
-    duan: true,
+    duan: false,
     nangluong: false,
     dulich: false,
   });
-  const [region, setRegion] = useState("all");
+  const [region, setRegion] = useState<"all" | "bac" | "trung" | "nam">("all");
 
   const grouped = useMemo(() => {
     const map: Record<string, LayerDef[]> = {};
@@ -164,6 +184,12 @@ function BanDoPage() {
       ),
     );
 
+  const mapLayers = {
+    provinces: active.tinh,
+    airports: active.sanbay,
+    seaports: active.cang,
+  };
+
   return (
     <>
       <PageHero
@@ -184,7 +210,7 @@ function BanDoPage() {
                 key={r.value}
                 variant={region === r.value ? "default" : "outline"}
                 size="sm"
-                onClick={() => setRegion(r.value)}
+                onClick={() => setRegion(r.value as typeof region)}
               >
                 {r.label}
               </Button>
@@ -201,21 +227,27 @@ function BanDoPage() {
 
         <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
           {/* Map area */}
-          <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-border bg-gradient-to-br from-muted/40 to-muted shadow-[var(--shadow-card)] lg:aspect-auto lg:min-h-[640px]">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <Layers className="mx-auto mb-3 h-12 w-12 text-muted-foreground/40" />
-                <p className="font-display text-lg font-semibold text-muted-foreground">
-                  Bản đồ Việt Nam
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground/70">
-                  SVG/Mapbox — 34 tỉnh thành color-coded
-                </p>
-              </div>
-            </div>
+          <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-border bg-muted shadow-[var(--shadow-card)] lg:aspect-auto lg:min-h-[640px]">
+            <Suspense
+              fallback={
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <Layers className="mx-auto mb-3 h-12 w-12 animate-pulse text-muted-foreground/40" />
+                    <p className="text-sm text-muted-foreground">
+                      Đang tải bản đồ…
+                    </p>
+                  </div>
+                </div>
+              }
+            >
+              <InvestmentMap layers={mapLayers} region={region} />
+            </Suspense>
 
-            {/* In-map legend */}
-            <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-xs rounded-md border border-border/80 bg-background/95 p-3 shadow-[var(--shadow-elegant)] backdrop-blur">
+            {/* In-map legend (overlay above Leaflet) */}
+            <div
+              className="pointer-events-none absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-xs rounded-md border border-border/80 bg-background/95 p-3 shadow-[var(--shadow-elegant)] backdrop-blur"
+              style={{ zIndex: 500 }}
+            >
               <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                 Đang hiển thị
               </p>
@@ -309,8 +341,13 @@ function BanDoPage() {
                               <Icon className="h-4 w-4" />
                             </span>
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-sm font-medium text-foreground">
+                              <p className="flex items-center gap-1.5 truncate text-sm font-medium text-foreground">
                                 {l.label}
+                                {!l.live && (
+                                  <span className="rounded-sm bg-muted px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
+                                    Sắp có
+                                  </span>
+                                )}
                               </p>
                               <p className="truncate text-xs text-muted-foreground">
                                 {l.description} · {l.count}
@@ -320,6 +357,7 @@ function BanDoPage() {
                               checked={isOn}
                               onCheckedChange={() => toggle(l.id)}
                               aria-label={`Toggle ${l.label}`}
+                              disabled={!l.live}
                             />
                           </label>
                         </li>
