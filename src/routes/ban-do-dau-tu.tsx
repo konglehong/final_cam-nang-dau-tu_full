@@ -19,7 +19,9 @@ import { Switch } from "@/components/ui/switch";
 
 const InvestmentMap = lazy(async () => {
   if (typeof window === "undefined") {
-    return { default: () => null };
+    return {
+      default: (_: import("@/components/map/InvestmentMap").InvestmentMapProps) => null,
+    };
   }
   const m = await import("@/components/map/InvestmentMap");
   return { default: m.InvestmentMap };
