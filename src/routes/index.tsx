@@ -388,35 +388,47 @@ function HomePage() {
       </section>
 
       {/* DUAL CTA — Investor / Locality */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
+      <section className="mx-auto max-w-7xl px-6 py-24">
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-card to-secondary p-10 shadow-[var(--shadow-card)]">
-            <Users className="h-10 w-10 text-primary" />
-            <h3 className="mt-5 font-display text-2xl font-bold text-foreground lg:text-3xl">
-              Bạn là <span className="text-primary">Nhà đầu tư</span>?
+          <div className="reveal card-soft relative overflow-hidden p-10">
+            <div
+              className="absolute -right-20 -top-20 h-60 w-60 rounded-full opacity-20 blur-3xl"
+              style={{ backgroundImage: "var(--gradient-primary)" }}
+              aria-hidden
+            />
+            <Users className="relative h-10 w-10 text-primary" />
+            <h3 className="relative mt-5 font-display text-2xl font-semibold tracking-tight text-foreground lg:text-3xl">
+              Bạn là <span className="text-gradient">Nhà đầu tư</span>?
             </h3>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+            <p className="relative mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
               Truy cập thư viện tài liệu xúc tiến đa ngôn ngữ, đăng ký quan tâm dự án và kết nối trực tiếp với cơ quan xúc tiến đầu tư của 34 tỉnh thành.
             </p>
             <Link
               to="/nha-dau-tu"
-              className="mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-glow"
+              className="btn-gradient relative mt-6 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold"
             >
               Khu Nhà đầu tư <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl border border-gold/40 bg-gradient-to-br from-foreground via-[oklch(0.22_0.04_25)] to-foreground p-10 text-background shadow-[var(--shadow-elegant)]">
-            <Building2 className="h-10 w-10 text-gold" />
-            <h3 className="mt-5 font-display text-2xl font-bold lg:text-3xl">
-              Bạn là <span className="text-gold">Lãnh đạo địa phương</span>?
+          <div
+            className="reveal relative overflow-hidden rounded-2xl border border-border p-10 shadow-[var(--shadow-elegant)]"
+            style={{ backgroundImage: "var(--gradient-primary)", transitionDelay: "120ms" }}
+          >
+            <div
+              className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-white/15 blur-3xl"
+              aria-hidden
+            />
+            <Building2 className="relative h-10 w-10 text-white" />
+            <h3 className="relative mt-5 font-display text-2xl font-semibold tracking-tight text-white lg:text-3xl">
+              Bạn là <span className="text-white/95 underline decoration-white/40 decoration-2 underline-offset-4">Lãnh đạo địa phương</span>?
             </h3>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-background/75">
+            <p className="relative mt-3 max-w-md text-sm leading-relaxed text-white/85">
               Khám phá 3 gói dịch vụ truyền thông xúc tiến đầu tư — từ Cơ bản (1 tỷ/năm) đến Premium (theo nhu cầu). Greencom đầu tư 100% chi phí xây dựng nội dung.
             </p>
             <Link
               to="/dia-phuong"
-              className="mt-6 inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3 text-sm font-semibold text-gold-foreground shadow-[var(--shadow-gold)] transition-transform hover:scale-[1.02]"
+              className="relative mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-primary shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-lg"
             >
               Khu Địa phương <ArrowRight className="h-4 w-4" />
             </Link>
