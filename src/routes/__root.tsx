@@ -1,9 +1,10 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouterState } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 import { SiteHeader } from "../components/layout/SiteHeader";
 import { SiteFooter } from "../components/layout/SiteFooter";
 import { LanguageProvider } from "../lib/i18n";
+import { useReveal } from "../hooks/use-reveal";
 
 function NotFoundComponent() {
   return (
@@ -42,7 +43,7 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Cẩm nang Đầu tư Việt Nam" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "theme-color", content: "#8b1a1a" },
+      { name: "theme-color", content: "#635bff" },
       { property: "og:title", content: "Cẩm nang Đầu tư Việt Nam" },
       { name: "twitter:title", content: "Cẩm nang Đầu tư Việt Nam" },
       { name: "description", content: "Investment Guide Map provides a comprehensive sitemap for an investment handbook." },
@@ -57,7 +58,7 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
       },
       // Preconnect tile servers — giúp map load nhanh hơn nhiều khi user vào /ban-do-dau-tu
       { rel: "preconnect", href: "https://a.tile.openstreetmap.org", crossOrigin: "" },
@@ -89,9 +90,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  useReveal(pathname);
   return (
     <LanguageProvider>
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col bg-background">
         <SiteHeader />
         <main className="flex-1">
           <Outlet />

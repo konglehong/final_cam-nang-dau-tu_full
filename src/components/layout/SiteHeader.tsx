@@ -12,24 +12,24 @@ export function SiteHeader() {
   const { lang, setLang } = useLanguage();
 
   return (
-    <header className="sticky top-0 z-[1200] border-b border-border/60 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      {/* Top utility bar */}
-      <div className="hidden border-b border-border/40 bg-primary/95 text-primary-foreground lg:block">
-        <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 text-xs">
+    <header className="sticky top-0 z-[1200] border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+      {/* Top utility bar — light & airy */}
+      <div className="hidden border-b border-border/60 bg-background/60 lg:block">
+        <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 text-xs text-muted-foreground">
           <p className="font-medium tracking-wide">
-            CỔNG THÔNG TIN ĐẦU TƯ CHÍNH THỐNG · 34 TỈNH THÀNH SAU SÁP NHẬP
+            Cổng thông tin đầu tư chính thống · 34 tỉnh thành sau sáp nhập
           </p>
           <div className="flex items-center gap-5">
-            <Link to="/su-kien" className="hover:text-gold">
+            <Link to="/su-kien" className="hover:text-primary transition-colors">
               Lịch sự kiện
             </Link>
-            <Link to="/lien-he" className="hover:text-gold">
+            <Link to="/lien-he" className="hover:text-primary transition-colors">
               Liên hệ
             </Link>
             <div className="relative">
               <button
                 onClick={() => setLangOpen((v) => !v)}
-                className="flex items-center gap-1.5 hover:text-gold"
+                className="flex items-center gap-1.5 hover:text-primary transition-colors"
                 aria-label="Chọn ngôn ngữ"
               >
                 <Globe className="h-3.5 w-3.5" />
@@ -37,7 +37,7 @@ export function SiteHeader() {
                 <ChevronDown className="h-3 w-3" />
               </button>
               {langOpen && (
-                <div className="absolute right-0 top-full z-[1300] mt-1 w-44 rounded-md border border-border bg-popover py-1 text-popover-foreground shadow-lg">
+                <div className="absolute right-0 top-full z-[1300] mt-1 w-44 overflow-hidden rounded-xl border border-border bg-popover py-1 text-popover-foreground shadow-[var(--shadow-elegant)]">
                   {LANGUAGES.map((l) => (
                     <button
                       key={l.code}
@@ -46,8 +46,8 @@ export function SiteHeader() {
                         setLangOpen(false);
                       }}
                       className={cn(
-                        "flex w-full items-center gap-2 px-3 py-2 text-left text-xs hover:bg-accent",
-                        lang === l.code && "bg-accent/60 font-semibold",
+                        "flex w-full items-center gap-2 px-3 py-2 text-left text-xs transition-colors hover:bg-accent",
+                        lang === l.code && "bg-accent/60 font-semibold text-primary",
                       )}
                     >
                       <span className="text-base">{l.flag}</span>
@@ -63,15 +63,15 @@ export function SiteHeader() {
 
       {/* Main bar */}
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 lg:px-6">
-        <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-gradient-to-br from-primary to-primary-glow text-primary-foreground shadow-[var(--shadow-elegant)]">
-            <span className="font-display text-lg font-bold">CN</span>
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl text-primary-foreground shadow-[var(--shadow-glow)] transition-transform group-hover:scale-105" style={{ backgroundImage: "var(--gradient-primary)" }}>
+            <span className="font-display text-base font-bold tracking-tight">CN</span>
           </div>
           <div className="hidden flex-col leading-tight sm:flex">
-            <span className="font-display text-base font-bold text-foreground">
+            <span className="font-display text-base font-semibold tracking-tight text-foreground">
               Cẩm nang Đầu tư
             </span>
-            <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
               Việt Nam · Tiền Phong × Greencom
             </span>
           </div>
@@ -121,7 +121,7 @@ export function SiteHeader() {
           </button>
           <Link
             to="/nha-dau-tu/dang-ky-quan-tam"
-            className="hidden rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-[var(--shadow-elegant)] transition-all hover:bg-primary/90 hover:shadow-lg lg:inline-flex"
+            className="btn-gradient hidden rounded-lg px-4 py-2 text-sm font-medium lg:inline-flex"
           >
             Đăng ký quan tâm
           </Link>

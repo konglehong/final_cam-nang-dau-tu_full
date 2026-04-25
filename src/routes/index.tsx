@@ -46,12 +46,12 @@ const STATS = [
 ];
 
 const REGIONS = [
-  { name: "Đồng bằng Bắc Bộ", count: 7, color: "from-primary to-[oklch(0.55_0.18_30)]" },
-  { name: "Bắc Trung Bộ", count: 5, color: "from-[oklch(0.55_0.16_60)] to-gold" },
-  { name: "Nam Trung Bộ", count: 6, color: "from-gold to-[oklch(0.62_0.15_90)]" },
-  { name: "Tây Nguyên", count: 3, color: "from-[oklch(0.55_0.12_160)] to-[oklch(0.45_0.1_170)]" },
-  { name: "Đông Nam Bộ", count: 5, color: "from-navy to-[oklch(0.4_0.1_245)]" },
-  { name: "Đồng bằng SCL", count: 8, color: "from-[oklch(0.5_0.13_240)] to-[oklch(0.55_0.15_220)]" },
+  { name: "Đồng bằng Bắc Bộ", count: 7, color: "from-[oklch(0.55_0.22_280)] to-[oklch(0.6_0.2_255)]" },
+  { name: "Bắc Trung Bộ", count: 5, color: "from-[oklch(0.6_0.2_250)] to-[oklch(0.65_0.18_220)]" },
+  { name: "Nam Trung Bộ", count: 6, color: "from-[oklch(0.65_0.18_220)] to-[oklch(0.7_0.16_200)]" },
+  { name: "Tây Nguyên", count: 3, color: "from-[oklch(0.55_0.18_200)] to-[oklch(0.6_0.16_180)]" },
+  { name: "Đông Nam Bộ", count: 5, color: "from-[oklch(0.5_0.22_290)] to-[oklch(0.55_0.2_270)]" },
+  { name: "Đồng bằng SCL", count: 8, color: "from-[oklch(0.5_0.2_310)] to-[oklch(0.55_0.22_285)]" },
 ];
 
 const FEATURED_NEWS = [
@@ -78,46 +78,54 @@ const FEATURED_NEWS = [
 function HomePage() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt="Toàn cảnh thành phố Việt Nam hiện đại lúc hoàng hôn"
-            className="h-full w-full object-cover"
-            width={1920}
-            height={1080}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent" />
-        </div>
+      {/* HERO — Stripe-style light gradient */}
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="pointer-events-none absolute inset-0 bg-mesh opacity-90" aria-hidden />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
+            backgroundSize: "32px 32px",
+            color: "var(--color-foreground)",
+          }}
+          aria-hidden
+        />
 
-        <div className="relative mx-auto grid min-h-[640px] max-w-7xl items-center px-6 py-20 lg:py-28">
-          <div className="max-w-3xl text-background">
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gold backdrop-blur">
+        <div className="relative mx-auto grid min-h-[600px] max-w-7xl items-center px-6 py-24 lg:py-32">
+          <div className="max-w-3xl">
+            <span className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-primary backdrop-blur">
               <Sparkles className="h-3.5 w-3.5" />
               Báo Tiền Phong × Greencom
             </span>
-            <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
+            <h1
+              className="animate-fade-up mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
+              style={{ animationDelay: "60ms" }}
+            >
               Cẩm nang Đầu tư <br />
-              <span className="bg-gradient-to-r from-gold to-[oklch(0.85_0.14_75)] bg-clip-text text-transparent">
-                Việt Nam
-              </span>
+              <span className="text-gradient">Việt Nam</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-background/85 sm:text-xl">
-              Cổng thông tin đầu tư chính thống cho <strong className="text-background">34 tỉnh thành</strong> Việt Nam sau sáp nhập đơn vị hành chính. Bản đồ, dữ liệu, chính sách ưu đãi và cơ hội đầu tư — tất cả ở một nơi.
+            <p
+              className="animate-fade-up mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
+              style={{ animationDelay: "140ms" }}
+            >
+              Cổng thông tin đầu tư chính thống cho{" "}
+              <strong className="font-semibold text-foreground">34 tỉnh thành</strong> Việt Nam sau sáp nhập đơn vị hành chính. Bản đồ, dữ liệu, chính sách ưu đãi và cơ hội đầu tư — tất cả ở một nơi.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div
+              className="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row"
+              style={{ animationDelay: "220ms" }}
+            >
               <Link
                 to="/ban-do-dau-tu"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] transition-all hover:scale-[1.02] hover:bg-primary-glow"
+                className="btn-gradient inline-flex items-center justify-center gap-2 rounded-lg px-7 py-3.5 text-sm font-semibold"
               >
                 <Map className="h-4 w-4" />
                 Khám phá bản đồ đầu tư
               </Link>
               <Link
                 to="/nha-dau-tu/tai-lieu"
-                className="inline-flex items-center justify-center gap-2 rounded-md border border-background/30 bg-background/10 px-7 py-3.5 text-sm font-semibold text-background backdrop-blur transition-all hover:bg-background/20"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-7 py-3.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:text-primary"
               >
                 <FileText className="h-4 w-4" />
                 Tải tài liệu xúc tiến
@@ -126,20 +134,24 @@ function HomePage() {
           </div>
         </div>
 
-        {/* Stats overlay */}
+        {/* Stats — clean white card grid */}
         <div className="relative">
-          <div className="mx-auto -mt-12 max-w-7xl px-6">
-            <div className="grid grid-cols-2 gap-px rounded-xl border border-border bg-border shadow-[var(--shadow-elegant)] lg:grid-cols-4">
-              {STATS.map((s) => (
+          <div className="mx-auto -mt-16 max-w-7xl px-6 pb-2">
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+              {STATS.map((s, i) => (
                 <div
                   key={s.label}
-                  className="flex items-center gap-4 bg-card p-6 first:rounded-l-xl last:rounded-r-xl"
+                  className="reveal card-soft flex items-center gap-4 p-6"
+                  style={{ transitionDelay: `${i * 80}ms` }}
                 >
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-glow text-primary-foreground">
+                  <div
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-primary-foreground"
+                    style={{ backgroundImage: "var(--gradient-primary)" }}
+                  >
                     <s.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="font-display text-3xl font-bold text-foreground">{s.value}</p>
+                    <p className="font-display text-3xl font-semibold tracking-tight text-foreground">{s.value}</p>
                     <p className="text-xs text-muted-foreground">{s.label}</p>
                   </div>
                 </div>
@@ -150,14 +162,15 @@ function HomePage() {
       </section>
 
       {/* INTERACTIVE MAP TEASER */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
+      <section className="mx-auto max-w-7xl px-6 py-24 lg:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div>
-            <span className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+          <div className="reveal">
+            <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
               Bản đồ tương tác
             </span>
-            <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-foreground lg:text-5xl">
-              34 tỉnh thành — <br />một bản đồ, vô số cơ hội
+            <h2 className="mt-3 font-display text-4xl font-semibold leading-tight tracking-tight text-foreground lg:text-5xl">
+              34 tỉnh thành — <br />
+              <span className="text-gradient">một bản đồ, vô số cơ hội</span>
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
               Click vào bất kỳ tỉnh nào để xem dữ liệu kinh tế, chính sách ưu đãi và dự án kêu gọi đầu tư. Lọc theo ngành, quy mô vốn hoặc loại ưu đãi để tìm địa phương phù hợp với chiến lược của bạn.
@@ -169,55 +182,61 @@ function HomePage() {
                 "So sánh nhanh 2-4 tỉnh trên 20+ tiêu chí",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-3 text-sm text-foreground">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
+                  <span
+                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
+                    style={{ backgroundImage: "var(--gradient-primary)" }}
+                  />
                   {f}
                 </li>
               ))}
             </ul>
             <Link
               to="/ban-do-dau-tu"
-              className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-glow"
+              className="btn-gradient mt-8 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold"
             >
               Mở bản đồ đầu tư <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
           {/* Decorative map preview */}
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-secondary via-card to-accent shadow-[var(--shadow-elegant)]">
+          <div className="reveal card-soft relative aspect-[4/5] overflow-hidden rounded-2xl bg-mesh">
             <div className="absolute inset-0 flex items-center justify-center">
               <svg
                 viewBox="0 0 200 320"
-                className="h-full w-auto opacity-90"
+                className="h-full w-auto opacity-95"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                {/* Stylized Vietnam silhouette */}
+                <defs>
+                  <linearGradient id="vn-grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="oklch(0.52 0.22 280)" />
+                    <stop offset="100%" stopColor="oklch(0.62 0.2 250)" />
+                  </linearGradient>
+                </defs>
                 <path
                   d="M85 15 Q95 10 105 18 Q115 30 110 50 Q108 70 95 85 Q88 100 85 120 Q80 145 90 165 Q105 185 100 205 Q95 225 85 240 Q70 260 60 280 Q55 295 70 305 Q90 310 105 300 Q120 285 130 265 Q140 240 130 215 Q120 195 130 175 Q145 155 140 130 Q135 110 145 90 Q150 70 140 50 Q130 30 115 20 Q100 12 85 15 Z"
-                  fill="oklch(0.46 0.18 25)"
-                  fillOpacity="0.85"
+                  fill="url(#vn-grad)"
                 />
-                {/* Dot markers */}
                 {[
                   [95, 30], [110, 55], [105, 85], [95, 120], [110, 150],
                   [115, 180], [105, 210], [85, 240], [75, 270], [95, 290],
                 ].map(([cx, cy], i) => (
                   <g key={i}>
-                    <circle cx={cx} cy={cy} r="4" fill="oklch(0.78 0.14 80)" />
-                    <circle cx={cx} cy={cy} r="8" fill="oklch(0.78 0.14 80)" fillOpacity="0.3" />
+                    <circle cx={cx} cy={cy} r="4" fill="oklch(0.7 0.15 220)" />
+                    <circle cx={cx} cy={cy} r="9" fill="oklch(0.7 0.15 220)" fillOpacity="0.25" />
                   </g>
                 ))}
               </svg>
             </div>
-            <div className="absolute bottom-6 left-6 right-6 rounded-lg border border-border bg-background/95 p-4 backdrop-blur">
+            <div className="absolute bottom-6 left-6 right-6 rounded-xl border border-border bg-card/95 p-4 shadow-[var(--shadow-soft)] backdrop-blur">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Đang xem</p>
-                  <p className="font-display text-base font-bold text-foreground">TP. Hồ Chí Minh</p>
+                  <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Đang xem</p>
+                  <p className="font-display text-base font-semibold tracking-tight text-foreground">TP. Hồ Chí Minh</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">FDI 2024</p>
-                  <p className="font-display text-base font-bold text-primary">$5.4B</p>
+                  <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">FDI 2024</p>
+                  <p className="font-display text-base font-semibold text-gradient">$5.4B</p>
                 </div>
               </div>
             </div>
@@ -227,39 +246,40 @@ function HomePage() {
 
       {/* REGIONS */}
       <section className="border-y border-border bg-secondary/40">
-        <div className="mx-auto max-w-7xl px-6 py-20">
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <span className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+        <div className="mx-auto max-w-7xl px-6 py-24">
+          <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
+            <div className="reveal">
+              <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
                 6 vùng kinh tế
               </span>
-              <h2 className="mt-2 font-display text-3xl font-bold text-foreground lg:text-4xl">
+              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-foreground lg:text-4xl">
                 Khám phá theo vùng
               </h2>
             </div>
             <Link
               to="/tinh-thanh"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-glow"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-glow"
             >
               Xem tất cả 34 tỉnh thành <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {REGIONS.map((r) => (
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {REGIONS.map((r, i) => (
               <Link
                 key={r.name}
                 to="/tinh-thanh"
-                className={`group relative overflow-hidden rounded-xl bg-gradient-to-br ${r.color} p-7 text-primary-foreground shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]`}
+                className={`reveal group relative overflow-hidden rounded-2xl bg-gradient-to-br ${r.color} p-7 text-white shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]`}
+                style={{ transitionDelay: `${i * 70}ms` }}
               >
                 <div className="relative z-10">
-                  <p className="font-display text-2xl font-bold">{r.name}</p>
-                  <p className="mt-1 text-sm opacity-90">{r.count} tỉnh / thành phố</p>
+                  <p className="font-display text-2xl font-semibold tracking-tight">{r.name}</p>
+                  <p className="mt-1 text-sm text-white/85">{r.count} tỉnh / thành phố</p>
                   <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium">
                     Khám phá vùng <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </div>
                 <div
-                  className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-background/10 transition-transform group-hover:scale-125"
+                  className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-white/10 transition-transform group-hover:scale-125"
                   aria-hidden
                 />
               </Link>
@@ -269,40 +289,48 @@ function HomePage() {
       </section>
 
       {/* FEATURED NEWS */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <span className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+      <section className="mx-auto max-w-7xl px-6 py-24">
+        <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
+          <div className="reveal">
+            <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
               Tin tức đầu tư
             </span>
-            <h2 className="mt-2 font-display text-3xl font-bold text-foreground lg:text-4xl">
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-foreground lg:text-4xl">
               Cập nhật mới nhất
             </h2>
           </div>
           <Link
             to="/tin-tuc"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-glow"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-glow"
           >
             Tất cả tin tức <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
-          {FEATURED_NEWS.map((n) => (
+          {FEATURED_NEWS.map((n, i) => (
             <article
               key={n.title}
-              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"
+              className="reveal card-soft group flex flex-col overflow-hidden"
+              style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary via-[oklch(0.4_0.15_25)] to-navy">
-                <div className="absolute inset-0 opacity-30" style={{
-                  backgroundImage: "radial-gradient(circle at 30% 70%, oklch(0.78 0.14 80) 0%, transparent 50%)"
-                }} />
-                <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-gold-foreground">
+              <div
+                className="relative aspect-[16/10] overflow-hidden"
+                style={{ backgroundImage: "var(--gradient-primary)" }}
+              >
+                <div
+                  className="absolute inset-0 opacity-40"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle at 30% 70%, oklch(0.85 0.15 220) 0%, transparent 60%)",
+                  }}
+                />
+                <span className="absolute left-4 top-4 rounded-full bg-card/95 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary backdrop-blur">
                   {n.tag}
                 </span>
               </div>
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="font-display text-lg font-bold leading-snug text-foreground transition-colors group-hover:text-primary">
+                <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-foreground transition-colors group-hover:text-primary">
                   {n.title}
                 </h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{n.excerpt}</p>
@@ -313,24 +341,24 @@ function HomePage() {
         </div>
       </section>
 
-      {/* MULTIMEDIA STRIP */}
-      <section className="bg-foreground py-20 text-background">
+      {/* MULTIMEDIA STRIP — light variant */}
+      <section className="border-y border-border bg-secondary/40 py-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
-            <div>
-              <span className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+            <div className="reveal">
+              <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
                 Series multimedia
               </span>
-              <h2 className="mt-2 font-display text-3xl font-bold lg:text-4xl">
+              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-foreground lg:text-4xl">
                 "60 giây đầu tư" <br />
-                <span className="text-gold">— Mỗi clip một con số</span>
+                <span className="text-gradient">— Mỗi clip một con số</span>
               </h2>
-              <p className="mt-5 max-w-md text-sm leading-relaxed text-background/75">
+              <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
                 Mini series video ngắn — mỗi tập chia sẻ một con số, một lợi thế hoặc một câu chuyện đầu tư của địa phương. Dễ hiểu, dễ chia sẻ, đăng đa nền tảng TikTok · YouTube · Facebook.
               </p>
               <Link
                 to="/multimedia/video"
-                className="mt-7 inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3 text-sm font-semibold text-gold-foreground shadow-[var(--shadow-gold)] transition-transform hover:scale-105"
+                className="btn-gradient mt-7 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold"
               >
                 <PlayCircle className="h-4 w-4" />
                 Xem playlist
@@ -347,15 +375,19 @@ function HomePage() {
               ].map((title, i) => (
                 <div
                   key={title}
-                  className="group relative aspect-[9/16] overflow-hidden rounded-lg bg-gradient-to-br from-primary via-[oklch(0.35_0.13_25)] to-navy transition-transform hover:-translate-y-1"
-                  style={{ transform: `translateY(${i % 2 ? 12 : 0}px)` }}
+                  className="reveal group relative aspect-[9/16] overflow-hidden rounded-xl shadow-[var(--shadow-card)] transition-transform hover:-translate-y-1"
+                  style={{
+                    transform: `translateY(${i % 2 ? 12 : 0}px)`,
+                    backgroundImage: "var(--gradient-primary)",
+                    transitionDelay: `${i * 60}ms`,
+                  }}
                 >
-                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-foreground/90 via-transparent to-transparent p-3">
-                    <p className="font-display text-xs font-bold leading-tight text-background">
+                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-foreground/85 via-transparent to-transparent p-3">
+                    <p className="font-display text-xs font-semibold leading-tight text-background">
                       {title}
                     </p>
                   </div>
-                  <PlayCircle className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 text-background/80 transition-all group-hover:scale-110 group-hover:text-gold" />
+                  <PlayCircle className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 text-background/85 transition-all group-hover:scale-110" />
                 </div>
               ))}
             </div>
@@ -364,35 +396,47 @@ function HomePage() {
       </section>
 
       {/* DUAL CTA — Investor / Locality */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
+      <section className="mx-auto max-w-7xl px-6 py-24">
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-card to-secondary p-10 shadow-[var(--shadow-card)]">
-            <Users className="h-10 w-10 text-primary" />
-            <h3 className="mt-5 font-display text-2xl font-bold text-foreground lg:text-3xl">
-              Bạn là <span className="text-primary">Nhà đầu tư</span>?
+          <div className="reveal card-soft relative overflow-hidden p-10">
+            <div
+              className="absolute -right-20 -top-20 h-60 w-60 rounded-full opacity-20 blur-3xl"
+              style={{ backgroundImage: "var(--gradient-primary)" }}
+              aria-hidden
+            />
+            <Users className="relative h-10 w-10 text-primary" />
+            <h3 className="relative mt-5 font-display text-2xl font-semibold tracking-tight text-foreground lg:text-3xl">
+              Bạn là <span className="text-gradient">Nhà đầu tư</span>?
             </h3>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+            <p className="relative mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
               Truy cập thư viện tài liệu xúc tiến đa ngôn ngữ, đăng ký quan tâm dự án và kết nối trực tiếp với cơ quan xúc tiến đầu tư của 34 tỉnh thành.
             </p>
             <Link
               to="/nha-dau-tu"
-              className="mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-glow"
+              className="btn-gradient relative mt-6 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold"
             >
               Khu Nhà đầu tư <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl border border-gold/40 bg-gradient-to-br from-foreground via-[oklch(0.22_0.04_25)] to-foreground p-10 text-background shadow-[var(--shadow-elegant)]">
-            <Building2 className="h-10 w-10 text-gold" />
-            <h3 className="mt-5 font-display text-2xl font-bold lg:text-3xl">
-              Bạn là <span className="text-gold">Lãnh đạo địa phương</span>?
+          <div
+            className="reveal relative overflow-hidden rounded-2xl border border-border p-10 shadow-[var(--shadow-elegant)]"
+            style={{ backgroundImage: "var(--gradient-primary)", transitionDelay: "120ms" }}
+          >
+            <div
+              className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-white/15 blur-3xl"
+              aria-hidden
+            />
+            <Building2 className="relative h-10 w-10 text-white" />
+            <h3 className="relative mt-5 font-display text-2xl font-semibold tracking-tight text-white lg:text-3xl">
+              Bạn là <span className="text-white/95 underline decoration-white/40 decoration-2 underline-offset-4">Lãnh đạo địa phương</span>?
             </h3>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-background/75">
+            <p className="relative mt-3 max-w-md text-sm leading-relaxed text-white/85">
               Khám phá 3 gói dịch vụ truyền thông xúc tiến đầu tư — từ Cơ bản (1 tỷ/năm) đến Premium (theo nhu cầu). Greencom đầu tư 100% chi phí xây dựng nội dung.
             </p>
             <Link
               to="/dia-phuong"
-              className="mt-6 inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3 text-sm font-semibold text-gold-foreground shadow-[var(--shadow-gold)] transition-transform hover:scale-[1.02]"
+              className="relative mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-primary shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-lg"
             >
               Khu Địa phương <ArrowRight className="h-4 w-4" />
             </Link>
