@@ -194,3 +194,17 @@
     letter-spacing: -0.015em;
   }
 }
+
+/* Leaflet — label permanent cho Hoàng Sa / Trường Sa */
+.vn-archipelago-label {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid oklch(0.55 0.18 25) !important;
+  border-radius: 6px !important;
+  padding: 4px 8px !important;
+  font-size: 11px !important;
+  color: #1f2937 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+}
+.vn-archipelago-label::before {
+  border-top-color: oklch(0.55 0.18 25) !important;
+}
