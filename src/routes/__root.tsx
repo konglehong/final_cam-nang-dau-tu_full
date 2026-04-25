@@ -90,11 +90,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  // Re-run reveal observer on every route change
-  const location = useRouterState({ select: (s) => s.location.pathname });
-  useReveal();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  void location;
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  useReveal(pathname);
   return (
     <LanguageProvider>
       <div className="flex min-h-screen flex-col bg-background">
