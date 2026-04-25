@@ -18,11 +18,12 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
 const InvestmentMap = lazy(async () => {
-  const m = await import("@/components/map/InvestmentMap");
   if (typeof window === "undefined") {
-    const Stub: typeof m.InvestmentMap = () => null;
+    // SSR stub — returns empty fragment instead of null to satisfy ReactNode type
+    const Stub = (() => <></>) as unknown as typeof import("@/components/map/InvestmentMap").InvestmentMap;
     return { default: Stub };
   }
+  const m = await import("@/components/map/InvestmentMap");
   return { default: m.InvestmentMap };
 });
 
