@@ -148,15 +148,16 @@ const REGIONS = [
 
 function BanDoPage() {
   const [active, setActive] = useState<Record<LayerId, boolean>>({
-    kcn: true,
-    cang: true,
+    tinh: true,
     sanbay: true,
+    cang: true,
+    kcn: false,
     caotoc: false,
-    duan: true,
+    duan: false,
     nangluong: false,
     dulich: false,
   });
-  const [region, setRegion] = useState("all");
+  const [region, setRegion] = useState<"all" | "bac" | "trung" | "nam">("all");
 
   const grouped = useMemo(() => {
     const map: Record<string, LayerDef[]> = {};
@@ -183,6 +184,12 @@ function BanDoPage() {
       ),
     );
 
+  const mapLayers = {
+    provinces: active.tinh,
+    airports: active.sanbay,
+    seaports: active.cang,
+  };
+
   return (
     <>
       <PageHero
@@ -203,7 +210,7 @@ function BanDoPage() {
                 key={r.value}
                 variant={region === r.value ? "default" : "outline"}
                 size="sm"
-                onClick={() => setRegion(r.value)}
+                onClick={() => setRegion(r.value as typeof region)}
               >
                 {r.label}
               </Button>
