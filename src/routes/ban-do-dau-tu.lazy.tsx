@@ -52,65 +52,14 @@ type LayerDef = {
 };
 
 const LAYERS: LayerDef[] = [
-  {
-    id: "tinh",
-    count: 34,
-    icon: MapPin,
-    color: "var(--primary)",
-    group: "admin",
-    live: true,
-  },
-  {
-    id: "sanbay",
-    count: 12,
-    icon: Plane,
-    color: "oklch(0.5 0.18 250)",
-    group: "transport",
-    live: true,
-  },
-  {
-    id: "cang",
-    count: 13,
-    icon: Ship,
-    color: "oklch(0.4 0.12 230)",
-    group: "transport",
-    live: true,
-  },
-  {
-    id: "kcn",
-    count: 418,
-    icon: Factory,
-    color: "var(--primary)",
-    group: "economic",
-  },
-  {
-    id: "dulich",
-    count: 47,
-    icon: Trees,
-    color: "var(--gold)",
-    group: "economic",
-  },
-  {
-    id: "caotoc",
-    count: 41,
-    icon: TrainFront,
-    color: "oklch(0.55 0.15 250)",
-    group: "transport",
-  },
-  {
-    id: "duan",
-    count: 156,
-    icon: Building2,
-    color: "oklch(0.5 0.18 145)",
-    group: "keyProject",
-  },
-  {
-    id: "nangluong",
-    count: 89,
-    icon: Zap,
-    color: "oklch(0.65 0.15 60)",
-    group: "keyProject",
-  },
+  { id: "tinh", count: 34, icon: MapPin, color: "var(--primary)", group: "admin", live: true },
+  { id: "sanbay", count: 12, icon: Plane, color: "oklch(0.5 0.18 250)", group: "transport", live: true },
+  { id: "cang", count: 13, icon: Ship, color: "oklch(0.4 0.12 230)", group: "transport", live: true },
+  { id: "caotoc", count: 11, icon: TrainFront, color: "oklch(0.55 0.15 250)", group: "transport", live: true },
+  { id: "kcn", count: 35, icon: Factory, color: "oklch(0.5 0.15 30)", group: "economic", live: true },
+  { id: "dulich", count: 18, icon: Trees, color: "oklch(0.65 0.15 60)", group: "economic", live: true },
+  { id: "duan", count: 15, icon: Building2, color: "oklch(0.55 0.18 145)", group: "keyProject", live: true },
+  { id: "nangluong", count: 21, icon: Zap, color: "oklch(0.65 0.15 60)", group: "keyProject", live: true },
 ];
 
 const REGION_VALUES = ["all", "bac", "trung", "nam"] as const;
@@ -154,8 +103,8 @@ function BanDoPage() {
     tinh: true,
     sanbay: true,
     cang: true,
-    kcn: false,
-    caotoc: false,
+    kcn: true,
+    caotoc: true,
     duan: false,
     nangluong: false,
     dulich: false,
@@ -208,6 +157,11 @@ function BanDoPage() {
     provinces: active.tinh,
     airports: active.sanbay,
     seaports: active.cang,
+    industrial: active.kcn,
+    highways: active.caotoc,
+    projects: active.duan,
+    power: active.nangluong,
+    tourism: active.dulich,
   };
 
   return (

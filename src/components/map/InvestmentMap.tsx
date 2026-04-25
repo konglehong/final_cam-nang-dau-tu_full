@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayerGroup, ZoomControl, Polygon, Tooltip, useMapEvent } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayerGroup, ZoomControl, Polygon, Polyline, Tooltip, useMapEvent } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -8,6 +8,7 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
 import { ARCHIPELAGOS, HOANG_SA, TRUONG_SA, type IslandPoint } from "@/data/archipelagos";
 import { VIETNAM_MAINLAND, VIETNAM_ISLANDS, WORLD_BBOX } from "@/data/vietnam-outline";
+import { INDUSTRIAL_PARKS, HIGHWAYS, KEY_PROJECTS, POWER_PLANTS, TOURISM_ZONES } from "@/data/map-layers";
 import {
   getProvinceName,
   SEA_LABELS,
@@ -188,6 +189,11 @@ export type MapLayers = {
   provinces: boolean;
   airports: boolean;
   seaports: boolean;
+  industrial: boolean;
+  highways: boolean;
+  projects: boolean;
+  power: boolean;
+  tourism: boolean;
 };
 
 export type InvestmentMapProps = {
@@ -203,16 +209,41 @@ const REGION_COLOR: Record<Region, string> = {
 };
 
 // Custom divIcon for airport/seaport
-const makeIcon = (emoji: string, bg: string) =>
+const makeIcon = (emoji: string, bg: string, size = 26) =>
   L.divIcon({
     className: "",
-    html: `<div style="background:${bg};color:white;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.35)">${emoji}</div>`,
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
+    html: `<div style="background:${bg};color:white;width:${size}px;height:${size}px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:${Math.round(size * 0.5)}px;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.35)">${emoji}</div>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
   });
 
 const airportIcon = makeIcon("✈", "oklch(0.5 0.18 250)");
 const seaportIcon = makeIcon("⚓", "oklch(0.4 0.12 230)");
+const industrialIcon = makeIcon("🏭", "oklch(0.5 0.15 30)", 22);
+const projectIcon = makeIcon("★", "oklch(0.55 0.18 145)", 24);
+const tourismIcon = makeIcon("🏖", "oklch(0.65 0.15 60)", 22);
+
+const POWER_COLORS: Record<string, string> = {
+  hydro: "oklch(0.55 0.15 220)",
+  thermal: "oklch(0.4 0.05 30)",
+  lng: "oklch(0.55 0.12 280)",
+  wind: "oklch(0.65 0.15 180)",
+  solar: "oklch(0.75 0.18 80)",
+  nuclear: "oklch(0.55 0.18 0)",
+};
+
+const powerIcon = (type: string) => {
+  const symbol =
+    type === "hydro" ? "💧" : type === "wind" ? "🌬" : type === "solar" ? "☀" : type === "lng" ? "⛽" : "🔥";
+  return makeIcon(symbol, POWER_COLORS[type] ?? "oklch(0.5 0.1 60)", 22);
+};
+
+const HIGHWAY_STYLE: Record<string, { color: string; dash?: string }> = {
+  operating: { color: "oklch(0.55 0.18 250)" },
+  construction: { color: "oklch(0.65 0.18 60)", dash: "8 6" },
+  planned: { color: "oklch(0.6 0.05 250)", dash: "2 6" },
+};
+
 
 export function InvestmentMap({ layers, region, className }: InvestmentMapProps) {
   const { lang } = useLanguage();
@@ -490,6 +521,127 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
                 <strong>{s.name}</strong>
                 <div style={{ fontSize: 12, color: "#666" }}>
                   {s.class === "special" ? t.seaportSpecial : t.seaportClassI} · {s.province}
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+      )}
+
+      {/* ===== Cao tốc & vành đai ===== */}
+      {layers.highways && (
+        <LayerGroup>
+          {HIGHWAYS.map((h) => {
+            const style = HIGHWAY_STYLE[h.status];
+            return (
+              <Polyline
+                key={h.id}
+                positions={h.path}
+                pathOptions={{
+                  color: style.color,
+                  weight: 3.5,
+                  opacity: 0.85,
+                  dashArray: style.dash,
+                }}
+              >
+                <Popup>
+                  <strong style={{ fontSize: 13 }}>{h.name}</strong>
+                  <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                    {h.length} km · {h.status === "operating" ? "Đang khai thác" : h.status === "construction" ? "Đang thi công" : "Quy hoạch"}
+                  </div>
+                </Popup>
+              </Polyline>
+            );
+          })}
+        </LayerGroup>
+      )}
+
+      {/* ===== Khu công nghiệp ===== */}
+      {layers.industrial && (
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={50}
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
+          {INDUSTRIAL_PARKS.map((ip) => (
+            <Marker key={ip.id} position={[ip.lat, ip.lng]} icon={industrialIcon}>
+              <Popup>
+                <strong style={{ fontSize: 13 }}>{ip.name}</strong>
+                <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                  {ip.province} · {ip.area.toLocaleString()} ha
+                  {typeof ip.occupancy === "number" && ` · Lấp đầy ${ip.occupancy}%`}
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+      )}
+
+      {/* ===== Dự án trọng điểm ===== */}
+      {layers.projects && (
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={45}
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
+          {KEY_PROJECTS.map((p) => (
+            <Marker key={p.id} position={[p.lat, p.lng]} icon={projectIcon}>
+              <Popup>
+                <strong style={{ fontSize: 13 }}>{p.name}</strong>
+                <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                  {p.investor} · {p.capital} tỷ USD
+                </div>
+                <div style={{ fontSize: 11, color: "#888", marginTop: 2 }}>
+                  {p.province} · {p.year} · {p.status === "operating" ? "Đang vận hành" : p.status === "construction" ? "Đang triển khai" : "Đã phê duyệt"}
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+      )}
+
+      {/* ===== Nhà máy điện ===== */}
+      {layers.power && (
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={45}
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
+          {POWER_PLANTS.map((pp) => (
+            <Marker key={pp.id} position={[pp.lat, pp.lng]} icon={powerIcon(pp.type)}>
+              <Popup>
+                <strong style={{ fontSize: 13 }}>{pp.name}</strong>
+                <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                  {pp.capacity.toLocaleString()} MW · {pp.type === "hydro" ? "Thủy điện" : pp.type === "thermal" ? "Nhiệt điện than" : pp.type === "lng" ? "LNG" : pp.type === "wind" ? "Điện gió" : pp.type === "solar" ? "Điện mặt trời" : pp.type}
+                </div>
+                <div style={{ fontSize: 11, color: "#888", marginTop: 2 }}>
+                  {pp.province} · {pp.status === "operating" ? "Đang vận hành" : pp.status === "construction" ? "Đang xây dựng" : "Quy hoạch"}
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+      )}
+
+      {/* ===== Khu du lịch ===== */}
+      {layers.tourism && (
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={45}
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
+          {TOURISM_ZONES.map((tz) => (
+            <Marker key={tz.id} position={[tz.lat, tz.lng]} icon={tourismIcon}>
+              <Popup>
+                <strong style={{ fontSize: 13 }}>
+                  {tz.name} {tz.unesco && <span style={{ color: "#b45309" }}>· UNESCO</span>}
+                </strong>
+                <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                  {tz.province} · {tz.type === "beach" ? "Biển" : tz.type === "heritage" ? "Di sản" : tz.type === "ecology" ? "Sinh thái" : tz.type === "city" ? "Đô thị du lịch" : "Resort"}
                 </div>
               </Popup>
             </Marker>
