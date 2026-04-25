@@ -61,9 +61,7 @@ export function SiteFooter() {
             </div>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Chuyên trang hợp tác giữa{" "}
-            <strong className="font-semibold text-foreground">Báo Tiền Phong</strong> và{" "}
-            <strong className="font-semibold text-foreground">Greencom</strong> — cổng thông tin chính thống cho nhà đầu tư, địa phương và công chúng trong bối cảnh sáp nhập đơn vị hành chính.
+            Cổng thông tin đầu tư chính thống cho nhà đầu tư, địa phương và công chúng trong bối cảnh sáp nhập đơn vị hành chính tại Việt Nam.
           </p>
           <div className="space-y-2 text-sm text-muted-foreground">
             <p className="flex items-start gap-2">
@@ -128,9 +126,9 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-5 text-xs text-muted-foreground sm:flex-row sm:justify-between">
           <p>
-            © {new Date().getFullYear()} Cẩm nang Đầu tư Việt Nam — Báo Tiền Phong × Greencom. Bảo lưu mọi quyền.
+            © {new Date().getFullYear()} Cẩm nang Đầu tư Việt Nam. Bảo lưu mọi quyền.
           </p>
-          <p>Giấy phép báo chí số 175/GP-BTTTT</p>
+          <p>Cổng thông tin đầu tư chính thống</p>
         </div>
       </div>
     </footer>
