@@ -323,38 +323,82 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
 
       {layers.provinces && (
         <LayerGroup>
-          {visibleProvinces.map((p) => (
-            <CircleMarker
-              key={p.slug}
-              center={[p.lat, p.lng]}
-              radius={9}
-              pathOptions={{
-                color: "white",
-                weight: 2,
-                fillColor: REGION_COLOR[p.region],
-                fillOpacity: 0.85,
-              }}
-            >
-              <Popup>
-                <div style={{ minWidth: 200 }}>
-                  <strong style={{ fontSize: 14 }}>{p.name}</strong>
-                  <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
-                    {t.capital}: {p.capital}
-                  </div>
-                  {p.merged && (
-                    <div style={{ fontSize: 11, marginTop: 6, padding: "4px 6px", background: "#fef3c7", borderRadius: 4, color: "#92400e" }}>
-                      {t.mergedFrom}: {p.merged}
+          {visibleProvinces.map((p) => {
+            const localizedName = getProvinceName(p.slug, lang, p.name);
+            return (
+              <CircleMarker
+                key={p.slug}
+                center={[p.lat, p.lng]}
+                radius={9}
+                pathOptions={{
+                  color: "white",
+                  weight: 2,
+                  fillColor: REGION_COLOR[p.region],
+                  fillOpacity: 0.85,
+                }}
+              >
+                <Popup>
+                  <div style={{ minWidth: 200 }}>
+                    <strong style={{ fontSize: 14 }}>{localizedName}</strong>
+                    {lang !== "vi" && (
+                      <div style={{ fontSize: 11, color: "#888", fontStyle: "italic" }}>
+                        {p.name}
+                      </div>
+                    )}
+                    <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                      {t.capital}: {p.capital}
                     </div>
-                  )}
-                  <a
-                    href={`/tinh-thanh/${p.slug}`}
-                    style={{ display: "inline-block", marginTop: 8, fontSize: 12, color: "oklch(0.45 0.18 25)", fontWeight: 600 }}
-                  >
-                    {t.viewDetails}
-                  </a>
-                </div>
-              </Popup>
-            </CircleMarker>
+                    {p.merged && (
+                      <div style={{ fontSize: 11, marginTop: 6, padding: "4px 6px", background: "#fef3c7", borderRadius: 4, color: "#92400e" }}>
+                        {t.mergedFrom}: {p.merged}
+                      </div>
+                    )}
+                    <a
+                      href={`/tinh-thanh/${p.slug}`}
+                      style={{ display: "inline-block", marginTop: 8, fontSize: 12, color: "oklch(0.45 0.18 25)", fontWeight: 600 }}
+                    >
+                      {t.viewDetails}
+                    </a>
+                  </div>
+                </Popup>
+              </CircleMarker>
+            );
+          })}
+        </LayerGroup>
+      )}
+
+      {/* Overlay nhãn cho non-VI: tile nền không có nhãn → tự vẽ tên tỉnh + biển + nước */}
+      {lang !== "vi" && (
+        <LayerGroup>
+          {/* Nhãn tỉnh — hiện từ zoom 6 trở lên để không rối */}
+          {zoom >= 6 && layers.provinces && visibleProvinces.map((p) => (
+            <Marker
+              key={`label-${p.slug}`}
+              position={[p.lat, p.lng]}
+              icon={provinceLabelIcon(getProvinceName(p.slug, lang, p.name))}
+              interactive={false}
+              keyboard={false}
+            />
+          ))}
+          {/* Nhãn biển — luôn hiện */}
+          {SEA_LABELS.map((s) => (
+            <Marker
+              key={`sea-${s.id}`}
+              position={[s.lat, s.lng]}
+              icon={seaLabelIcon(s.names[lang] || s.names.en, s.fontSize)}
+              interactive={false}
+              keyboard={false}
+            />
+          ))}
+          {/* Nhãn quốc gia láng giềng — chỉ hiện khi zoom thấp/trung bình */}
+          {zoom <= 7 && COUNTRY_LABELS.map((c) => (
+            <Marker
+              key={`country-${c.id}`}
+              position={[c.lat, c.lng]}
+              icon={countryLabelIcon(c.names[lang] || c.names.en)}
+              interactive={false}
+              keyboard={false}
+            />
           ))}
         </LayerGroup>
       )}
