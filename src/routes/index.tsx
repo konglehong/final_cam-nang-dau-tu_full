@@ -239,39 +239,40 @@ function HomePage() {
 
       {/* REGIONS */}
       <section className="border-y border-border bg-secondary/40">
-        <div className="mx-auto max-w-7xl px-6 py-20">
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <span className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+        <div className="mx-auto max-w-7xl px-6 py-24">
+          <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
+            <div className="reveal">
+              <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
                 6 vùng kinh tế
               </span>
-              <h2 className="mt-2 font-display text-3xl font-bold text-foreground lg:text-4xl">
+              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-foreground lg:text-4xl">
                 Khám phá theo vùng
               </h2>
             </div>
             <Link
               to="/tinh-thanh"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-glow"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-glow"
             >
               Xem tất cả 34 tỉnh thành <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {REGIONS.map((r) => (
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {REGIONS.map((r, i) => (
               <Link
                 key={r.name}
                 to="/tinh-thanh"
-                className={`group relative overflow-hidden rounded-xl bg-gradient-to-br ${r.color} p-7 text-primary-foreground shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]`}
+                className={`reveal group relative overflow-hidden rounded-2xl bg-gradient-to-br ${r.color} p-7 text-white shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]`}
+                style={{ transitionDelay: `${i * 70}ms` }}
               >
                 <div className="relative z-10">
-                  <p className="font-display text-2xl font-bold">{r.name}</p>
-                  <p className="mt-1 text-sm opacity-90">{r.count} tỉnh / thành phố</p>
+                  <p className="font-display text-2xl font-semibold tracking-tight">{r.name}</p>
+                  <p className="mt-1 text-sm text-white/85">{r.count} tỉnh / thành phố</p>
                   <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium">
                     Khám phá vùng <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </div>
                 <div
-                  className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-background/10 transition-transform group-hover:scale-125"
+                  className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-white/10 transition-transform group-hover:scale-125"
                   aria-hidden
                 />
               </Link>
@@ -281,19 +282,19 @@ function HomePage() {
       </section>
 
       {/* FEATURED NEWS */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <span className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+      <section className="mx-auto max-w-7xl px-6 py-24">
+        <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
+          <div className="reveal">
+            <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
               Tin tức đầu tư
             </span>
-            <h2 className="mt-2 font-display text-3xl font-bold text-foreground lg:text-4xl">
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-foreground lg:text-4xl">
               Cập nhật mới nhất
             </h2>
           </div>
           <Link
             to="/tin-tuc"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-glow"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-glow"
           >
             Tất cả tin tức <ArrowRight className="h-4 w-4" />
           </Link>
