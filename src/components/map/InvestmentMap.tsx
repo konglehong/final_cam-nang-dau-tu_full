@@ -1,8 +1,33 @@
 import { useEffect } from "react";
-import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl, Rectangle, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
+
+// Hai quần đảo thuộc chủ quyền Việt Nam — luôn hiển thị marker để khẳng định
+const VN_ARCHIPELAGOS = [
+  {
+    name: "Quần đảo Hoàng Sa",
+    sub: "TP. Đà Nẵng, Việt Nam",
+    lat: 16.5,
+    lng: 112.0,
+    bounds: [[15.7, 111.0], [17.1, 113.0]] as [[number, number], [number, number]],
+  },
+  {
+    name: "Quần đảo Trường Sa",
+    sub: "Tỉnh Khánh Hòa, Việt Nam",
+    lat: 9.6,
+    lng: 114.0,
+    bounds: [[7.5, 111.5], [12.0, 117.5]] as [[number, number], [number, number]],
+  },
+];
+
+const archipelagoIcon = L.divIcon({
+  className: "",
+  html: `<div style="background:oklch(0.55 0.18 25);color:white;padding:4px 10px;border-radius:14px;font-size:11px;font-weight:700;white-space:nowrap;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,.4)">🇻🇳 VN</div>`,
+  iconSize: [60, 24],
+  iconAnchor: [30, 12],
+});
 
 // Fix Leaflet default icon paths (Vite/bundler issue)
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
