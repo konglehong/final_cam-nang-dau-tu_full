@@ -113,7 +113,7 @@ const BanDoDauTuRoute = BanDoDauTuRouteImport.update({
   id: '/ban-do-dau-tu',
   path: '/ban-do-dau-tu',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() => import('./routes/ban-do-dau-tu.lazy').then((d) => d.Route))
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
