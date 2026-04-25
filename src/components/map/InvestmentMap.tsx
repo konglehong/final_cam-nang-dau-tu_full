@@ -116,6 +116,11 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
   const standardTile = useMemo(() => getStandardTile(lang), [lang]);
   const terrainTile = useMemo(() => getTerrainTile(), []);
   const satelliteTile = useMemo(() => getSatelliteTile(), []);
+  const [zoom, setZoom] = useState(5);
+
+  // Ngưỡng zoom để hiện chấm đảo HS/TS — dưới ngưỡng chỉ vẽ polygon + label quần đảo
+  const SHOW_ISLAND_DOTS_FROM = 7;
+  const showIslandDots = zoom >= SHOW_ISLAND_DOTS_FROM;
 
   // Re-invalidate map size on container resize
   useEffect(() => {
@@ -156,6 +161,7 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
       style={{ height: "100%", width: "100%", background: "oklch(0.95 0.01 80)" }}
     >
       <ZoomControl position="topright" />
+      <ZoomTracker onZoom={setZoom} />
       <LayersControl position="topleft">
         <LayersControl.BaseLayer checked name={t.baseStandard}>
           <TileLayer
