@@ -162,14 +162,15 @@ function HomePage() {
       </section>
 
       {/* INTERACTIVE MAP TEASER */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
+      <section className="mx-auto max-w-7xl px-6 py-24 lg:py-28">
         <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div>
-            <span className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+          <div className="reveal">
+            <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
               Bản đồ tương tác
             </span>
-            <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-foreground lg:text-5xl">
-              34 tỉnh thành — <br />một bản đồ, vô số cơ hội
+            <h2 className="mt-3 font-display text-4xl font-semibold leading-tight tracking-tight text-foreground lg:text-5xl">
+              34 tỉnh thành — <br />
+              <span className="text-gradient">một bản đồ, vô số cơ hội</span>
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
               Click vào bất kỳ tỉnh nào để xem dữ liệu kinh tế, chính sách ưu đãi và dự án kêu gọi đầu tư. Lọc theo ngành, quy mô vốn hoặc loại ưu đãi để tìm địa phương phù hợp với chiến lược của bạn.
@@ -181,55 +182,61 @@ function HomePage() {
                 "So sánh nhanh 2-4 tỉnh trên 20+ tiêu chí",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-3 text-sm text-foreground">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
+                  <span
+                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
+                    style={{ backgroundImage: "var(--gradient-primary)" }}
+                  />
                   {f}
                 </li>
               ))}
             </ul>
             <Link
               to="/ban-do-dau-tu"
-              className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-glow"
+              className="btn-gradient mt-8 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold"
             >
               Mở bản đồ đầu tư <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
           {/* Decorative map preview */}
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-secondary via-card to-accent shadow-[var(--shadow-elegant)]">
+          <div className="reveal card-soft relative aspect-[4/5] overflow-hidden rounded-2xl bg-mesh">
             <div className="absolute inset-0 flex items-center justify-center">
               <svg
                 viewBox="0 0 200 320"
-                className="h-full w-auto opacity-90"
+                className="h-full w-auto opacity-95"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                {/* Stylized Vietnam silhouette */}
+                <defs>
+                  <linearGradient id="vn-grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="oklch(0.52 0.22 280)" />
+                    <stop offset="100%" stopColor="oklch(0.62 0.2 250)" />
+                  </linearGradient>
+                </defs>
                 <path
                   d="M85 15 Q95 10 105 18 Q115 30 110 50 Q108 70 95 85 Q88 100 85 120 Q80 145 90 165 Q105 185 100 205 Q95 225 85 240 Q70 260 60 280 Q55 295 70 305 Q90 310 105 300 Q120 285 130 265 Q140 240 130 215 Q120 195 130 175 Q145 155 140 130 Q135 110 145 90 Q150 70 140 50 Q130 30 115 20 Q100 12 85 15 Z"
-                  fill="oklch(0.46 0.18 25)"
-                  fillOpacity="0.85"
+                  fill="url(#vn-grad)"
                 />
-                {/* Dot markers */}
                 {[
                   [95, 30], [110, 55], [105, 85], [95, 120], [110, 150],
                   [115, 180], [105, 210], [85, 240], [75, 270], [95, 290],
                 ].map(([cx, cy], i) => (
                   <g key={i}>
-                    <circle cx={cx} cy={cy} r="4" fill="oklch(0.78 0.14 80)" />
-                    <circle cx={cx} cy={cy} r="8" fill="oklch(0.78 0.14 80)" fillOpacity="0.3" />
+                    <circle cx={cx} cy={cy} r="4" fill="oklch(0.7 0.15 220)" />
+                    <circle cx={cx} cy={cy} r="9" fill="oklch(0.7 0.15 220)" fillOpacity="0.25" />
                   </g>
                 ))}
               </svg>
             </div>
-            <div className="absolute bottom-6 left-6 right-6 rounded-lg border border-border bg-background/95 p-4 backdrop-blur">
+            <div className="absolute bottom-6 left-6 right-6 rounded-xl border border-border bg-card/95 p-4 shadow-[var(--shadow-soft)] backdrop-blur">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Đang xem</p>
-                  <p className="font-display text-base font-bold text-foreground">TP. Hồ Chí Minh</p>
+                  <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Đang xem</p>
+                  <p className="font-display text-base font-semibold tracking-tight text-foreground">TP. Hồ Chí Minh</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">FDI 2024</p>
-                  <p className="font-display text-base font-bold text-primary">$5.4B</p>
+                  <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">FDI 2024</p>
+                  <p className="font-display text-base font-semibold text-gradient">$5.4B</p>
                 </div>
               </div>
             </div>
