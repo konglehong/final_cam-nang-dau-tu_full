@@ -147,35 +147,60 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
         </LayersControl.BaseLayer>
       </LayersControl>
 
-      {/* Hoàng Sa & Trường Sa — luôn hiển thị, khẳng định chủ quyền VN */}
+      {/* Hoàng Sa & Trường Sa — vẽ chuẩn theo Google Maps (view từ VN) */}
       <LayerGroup>
-        {VN_ARCHIPELAGOS.map((a) => (
-          <LayerGroup key={a.name}>
-            <Rectangle
-              bounds={a.bounds}
+        {ARCHIPELAGOS.map((a) => (
+          <LayerGroup key={a.id}>
+            {/* Đường biên hành chính quần đảo (dashed, kiểu Google Maps) */}
+            <Polygon
+              positions={a.outline}
               pathOptions={{
-                color: "oklch(0.55 0.18 25)",
-                weight: 2,
-                fillColor: "oklch(0.55 0.18 25)",
-                fillOpacity: 0.08,
-                dashArray: "6 4",
+                color: "#dc2626",
+                weight: 1.5,
+                opacity: 0.85,
+                fillColor: "#dc2626",
+                fillOpacity: 0.05,
+                dashArray: "5 5",
               }}
-            />
-            <Marker position={[a.lat, a.lng]} icon={archipelagoIcon}>
-              <Tooltip permanent direction="bottom" offset={[0, 10]} className="vn-archipelago-label">
-                <strong>{a.name}</strong>
-                <div style={{ fontSize: 10, color: "#666" }}>{a.sub}</div>
-              </Tooltip>
+            >
               <Popup>
-                <div style={{ minWidth: 200 }}>
+                <div style={{ minWidth: 220 }}>
                   <strong style={{ fontSize: 14 }}>{a.name}</strong>
+                  <div style={{ fontSize: 11, color: "#888", fontStyle: "italic" }}>{a.nameEn}</div>
                   <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>{a.sub}</div>
                   <div style={{ fontSize: 11, marginTop: 6, padding: "4px 6px", background: "#fef3c7", borderRadius: 4, color: "#92400e" }}>
                     Thuộc chủ quyền không thể tranh cãi của Việt Nam
                   </div>
+                  <div style={{ fontSize: 11, marginTop: 6, color: "#555" }}>
+                    {a.islands.length} đảo/đá/bãi chính
+                  </div>
                 </div>
               </Popup>
-            </Marker>
+            </Polygon>
+
+            {/* Các đảo/đá chính */}
+            {a.islands.map((island) => (
+              <Marker
+                key={island.name}
+                position={[island.lat, island.lng]}
+                icon={islandDotIcon(island.type)}
+              >
+                <Tooltip direction="right" offset={[6, 0]} opacity={0.95}>
+                  <strong style={{ fontSize: 11 }}>{island.name}</strong>
+                  <div style={{ fontSize: 10, color: "#666" }}>
+                    {island.type === "bank" ? "Bãi" : island.type === "reef" ? "Đá/Rạn" : "Đảo"} · {a.name}
+                  </div>
+                </Tooltip>
+              </Marker>
+            ))}
+
+            {/* Label tên quần đảo (luôn hiển thị, kiểu Google Maps) */}
+            <Marker
+              position={a.center}
+              icon={archipelagoLabelIcon(a.name, a.sub)}
+              interactive={false}
+              keyboard={false}
+            />
           </LayerGroup>
         ))}
       </LayerGroup>
