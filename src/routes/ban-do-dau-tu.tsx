@@ -41,6 +41,7 @@ export const Route = createFileRoute("/ban-do-dau-tu")({
 });
 
 type LayerId =
+  | "tinh"
   | "kcn"
   | "cang"
   | "sanbay"
@@ -55,15 +56,46 @@ type LayerDef = {
   description: string;
   count: number;
   icon: typeof Factory;
-  color: string; // oklch reference via css var name
-  group: "Khu kinh tế" | "Hạ tầng giao thông" | "Dự án trọng điểm";
+  color: string;
+  group: "Hành chính" | "Khu kinh tế" | "Hạ tầng giao thông" | "Dự án trọng điểm";
+  live?: boolean; // có data thật trên map
 };
 
 const LAYERS: LayerDef[] = [
   {
+    id: "tinh",
+    label: "34 Tỉnh thành",
+    description: "Sau sáp nhập 01/07/2025",
+    count: 34,
+    icon: MapPin,
+    color: "var(--primary)",
+    group: "Hành chính",
+    live: true,
+  },
+  {
+    id: "sanbay",
+    label: "Sân bay quốc tế",
+    description: "Đang khai thác & xây dựng",
+    count: 12,
+    icon: Plane,
+    color: "oklch(0.5 0.18 250)",
+    group: "Hạ tầng giao thông",
+    live: true,
+  },
+  {
+    id: "cang",
+    label: "Cảng biển lớn",
+    description: "Loại đặc biệt & loại I",
+    count: 13,
+    icon: Ship,
+    color: "oklch(0.4 0.12 230)",
+    group: "Hạ tầng giao thông",
+    live: true,
+  },
+  {
     id: "kcn",
     label: "Khu công nghiệp",
-    description: "418 KCN đang hoạt động",
+    description: "418 KCN (đang cập nhật)",
     count: 418,
     icon: Factory,
     color: "var(--primary)",
@@ -77,24 +109,6 @@ const LAYERS: LayerDef[] = [
     icon: Trees,
     color: "var(--gold)",
     group: "Khu kinh tế",
-  },
-  {
-    id: "cang",
-    label: "Cảng biển & ICD",
-    description: "Cảng nước sâu, cảng cạn",
-    count: 34,
-    icon: Ship,
-    color: "var(--navy)",
-    group: "Hạ tầng giao thông",
-  },
-  {
-    id: "sanbay",
-    label: "Sân bay",
-    description: "Quốc tế & nội địa",
-    count: 22,
-    icon: Plane,
-    color: "var(--accent)",
-    group: "Hạ tầng giao thông",
   },
   {
     id: "caotoc",
