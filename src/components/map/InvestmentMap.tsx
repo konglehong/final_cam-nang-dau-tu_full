@@ -7,8 +7,80 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
 import { ARCHIPELAGOS, type IslandPoint } from "@/data/archipelagos";
+import {
+  getProvinceName,
+  SEA_LABELS,
+  COUNTRY_LABELS,
+} from "@/data/province-i18n";
 import { useLanguage } from "@/lib/i18n";
 import { getMapStrings, getStandardTile, getTerrainTile, getSatelliteTile } from "@/lib/map-i18n";
+
+// Nhãn tỉnh — chữ nhỏ có viền trắng, không nhận click
+const provinceLabelIcon = (name: string) =>
+  L.divIcon({
+    className: "",
+    html: `<div style="
+      font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: #1f2937;
+      white-space: nowrap;
+      pointer-events: none;
+      transform: translate(8px, -50%);
+      text-shadow:
+        -1px -1px 0 #fff, 1px -1px 0 #fff,
+        -1px 1px 0 #fff, 1px 1px 0 #fff,
+        0 0 3px rgba(255,255,255,.85);
+    ">${name}</div>`,
+    iconSize: [120, 16],
+    iconAnchor: [0, 8],
+  });
+
+// Nhãn biển — chữ in nghiêng xanh dương, kích thước tuỳ chỉnh
+const seaLabelIcon = (name: string, fontSize = 14) =>
+  L.divIcon({
+    className: "",
+    html: `<div style="
+      font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
+      font-size: ${fontSize}px;
+      font-weight: 700;
+      font-style: italic;
+      color: #1e40af;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      pointer-events: none;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      text-shadow:
+        -1px -1px 0 #fff, 1px -1px 0 #fff,
+        -1px 1px 0 #fff, 1px 1px 0 #fff,
+        0 0 4px rgba(255,255,255,.9);
+    ">${name}</div>`,
+    iconSize: [200, 24],
+    iconAnchor: [100, 12],
+  });
+
+// Nhãn quốc gia láng giềng — chữ in hoa xám
+const countryLabelIcon = (name: string) =>
+  L.divIcon({
+    className: "",
+    html: `<div style="
+      font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #6b7280;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      text-shadow:
+        -1px -1px 0 #fff, 1px -1px 0 #fff,
+        -1px 1px 0 #fff, 1px 1px 0 #fff;
+    ">${name}</div>`,
+    iconSize: [180, 20],
+    iconAnchor: [90, 10],
+  });
 
 // Hook nhỏ để track zoom hiện tại — dùng để ẩn các chấm đảo ở zoom thấp
 function ZoomTracker({ onZoom }: { onZoom: (z: number) => void }) {
