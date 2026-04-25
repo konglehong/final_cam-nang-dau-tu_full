@@ -218,8 +218,6 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
   const { lang } = useLanguage();
   const t = useMemo(() => getMapStrings(lang), [lang]);
   const standardTile = useMemo(() => getStandardTile(lang), [lang]);
-  const terrainTile = useMemo(() => getTerrainTile(), []);
-  const satelliteTile = useMemo(() => getSatelliteTile(), []);
   const [zoom, setZoom] = useState(5);
 
   // Ngưỡng zoom để hiện chấm đảo HS/TS — dưới ngưỡng chỉ vẽ polygon + label quần đảo
