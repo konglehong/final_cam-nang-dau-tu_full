@@ -1,34 +1,36 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHero, PlaceholderBlock } from "@/components/layout/PageHero";
+import { PageHero } from "@/components/layout/PageHero";
+import { MediaGrid } from "@/components/news/MediaCard";
+import { PODCASTS } from "@/data/content";
 
 export const Route = createFileRoute("/multimedia/podcast")({
   head: () => ({
     meta: [
       { title: "Podcast 'Câu chuyện đầu tư' — Cẩm nang Đầu tư Việt Nam" },
-      {
-        name: "description",
-        content:
-          "Podcast 'Câu chuyện đầu tư' — phỏng vấn doanh nghiệp thành công, lãnh đạo địa phương và chuyên gia.",
-      },
+      { name: "description", content: "Phỏng vấn doanh nghiệp thành công, lãnh đạo địa phương và chuyên gia về đầu tư." },
+      { property: "og:title", content: "Podcast Câu chuyện đầu tư" },
     ],
   }),
   component: () => (
     <>
       <PageHero
-        eyebrow="Định dạng"
-        title="Podcast 'Câu chuyện đầu tư'"
-        description="Mỗi tháng một tập — câu chuyện thật của doanh nghiệp đã đầu tư thành công tại các tỉnh thành Việt Nam."
+        eyebrow="Định dạng · Podcast"
+        title="Podcast Câu chuyện đầu tư"
+        description="Mỗi tập, một góc nhìn — chuyên gia, lãnh đạo địa phương và doanh nghiệp chia sẻ câu chuyện thật."
       />
-      <PlaceholderBlock
-        title="Trang Podcast"
-        description="Player embed Spotify/Apple + danh sách tập theo mùa."
-        blocks={[
-          "Hero: tập mới nhất + player",
-          "Subscribe buttons (Spotify, Apple, Google, RSS)",
-          "Danh sách tập theo mùa",
-          "Trang chi tiết tập: shownotes, transcript, related",
-        ]}
-      />
+      <section className="mx-auto max-w-7xl px-6 py-12">
+        <div className="mb-6 flex flex-wrap gap-2">
+          {["Spotify", "Apple Podcasts", "Google Podcasts", "RSS"].map((p) => (
+            <button
+              key={p}
+              className="rounded-md border border-border px-3 py-1.5 text-xs font-semibold hover:border-primary/40 hover:text-primary"
+            >
+              Nghe trên {p}
+            </button>
+          ))}
+        </div>
+        <MediaGrid items={PODCASTS} />
+      </section>
     </>
   ),
 });

@@ -1,34 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHero, PlaceholderBlock } from "@/components/layout/PageHero";
+import { PageHero } from "@/components/layout/PageHero";
+import { MediaGrid } from "@/components/news/MediaCard";
+import { LIVESTREAMS } from "@/data/content";
 
 export const Route = createFileRoute("/multimedia/livestream")({
   head: () => ({
     meta: [
-      { title: "Livestream Đầu tư — Lịch & Replay | Cẩm nang Đầu tư" },
-      {
-        name: "description",
-        content: "Lịch livestream giải đáp đầu tư, tọa đàm online và replay các buổi livestream đã diễn ra.",
-      },
+      { title: "Livestream Đầu tư — Lịch & Replay" },
+      { name: "description", content: "Lịch livestream giải đáp đầu tư, tọa đàm online và replay các buổi đã diễn ra." },
+      { property: "og:title", content: "Livestream Đầu tư Việt Nam" },
     ],
   }),
   component: () => (
     <>
       <PageHero
-        eyebrow="Định dạng"
+        eyebrow="Định dạng · Livestream"
         title="Livestream"
         description="Tương tác trực tiếp với lãnh đạo địa phương, chuyên gia và doanh nghiệp đầu tư."
       />
-      <PlaceholderBlock
-        title="Trang Livestream"
-        description="Lịch sắp tới có countdown + thư viện replay."
-        blocks={[
-          "Featured: Livestream sắp tới (countdown timer)",
-          "Lịch sắp diễn ra (calendar view)",
-          "Đăng ký nhắc lịch + add to calendar",
-          "Thư viện replay đã phát",
-          "Q&A từ buổi livestream trước",
-        ]}
-      />
+      <section className="mx-auto max-w-7xl px-6 py-12">
+        <MediaGrid items={LIVESTREAMS} />
+      </section>
     </>
   ),
 });

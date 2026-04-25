@@ -1,36 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHero, PlaceholderBlock } from "@/components/layout/PageHero";
+import { PageHero } from "@/components/layout/PageHero";
+import { MediaGrid } from "@/components/news/MediaCard";
+import { VIDEOS } from "@/data/content";
 
 export const Route = createFileRoute("/multimedia/video")({
   head: () => ({
     meta: [
-      { title: "Video Đầu tư — Series '60 giây đầu tư' & Documentary" },
-      {
-        name: "description",
-        content:
-          "Thư viện video về đầu tư Việt Nam: Series '60 giây đầu tư', documentary, video 360° KCN và phỏng vấn lãnh đạo địa phương.",
-      },
+      { title: "Video Đầu tư — Documentary, Drone & Phóng sự" },
+      { name: "description", content: "Thư viện video đầu tư: phóng sự tỉnh, drone footage hạ tầng, documentary FDI." },
+      { property: "og:title", content: "Video Đầu tư Việt Nam" },
     ],
   }),
   component: () => (
     <>
       <PageHero
-        eyebrow="Định dạng"
-        title="Video"
-        description="Hình ảnh động — cách hiệu quả nhất để kể câu chuyện đầu tư của một địa phương."
+        eyebrow="Định dạng · Video"
+        title="Video Đầu tư"
+        description="Phóng sự, documentary và drone footage 4K — kể câu chuyện đầu tư bằng hình ảnh động."
       />
-      <PlaceholderBlock
-        title="Trang Video"
-        description="Video player + playlists theo series."
-        blocks={[
-          "Hero player video featured",
-          "Playlist: Series '60 giây đầu tư'",
-          "Playlist: Documentary tỉnh thành",
-          "Playlist: Video 360° KCN/dự án",
-          "Playlist: Phỏng vấn lãnh đạo địa phương",
-          "Section: Video TikTok/Reels nổi bật",
-        ]}
-      />
+      <section className="mx-auto max-w-7xl px-6 py-12">
+        <MediaGrid items={VIDEOS} />
+      </section>
     </>
   ),
 });
