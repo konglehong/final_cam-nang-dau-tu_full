@@ -1,33 +1,62 @@
 import { useEffect } from "react";
-import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl, Rectangle, Tooltip } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl, Polygon, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
+import { ARCHIPELAGOS, type IslandPoint } from "@/data/archipelagos";
 
-// Hai quần đảo thuộc chủ quyền Việt Nam — luôn hiển thị marker để khẳng định
-const VN_ARCHIPELAGOS = [
-  {
-    name: "Quần đảo Hoàng Sa",
-    sub: "TP. Đà Nẵng, Việt Nam",
-    lat: 16.5,
-    lng: 112.0,
-    bounds: [[15.7, 111.0], [17.1, 113.0]] as [[number, number], [number, number]],
-  },
-  {
-    name: "Quần đảo Trường Sa",
-    sub: "Tỉnh Khánh Hòa, Việt Nam",
-    lat: 9.6,
-    lng: 114.0,
-    bounds: [[7.5, 111.5], [12.0, 117.5]] as [[number, number], [number, number]],
-  },
-];
+// Label chính cho quần đảo (kiểu Google Maps: chữ in hoa, có viền trắng)
+const archipelagoLabelIcon = (name: string, sub: string) =>
+  L.divIcon({
+    className: "",
+    html: `
+      <div style="text-align:center;pointer-events:none;transform:translateY(-50%)">
+        <div style="
+          font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          color: #1a1a1a;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          text-shadow:
+            -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff,
+            -1.5px 1.5px 0 #fff, 1.5px 1.5px 0 #fff,
+            0 0 4px rgba(255,255,255,.9);
+          white-space: nowrap;
+        ">${name}</div>
+        <div style="
+          font-family: -apple-system, system-ui, sans-serif;
+          font-size: 10px;
+          font-weight: 500;
+          color: #c2410c;
+          margin-top: 2px;
+          text-shadow:
+            -1px -1px 0 #fff, 1px -1px 0 #fff,
+            -1px 1px 0 #fff, 1px 1px 0 #fff;
+          white-space: nowrap;
+        ">🇻🇳 ${sub}</div>
+      </div>`,
+    iconSize: [200, 40],
+    iconAnchor: [100, 20],
+  });
 
-const archipelagoIcon = L.divIcon({
-  className: "",
-  html: `<div style="background:oklch(0.55 0.18 25);color:white;padding:4px 10px;border-radius:14px;font-size:11px;font-weight:700;white-space:nowrap;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,.4)">🇻🇳 VN</div>`,
-  iconSize: [60, 24],
-  iconAnchor: [30, 12],
-});
+// Chấm cho đảo chính (style Google Maps)
+const islandDotIcon = (type: IslandPoint["type"]) => {
+  const color = type === "bank" ? "#0891b2" : type === "reef" ? "#0ea5e9" : "#dc2626";
+  const size = type === "island" ? 8 : 6;
+  return L.divIcon({
+    className: "",
+    html: `<div style="
+      width:${size}px;height:${size}px;
+      background:${color};
+      border:1.5px solid white;
+      border-radius:50%;
+      box-shadow:0 1px 3px rgba(0,0,0,.5);
+    "></div>`,
+    iconSize: [size + 3, size + 3],
+    iconAnchor: [(size + 3) / 2, (size + 3) / 2],
+  });
+};
 
 // Fix Leaflet default icon paths (Vite/bundler issue)
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
@@ -118,35 +147,60 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
         </LayersControl.BaseLayer>
       </LayersControl>
 
-      {/* Hoàng Sa & Trường Sa — luôn hiển thị, khẳng định chủ quyền VN */}
+      {/* Hoàng Sa & Trường Sa — vẽ chuẩn theo Google Maps (view từ VN) */}
       <LayerGroup>
-        {VN_ARCHIPELAGOS.map((a) => (
-          <LayerGroup key={a.name}>
-            <Rectangle
-              bounds={a.bounds}
+        {ARCHIPELAGOS.map((a) => (
+          <LayerGroup key={a.id}>
+            {/* Đường biên hành chính quần đảo (dashed, kiểu Google Maps) */}
+            <Polygon
+              positions={a.outline}
               pathOptions={{
-                color: "oklch(0.55 0.18 25)",
-                weight: 2,
-                fillColor: "oklch(0.55 0.18 25)",
-                fillOpacity: 0.08,
-                dashArray: "6 4",
+                color: "#dc2626",
+                weight: 1.5,
+                opacity: 0.85,
+                fillColor: "#dc2626",
+                fillOpacity: 0.05,
+                dashArray: "5 5",
               }}
-            />
-            <Marker position={[a.lat, a.lng]} icon={archipelagoIcon}>
-              <Tooltip permanent direction="bottom" offset={[0, 10]} className="vn-archipelago-label">
-                <strong>{a.name}</strong>
-                <div style={{ fontSize: 10, color: "#666" }}>{a.sub}</div>
-              </Tooltip>
+            >
               <Popup>
-                <div style={{ minWidth: 200 }}>
+                <div style={{ minWidth: 220 }}>
                   <strong style={{ fontSize: 14 }}>{a.name}</strong>
+                  <div style={{ fontSize: 11, color: "#888", fontStyle: "italic" }}>{a.nameEn}</div>
                   <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>{a.sub}</div>
                   <div style={{ fontSize: 11, marginTop: 6, padding: "4px 6px", background: "#fef3c7", borderRadius: 4, color: "#92400e" }}>
                     Thuộc chủ quyền không thể tranh cãi của Việt Nam
                   </div>
+                  <div style={{ fontSize: 11, marginTop: 6, color: "#555" }}>
+                    {a.islands.length} đảo/đá/bãi chính
+                  </div>
                 </div>
               </Popup>
-            </Marker>
+            </Polygon>
+
+            {/* Các đảo/đá chính */}
+            {a.islands.map((island) => (
+              <Marker
+                key={island.name}
+                position={[island.lat, island.lng]}
+                icon={islandDotIcon(island.type)}
+              >
+                <Tooltip direction="right" offset={[6, 0]} opacity={0.95}>
+                  <strong style={{ fontSize: 11 }}>{island.name}</strong>
+                  <div style={{ fontSize: 10, color: "#666" }}>
+                    {island.type === "bank" ? "Bãi" : island.type === "reef" ? "Đá/Rạn" : "Đảo"} · {a.name}
+                  </div>
+                </Tooltip>
+              </Marker>
+            ))}
+
+            {/* Label tên quần đảo (luôn hiển thị, kiểu Google Maps) */}
+            <Marker
+              position={a.center}
+              icon={archipelagoLabelIcon(a.name, a.sub)}
+              interactive={false}
+              keyboard={false}
+            />
           </LayerGroup>
         ))}
       </LayerGroup>
