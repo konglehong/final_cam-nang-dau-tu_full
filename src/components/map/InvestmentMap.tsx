@@ -266,43 +266,29 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
     >
       <ZoomControl position="topright" />
       <ZoomTracker onZoom={setZoom} />
-      <LayersControl position="topleft">
-        <LayersControl.BaseLayer checked name={t.baseStandard}>
-          <TileLayer
-            attribution={standardTile.attribution}
-            url={standardTile.url}
-            subdomains={standardTile.subdomains as string[] | undefined}
-            maxZoom={standardTile.maxZoom}
-            {...sharedTileOpts}
-          />
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={t.baseTerrain}>
-          <TileLayer
-            attribution={terrainTile.attribution}
-            url={terrainTile.url}
-            subdomains={terrainTile.subdomains as string[] | undefined}
-            maxZoom={terrainTile.maxZoom}
-            {...sharedTileOpts}
-          />
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name={t.baseSatellite}>
-          <TileLayer
-            attribution={satelliteTile.attribution}
-            url={satelliteTile.url}
-            maxZoom={satelliteTile.maxZoom}
-            {...sharedTileOpts}
-          />
-        </LayersControl.BaseLayer>
-      </LayersControl>
 
-      {/* Mask làm mờ các nước khác — Việt Nam (đất liền + HS + TS) là "lỗ" trong mask.
-          Polygon nhận mảng nhiều ring: ring đầu = ngoài, các ring sau = hole. */}
+      {/* Chỉ tải duy nhất 1 base map cho Việt Nam — bỏ terrain/satellite để giảm request */}
+      <TileLayer
+        attribution={standardTile.attribution}
+        url={standardTile.url}
+        subdomains={standardTile.subdomains as string[] | undefined}
+        maxZoom={standardTile.maxZoom}
+        // Giới hạn vùng tải tile quanh Việt Nam (gồm cả Hoàng Sa & Trường Sa)
+        bounds={[
+          [6.5, 101.5],
+          [24.0, 118.0],
+        ]}
+        {...sharedTileOpts}
+      />
+
+      {/* Mask phủ kín các nước khác — Việt Nam (đất liền + HS + TS) là "lỗ" trong mask.
+          Dùng màu nền sáng để các nước khác gần như "biến mất", chỉ còn VN nổi rõ. */}
       <Polygon
         positions={[WORLD_BBOX, VIETNAM_MAINLAND, HOANG_SA.outline, TRUONG_SA.outline]}
         pathOptions={{
           stroke: false,
-          fillColor: "#0f172a",
-          fillOpacity: 0.35,
+          fillColor: "#e8eef5",
+          fillOpacity: 0.96,
           fillRule: "evenodd",
           interactive: false,
         }}
