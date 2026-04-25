@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl, Polygon, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
 import { ARCHIPELAGOS, type IslandPoint } from "@/data/archipelagos";
+import { useLanguage } from "@/lib/i18n";
+import { getMapStrings, getStandardTile, getTerrainTile, getSatelliteTile } from "@/lib/map-i18n";
 
 // Label chính cho quần đảo (kiểu Google Maps: chữ in hoa, có viền trắng)
 const archipelagoLabelIcon = (name: string, sub: string) =>
@@ -100,6 +102,12 @@ const airportIcon = makeIcon("✈", "oklch(0.5 0.18 250)");
 const seaportIcon = makeIcon("⚓", "oklch(0.4 0.12 230)");
 
 export function InvestmentMap({ layers, region, className }: InvestmentMapProps) {
+  const { lang } = useLanguage();
+  const t = useMemo(() => getMapStrings(lang), [lang]);
+  const standardTile = useMemo(() => getStandardTile(lang), [lang]);
+  const terrainTile = useMemo(() => getTerrainTile(), []);
+  const satelliteTile = useMemo(() => getSatelliteTile(), []);
+
   // Re-invalidate map size on container resize
   useEffect(() => {
     const t = setTimeout(() => {
@@ -112,6 +120,20 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
     (p) => region === "all" || p.region === region,
   );
 
+  // Tile options chung — tăng smoothness và giảm số request không cần thiết
+  const sharedTileOpts = {
+    updateWhenIdle: true as const,
+    updateWhenZooming: false as const,
+    keepBuffer: 4,
+    crossOrigin: true as const,
+  };
+
+  // Strings cho 2 quần đảo theo ngôn ngữ — ghi đè dữ liệu mặc định (VI) trong archipelagos.ts
+  const archipelagoLabels: Record<string, { name: string; sub: string }> = {
+    "hoang-sa": { name: t.hoangSaName, sub: t.hoangSaSub },
+    "truong-sa": { name: t.truongSaName, sub: t.truongSaSub },
+  };
+
   return (
     <MapContainer
       center={[14.5, 110.5]}
@@ -120,89 +142,96 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
       maxZoom={12}
       scrollWheelZoom
       zoomControl={false}
+      preferCanvas
       className={className}
       style={{ height: "100%", width: "100%", background: "oklch(0.95 0.01 80)" }}
     >
       <ZoomControl position="topright" />
       <LayersControl position="topleft">
-        <LayersControl.BaseLayer checked name="Bản đồ (chuẩn VN)">
+        <LayersControl.BaseLayer checked name={t.baseStandard}>
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            subdomains={["a", "b", "c"]}
+            attribution={standardTile.attribution}
+            url={standardTile.url}
+            subdomains={standardTile.subdomains as string[] | undefined}
+            maxZoom={standardTile.maxZoom}
+            {...sharedTileOpts}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Bản đồ địa hình">
+        <LayersControl.BaseLayer name={t.baseTerrain}>
           <TileLayer
-            attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'
-            url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-            subdomains={["a", "b", "c"]}
+            attribution={terrainTile.attribution}
+            url={terrainTile.url}
+            subdomains={terrainTile.subdomains as string[] | undefined}
+            maxZoom={terrainTile.maxZoom}
+            {...sharedTileOpts}
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Vệ tinh (Esri)">
+        <LayersControl.BaseLayer name={t.baseSatellite}>
           <TileLayer
-            attribution='Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics'
-            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            attribution={satelliteTile.attribution}
+            url={satelliteTile.url}
+            maxZoom={satelliteTile.maxZoom}
+            {...sharedTileOpts}
           />
         </LayersControl.BaseLayer>
       </LayersControl>
 
-      {/* Hoàng Sa & Trường Sa — vẽ chuẩn theo Google Maps (view từ VN) */}
+      {/* Hoàng Sa & Trường Sa — overlay chủ quyền VN, label theo ngôn ngữ đang chọn */}
       <LayerGroup>
-        {ARCHIPELAGOS.map((a) => (
-          <LayerGroup key={a.id}>
-            {/* Đường biên hành chính quần đảo (dashed, kiểu Google Maps) */}
-            <Polygon
-              positions={a.outline}
-              pathOptions={{
-                color: "#dc2626",
-                weight: 1.5,
-                opacity: 0.85,
-                fillColor: "#dc2626",
-                fillOpacity: 0.05,
-                dashArray: "5 5",
-              }}
-            >
-              <Popup>
-                <div style={{ minWidth: 220 }}>
-                  <strong style={{ fontSize: 14 }}>{a.name}</strong>
-                  <div style={{ fontSize: 11, color: "#888", fontStyle: "italic" }}>{a.nameEn}</div>
-                  <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>{a.sub}</div>
-                  <div style={{ fontSize: 11, marginTop: 6, padding: "4px 6px", background: "#fef3c7", borderRadius: 4, color: "#92400e" }}>
-                    Thuộc chủ quyền không thể tranh cãi của Việt Nam
-                  </div>
-                  <div style={{ fontSize: 11, marginTop: 6, color: "#555" }}>
-                    {a.islands.length} đảo/đá/bãi chính
-                  </div>
-                </div>
-              </Popup>
-            </Polygon>
-
-            {/* Các đảo/đá chính */}
-            {a.islands.map((island) => (
-              <Marker
-                key={island.name}
-                position={[island.lat, island.lng]}
-                icon={islandDotIcon(island.type)}
+        {ARCHIPELAGOS.map((a) => {
+          const label = archipelagoLabels[a.id] ?? { name: a.name, sub: a.sub };
+          return (
+            <LayerGroup key={a.id}>
+              <Polygon
+                positions={a.outline}
+                pathOptions={{
+                  color: "#dc2626",
+                  weight: 1.5,
+                  opacity: 0.85,
+                  fillColor: "#dc2626",
+                  fillOpacity: 0.05,
+                  dashArray: "5 5",
+                }}
               >
-                <Tooltip direction="right" offset={[6, 0]} opacity={0.95}>
-                  <strong style={{ fontSize: 11 }}>{island.name}</strong>
-                  <div style={{ fontSize: 10, color: "#666" }}>
-                    {island.type === "bank" ? "Bãi" : island.type === "reef" ? "Đá/Rạn" : "Đảo"} · {a.name}
+                <Popup>
+                  <div style={{ minWidth: 220 }}>
+                    <strong style={{ fontSize: 14 }}>{label.name}</strong>
+                    <div style={{ fontSize: 11, color: "#888", fontStyle: "italic" }}>{a.nameEn}</div>
+                    <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>{label.sub}</div>
+                    <div style={{ fontSize: 11, marginTop: 6, padding: "4px 6px", background: "#fef3c7", borderRadius: 4, color: "#92400e" }}>
+                      {t.sovereigntyNote}
+                    </div>
+                    <div style={{ fontSize: 11, marginTop: 6, color: "#555" }}>
+                      {t.islandsCount(a.islands.length)}
+                    </div>
                   </div>
-                </Tooltip>
-              </Marker>
-            ))}
+                </Popup>
+              </Polygon>
 
-            {/* Label tên quần đảo (luôn hiển thị, kiểu Google Maps) */}
-            <Marker
-              position={a.center}
-              icon={archipelagoLabelIcon(a.name, a.sub)}
-              interactive={false}
-              keyboard={false}
-            />
-          </LayerGroup>
-        ))}
+              {a.islands.map((island) => (
+                <Marker
+                  key={island.name}
+                  position={[island.lat, island.lng]}
+                  icon={islandDotIcon(island.type)}
+                >
+                  <Tooltip direction="right" offset={[6, 0]} opacity={0.95}>
+                    <strong style={{ fontSize: 11 }}>{island.name}</strong>
+                    <div style={{ fontSize: 10, color: "#666" }}>
+                      {island.type === "bank" ? t.typeBank : island.type === "reef" ? t.typeReef : t.typeIsland} · {label.name}
+                    </div>
+                  </Tooltip>
+                </Marker>
+              ))}
+
+              <Marker
+                position={a.center}
+                icon={archipelagoLabelIcon(label.name, label.sub)}
+                interactive={false}
+                keyboard={false}
+              />
+            </LayerGroup>
+          );
+        })}
       </LayerGroup>
 
       {layers.provinces && (
@@ -223,18 +252,18 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
                 <div style={{ minWidth: 200 }}>
                   <strong style={{ fontSize: 14 }}>{p.name}</strong>
                   <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
-                    Trung tâm: {p.capital}
+                    {t.capital}: {p.capital}
                   </div>
                   {p.merged && (
                     <div style={{ fontSize: 11, marginTop: 6, padding: "4px 6px", background: "#fef3c7", borderRadius: 4, color: "#92400e" }}>
-                      Sáp nhập từ: {p.merged}
+                      {t.mergedFrom}: {p.merged}
                     </div>
                   )}
                   <a
                     href={`/tinh-thanh/${p.slug}`}
                     style={{ display: "inline-block", marginTop: 8, fontSize: 12, color: "oklch(0.45 0.18 25)", fontWeight: 600 }}
                   >
-                    Xem chi tiết →
+                    {t.viewDetails}
                   </a>
                 </div>
               </Popup>
@@ -250,7 +279,7 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
               <Popup>
                 <strong>{a.name} ({a.code})</strong>
                 <div style={{ fontSize: 12, color: "#666" }}>
-                  Sân bay {a.type === "international" ? "quốc tế" : "nội địa"} · {a.province}
+                  {a.type === "international" ? t.airportIntl : t.airportDomestic} · {a.province}
                 </div>
               </Popup>
             </Marker>
@@ -265,7 +294,7 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
               <Popup>
                 <strong>{s.name}</strong>
                 <div style={{ fontSize: 12, color: "#666" }}>
-                  Cảng loại {s.class === "special" ? "đặc biệt" : "I"} · {s.province}
+                  {s.class === "special" ? t.seaportSpecial : t.seaportClassI} · {s.province}
                 </div>
               </Popup>
             </Marker>

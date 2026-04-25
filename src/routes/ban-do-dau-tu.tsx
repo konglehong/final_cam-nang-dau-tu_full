@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, Suspense, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import {
   Factory,
   Ship,
@@ -17,13 +17,15 @@ import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
+// Hàm import chia sẻ — tái sử dụng khi prefetch để bundler chỉ tạo 1 chunk
+const loadMap = () => import("@/components/map/InvestmentMap");
+
 const InvestmentMap = lazy(async () => {
   if (typeof window === "undefined") {
-    // SSR stub — returns empty fragment instead of null to satisfy ReactNode type
     const Stub = (() => <></>) as unknown as typeof import("@/components/map/InvestmentMap").InvestmentMap;
     return { default: Stub };
   }
-  const m = await import("@/components/map/InvestmentMap");
+  const m = await loadMap();
   return { default: m.InvestmentMap };
 });
 
@@ -164,6 +166,21 @@ function BanDoPage() {
     dulich: false,
   });
   const [region, setRegion] = useState<"all" | "bac" | "trung" | "nam">("all");
+
+  // Prefetch chunk InvestmentMap ngay khi page mount (song song với render UI khác)
+  // → khi React render Suspense, chunk thường đã sẵn sàng → giảm thời gian thấy bản đồ.
+  useEffect(() => {
+    const start = () => {
+      void loadMap();
+    };
+    if (typeof window === "undefined") return;
+    const w = window as Window & { requestIdleCallback?: (cb: () => void) => number };
+    if (typeof w.requestIdleCallback === "function") {
+      w.requestIdleCallback(start);
+    } else {
+      setTimeout(start, 0);
+    }
+  }, []);
 
   const grouped = useMemo(() => {
     const map: Record<string, LayerDef[]> = {};
