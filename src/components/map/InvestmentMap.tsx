@@ -285,8 +285,8 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
         positions={[WORLD_BBOX, VIETNAM_MAINLAND, HOANG_SA.outline, TRUONG_SA.outline]}
         pathOptions={{
           stroke: false,
-          fillColor: "#e8eef5",
-          fillOpacity: 0.96,
+          fillColor: "#ffffff",
+          fillOpacity: 1,
           fillRule: "evenodd",
           interactive: false,
         }}
