@@ -223,7 +223,7 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
                 </Popup>
               </Polygon>
 
-              {a.islands.map((island) => (
+              {showIslandDots && a.islands.map((island) => (
                 <Marker
                   key={island.name}
                   position={[island.lat, island.lng]}
@@ -288,7 +288,13 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
       )}
 
       {layers.airports && (
-        <LayerGroup>
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={40}
+          spiderfyOnMaxZoom
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
           {AIRPORTS.map((a) => (
             <Marker key={a.code} position={[a.lat, a.lng]} icon={airportIcon}>
               <Popup>
@@ -299,11 +305,17 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
               </Popup>
             </Marker>
           ))}
-        </LayerGroup>
+        </MarkerClusterGroup>
       )}
 
       {layers.seaports && (
-        <LayerGroup>
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={40}
+          spiderfyOnMaxZoom
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
           {SEAPORTS.map((s) => (
             <Marker key={s.name} position={[s.lat, s.lng]} icon={seaportIcon}>
               <Popup>
@@ -314,7 +326,7 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
               </Popup>
             </Marker>
           ))}
-        </LayerGroup>
+        </MarkerClusterGroup>
       )}
     </MapContainer>
   );
