@@ -259,6 +259,7 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
       scrollWheelZoom
       zoomControl={false}
       preferCanvas
+      attributionControl={false}
       className={className}
       style={{ height: "100%", width: "100%", background: "oklch(0.95 0.01 80)" }}
     >
