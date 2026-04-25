@@ -188,6 +188,11 @@ export type MapLayers = {
   provinces: boolean;
   airports: boolean;
   seaports: boolean;
+  industrial: boolean;
+  highways: boolean;
+  projects: boolean;
+  power: boolean;
+  tourism: boolean;
 };
 
 export type InvestmentMapProps = {
@@ -203,16 +208,41 @@ const REGION_COLOR: Record<Region, string> = {
 };
 
 // Custom divIcon for airport/seaport
-const makeIcon = (emoji: string, bg: string) =>
+const makeIcon = (emoji: string, bg: string, size = 26) =>
   L.divIcon({
     className: "",
-    html: `<div style="background:${bg};color:white;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.35)">${emoji}</div>`,
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
+    html: `<div style="background:${bg};color:white;width:${size}px;height:${size}px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:${Math.round(size * 0.5)}px;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.35)">${emoji}</div>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
   });
 
 const airportIcon = makeIcon("✈", "oklch(0.5 0.18 250)");
 const seaportIcon = makeIcon("⚓", "oklch(0.4 0.12 230)");
+const industrialIcon = makeIcon("🏭", "oklch(0.5 0.15 30)", 22);
+const projectIcon = makeIcon("★", "oklch(0.55 0.18 145)", 24);
+const tourismIcon = makeIcon("🏖", "oklch(0.65 0.15 60)", 22);
+
+const POWER_COLORS: Record<string, string> = {
+  hydro: "oklch(0.55 0.15 220)",
+  thermal: "oklch(0.4 0.05 30)",
+  lng: "oklch(0.55 0.12 280)",
+  wind: "oklch(0.65 0.15 180)",
+  solar: "oklch(0.75 0.18 80)",
+  nuclear: "oklch(0.55 0.18 0)",
+};
+
+const powerIcon = (type: string) => {
+  const symbol =
+    type === "hydro" ? "💧" : type === "wind" ? "🌬" : type === "solar" ? "☀" : type === "lng" ? "⛽" : "🔥";
+  return makeIcon(symbol, POWER_COLORS[type] ?? "oklch(0.5 0.1 60)", 22);
+};
+
+const HIGHWAY_STYLE: Record<string, { color: string; dash?: string }> = {
+  operating: { color: "oklch(0.55 0.18 250)" },
+  construction: { color: "oklch(0.65 0.18 60)", dash: "8 6" },
+  planned: { color: "oklch(0.6 0.05 250)", dash: "2 6" },
+};
+
 
 export function InvestmentMap({ layers, region, className }: InvestmentMapProps) {
   const { lang } = useLanguage();
