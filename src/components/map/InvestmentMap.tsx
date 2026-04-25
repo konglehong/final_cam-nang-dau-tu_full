@@ -431,6 +431,16 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
               keyboard={false}
             />
           ))}
+          {/* Thành phố nước ngoài — tier 1 (thủ đô) hiện sớm, tier 2 hiện khi zoom kỹ hơn */}
+          {FOREIGN_CITIES.filter((c) => (c.tier === 1 ? zoom >= 5 : zoom >= 6)).map((c) => (
+            <Marker
+              key={`fcity-${c.id}`}
+              position={[c.lat, c.lng]}
+              icon={foreignCityLabelIcon(c.names[lang] || c.names.en)}
+              interactive={false}
+              keyboard={false}
+            />
+          ))}
         </LayerGroup>
       )}
 
