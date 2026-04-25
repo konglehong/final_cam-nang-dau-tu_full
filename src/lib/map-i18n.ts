@@ -36,6 +36,36 @@ export type MapStrings = {
   hoangSaSub: string;
   truongSaName: string;
   truongSaSub: string;
+
+  // Page UI
+  pageHeroEyebrow: string;
+  pageHeroTitle: string;
+  pageHeroDesc: string;
+  filterRegion: string;
+  regionAll: string;
+  regionNorth: string;
+  regionCentral: string;
+  regionSouth: string;
+  layersCountSuffix: string; // "lớp"
+  pointsShownSuffix: string; // "điểm hiển thị"
+  loadingMap: string;
+  legendShowing: string;
+  legendEmpty: string;
+  sidebarTitle: string;
+  sidebarSubtitle: string;
+  toggleAll: string;
+  toggleNone: string;
+  comingSoon: string;
+  groupAdmin: string;
+  groupEconomic: string;
+  groupTransport: string;
+  groupKeyProject: string;
+  layer: Record<
+    "tinh" | "kcn" | "cang" | "sanbay" | "caotoc" | "duan" | "nangluong" | "dulich",
+    { label: string; description: string }
+  >;
+  // Locale code for number formatting
+  numberLocale: string;
 };
 
 const VI: MapStrings = {
