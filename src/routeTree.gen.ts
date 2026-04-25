@@ -9,38 +9,594 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TinhThanhRouteImport } from './routes/tinh-thanh'
+import { Route as TinTucRouteImport } from './routes/tin-tuc'
+import { Route as SuKienRouteImport } from './routes/su-kien'
+import { Route as SoSanhRouteImport } from './routes/so-sanh'
+import { Route as NhaDauTuRouteImport } from './routes/nha-dau-tu'
+import { Route as MultimediaRouteImport } from './routes/multimedia'
+import { Route as LienHeRouteImport } from './routes/lien-he'
+import { Route as GioiThieuRouteImport } from './routes/gioi-thieu'
+import { Route as DuAnRouteImport } from './routes/du-an'
+import { Route as DieuKhoanRouteImport } from './routes/dieu-khoan'
+import { Route as DiaPhuongRouteImport } from './routes/dia-phuong'
+import { Route as BaoMatRouteImport } from './routes/bao-mat'
+import { Route as BanDoDauTuRouteImport } from './routes/ban-do-dau-tu'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TinTucIndexRouteImport } from './routes/tin-tuc.index'
+import { Route as NhaDauTuIndexRouteImport } from './routes/nha-dau-tu.index'
+import { Route as MultimediaIndexRouteImport } from './routes/multimedia.index'
+import { Route as DiaPhuongIndexRouteImport } from './routes/dia-phuong.index'
+import { Route as TinhThanhSlugRouteImport } from './routes/tinh-thanh.$slug'
+import { Route as TinTucHaTangRouteImport } from './routes/tin-tuc.ha-tang'
+import { Route as TinTucFdiRouteImport } from './routes/tin-tuc.fdi'
+import { Route as TinTucDiaPhuongRouteImport } from './routes/tin-tuc.dia-phuong'
+import { Route as TinTucChinhSachRouteImport } from './routes/tin-tuc.chinh-sach'
+import { Route as TinTucSlugRouteImport } from './routes/tin-tuc.$slug'
+import { Route as NhaDauTuTaiLieuRouteImport } from './routes/nha-dau-tu.tai-lieu'
+import { Route as NhaDauTuSuKienRouteImport } from './routes/nha-dau-tu.su-kien'
+import { Route as NhaDauTuDangKyQuanTamRouteImport } from './routes/nha-dau-tu.dang-ky-quan-tam'
+import { Route as NhaDauTuCamNangRouteImport } from './routes/nha-dau-tu.cam-nang'
+import { Route as NhaDauTuBanTinRouteImport } from './routes/nha-dau-tu.ban-tin'
+import { Route as MultimediaVideoRouteImport } from './routes/multimedia.video'
+import { Route as MultimediaPodcastRouteImport } from './routes/multimedia.podcast'
+import { Route as MultimediaLivestreamRouteImport } from './routes/multimedia.livestream'
+import { Route as MultimediaInfographicRouteImport } from './routes/multimedia.infographic'
+import { Route as MultimediaEMagazineRouteImport } from './routes/multimedia.e-magazine'
+import { Route as DuAnIdRouteImport } from './routes/du-an.$id'
+import { Route as DiaPhuongQuyTrinhHopTacRouteImport } from './routes/dia-phuong.quy-trinh-hop-tac'
+import { Route as DiaPhuongGoiDichVuRouteImport } from './routes/dia-phuong.goi-dich-vu'
+import { Route as DiaPhuongDangKyTuVanRouteImport } from './routes/dia-phuong.dang-ky-tu-van'
+import { Route as DiaPhuongCaseStudyRouteImport } from './routes/dia-phuong.case-study'
 
+const TinhThanhRoute = TinhThanhRouteImport.update({
+  id: '/tinh-thanh',
+  path: '/tinh-thanh',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TinTucRoute = TinTucRouteImport.update({
+  id: '/tin-tuc',
+  path: '/tin-tuc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuKienRoute = SuKienRouteImport.update({
+  id: '/su-kien',
+  path: '/su-kien',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoSanhRoute = SoSanhRouteImport.update({
+  id: '/so-sanh',
+  path: '/so-sanh',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NhaDauTuRoute = NhaDauTuRouteImport.update({
+  id: '/nha-dau-tu',
+  path: '/nha-dau-tu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MultimediaRoute = MultimediaRouteImport.update({
+  id: '/multimedia',
+  path: '/multimedia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LienHeRoute = LienHeRouteImport.update({
+  id: '/lien-he',
+  path: '/lien-he',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GioiThieuRoute = GioiThieuRouteImport.update({
+  id: '/gioi-thieu',
+  path: '/gioi-thieu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DuAnRoute = DuAnRouteImport.update({
+  id: '/du-an',
+  path: '/du-an',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DieuKhoanRoute = DieuKhoanRouteImport.update({
+  id: '/dieu-khoan',
+  path: '/dieu-khoan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiaPhuongRoute = DiaPhuongRouteImport.update({
+  id: '/dia-phuong',
+  path: '/dia-phuong',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BaoMatRoute = BaoMatRouteImport.update({
+  id: '/bao-mat',
+  path: '/bao-mat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BanDoDauTuRoute = BanDoDauTuRouteImport.update({
+  id: '/ban-do-dau-tu',
+  path: '/ban-do-dau-tu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TinTucIndexRoute = TinTucIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TinTucRoute,
+} as any)
+const NhaDauTuIndexRoute = NhaDauTuIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NhaDauTuRoute,
+} as any)
+const MultimediaIndexRoute = MultimediaIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MultimediaRoute,
+} as any)
+const DiaPhuongIndexRoute = DiaPhuongIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DiaPhuongRoute,
+} as any)
+const TinhThanhSlugRoute = TinhThanhSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => TinhThanhRoute,
+} as any)
+const TinTucHaTangRoute = TinTucHaTangRouteImport.update({
+  id: '/ha-tang',
+  path: '/ha-tang',
+  getParentRoute: () => TinTucRoute,
+} as any)
+const TinTucFdiRoute = TinTucFdiRouteImport.update({
+  id: '/fdi',
+  path: '/fdi',
+  getParentRoute: () => TinTucRoute,
+} as any)
+const TinTucDiaPhuongRoute = TinTucDiaPhuongRouteImport.update({
+  id: '/dia-phuong',
+  path: '/dia-phuong',
+  getParentRoute: () => TinTucRoute,
+} as any)
+const TinTucChinhSachRoute = TinTucChinhSachRouteImport.update({
+  id: '/chinh-sach',
+  path: '/chinh-sach',
+  getParentRoute: () => TinTucRoute,
+} as any)
+const TinTucSlugRoute = TinTucSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => TinTucRoute,
+} as any)
+const NhaDauTuTaiLieuRoute = NhaDauTuTaiLieuRouteImport.update({
+  id: '/tai-lieu',
+  path: '/tai-lieu',
+  getParentRoute: () => NhaDauTuRoute,
+} as any)
+const NhaDauTuSuKienRoute = NhaDauTuSuKienRouteImport.update({
+  id: '/su-kien',
+  path: '/su-kien',
+  getParentRoute: () => NhaDauTuRoute,
+} as any)
+const NhaDauTuDangKyQuanTamRoute = NhaDauTuDangKyQuanTamRouteImport.update({
+  id: '/dang-ky-quan-tam',
+  path: '/dang-ky-quan-tam',
+  getParentRoute: () => NhaDauTuRoute,
+} as any)
+const NhaDauTuCamNangRoute = NhaDauTuCamNangRouteImport.update({
+  id: '/cam-nang',
+  path: '/cam-nang',
+  getParentRoute: () => NhaDauTuRoute,
+} as any)
+const NhaDauTuBanTinRoute = NhaDauTuBanTinRouteImport.update({
+  id: '/ban-tin',
+  path: '/ban-tin',
+  getParentRoute: () => NhaDauTuRoute,
+} as any)
+const MultimediaVideoRoute = MultimediaVideoRouteImport.update({
+  id: '/video',
+  path: '/video',
+  getParentRoute: () => MultimediaRoute,
+} as any)
+const MultimediaPodcastRoute = MultimediaPodcastRouteImport.update({
+  id: '/podcast',
+  path: '/podcast',
+  getParentRoute: () => MultimediaRoute,
+} as any)
+const MultimediaLivestreamRoute = MultimediaLivestreamRouteImport.update({
+  id: '/livestream',
+  path: '/livestream',
+  getParentRoute: () => MultimediaRoute,
+} as any)
+const MultimediaInfographicRoute = MultimediaInfographicRouteImport.update({
+  id: '/infographic',
+  path: '/infographic',
+  getParentRoute: () => MultimediaRoute,
+} as any)
+const MultimediaEMagazineRoute = MultimediaEMagazineRouteImport.update({
+  id: '/e-magazine',
+  path: '/e-magazine',
+  getParentRoute: () => MultimediaRoute,
+} as any)
+const DuAnIdRoute = DuAnIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => DuAnRoute,
+} as any)
+const DiaPhuongQuyTrinhHopTacRoute = DiaPhuongQuyTrinhHopTacRouteImport.update({
+  id: '/quy-trinh-hop-tac',
+  path: '/quy-trinh-hop-tac',
+  getParentRoute: () => DiaPhuongRoute,
+} as any)
+const DiaPhuongGoiDichVuRoute = DiaPhuongGoiDichVuRouteImport.update({
+  id: '/goi-dich-vu',
+  path: '/goi-dich-vu',
+  getParentRoute: () => DiaPhuongRoute,
+} as any)
+const DiaPhuongDangKyTuVanRoute = DiaPhuongDangKyTuVanRouteImport.update({
+  id: '/dang-ky-tu-van',
+  path: '/dang-ky-tu-van',
+  getParentRoute: () => DiaPhuongRoute,
+} as any)
+const DiaPhuongCaseStudyRoute = DiaPhuongCaseStudyRouteImport.update({
+  id: '/case-study',
+  path: '/case-study',
+  getParentRoute: () => DiaPhuongRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ban-do-dau-tu': typeof BanDoDauTuRoute
+  '/bao-mat': typeof BaoMatRoute
+  '/dia-phuong': typeof DiaPhuongRouteWithChildren
+  '/dieu-khoan': typeof DieuKhoanRoute
+  '/du-an': typeof DuAnRouteWithChildren
+  '/gioi-thieu': typeof GioiThieuRoute
+  '/lien-he': typeof LienHeRoute
+  '/multimedia': typeof MultimediaRouteWithChildren
+  '/nha-dau-tu': typeof NhaDauTuRouteWithChildren
+  '/so-sanh': typeof SoSanhRoute
+  '/su-kien': typeof SuKienRoute
+  '/tin-tuc': typeof TinTucRouteWithChildren
+  '/tinh-thanh': typeof TinhThanhRouteWithChildren
+  '/dia-phuong/case-study': typeof DiaPhuongCaseStudyRoute
+  '/dia-phuong/dang-ky-tu-van': typeof DiaPhuongDangKyTuVanRoute
+  '/dia-phuong/goi-dich-vu': typeof DiaPhuongGoiDichVuRoute
+  '/dia-phuong/quy-trinh-hop-tac': typeof DiaPhuongQuyTrinhHopTacRoute
+  '/du-an/$id': typeof DuAnIdRoute
+  '/multimedia/e-magazine': typeof MultimediaEMagazineRoute
+  '/multimedia/infographic': typeof MultimediaInfographicRoute
+  '/multimedia/livestream': typeof MultimediaLivestreamRoute
+  '/multimedia/podcast': typeof MultimediaPodcastRoute
+  '/multimedia/video': typeof MultimediaVideoRoute
+  '/nha-dau-tu/ban-tin': typeof NhaDauTuBanTinRoute
+  '/nha-dau-tu/cam-nang': typeof NhaDauTuCamNangRoute
+  '/nha-dau-tu/dang-ky-quan-tam': typeof NhaDauTuDangKyQuanTamRoute
+  '/nha-dau-tu/su-kien': typeof NhaDauTuSuKienRoute
+  '/nha-dau-tu/tai-lieu': typeof NhaDauTuTaiLieuRoute
+  '/tin-tuc/$slug': typeof TinTucSlugRoute
+  '/tin-tuc/chinh-sach': typeof TinTucChinhSachRoute
+  '/tin-tuc/dia-phuong': typeof TinTucDiaPhuongRoute
+  '/tin-tuc/fdi': typeof TinTucFdiRoute
+  '/tin-tuc/ha-tang': typeof TinTucHaTangRoute
+  '/tinh-thanh/$slug': typeof TinhThanhSlugRoute
+  '/dia-phuong/': typeof DiaPhuongIndexRoute
+  '/multimedia/': typeof MultimediaIndexRoute
+  '/nha-dau-tu/': typeof NhaDauTuIndexRoute
+  '/tin-tuc/': typeof TinTucIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ban-do-dau-tu': typeof BanDoDauTuRoute
+  '/bao-mat': typeof BaoMatRoute
+  '/dieu-khoan': typeof DieuKhoanRoute
+  '/du-an': typeof DuAnRouteWithChildren
+  '/gioi-thieu': typeof GioiThieuRoute
+  '/lien-he': typeof LienHeRoute
+  '/so-sanh': typeof SoSanhRoute
+  '/su-kien': typeof SuKienRoute
+  '/tinh-thanh': typeof TinhThanhRouteWithChildren
+  '/dia-phuong/case-study': typeof DiaPhuongCaseStudyRoute
+  '/dia-phuong/dang-ky-tu-van': typeof DiaPhuongDangKyTuVanRoute
+  '/dia-phuong/goi-dich-vu': typeof DiaPhuongGoiDichVuRoute
+  '/dia-phuong/quy-trinh-hop-tac': typeof DiaPhuongQuyTrinhHopTacRoute
+  '/du-an/$id': typeof DuAnIdRoute
+  '/multimedia/e-magazine': typeof MultimediaEMagazineRoute
+  '/multimedia/infographic': typeof MultimediaInfographicRoute
+  '/multimedia/livestream': typeof MultimediaLivestreamRoute
+  '/multimedia/podcast': typeof MultimediaPodcastRoute
+  '/multimedia/video': typeof MultimediaVideoRoute
+  '/nha-dau-tu/ban-tin': typeof NhaDauTuBanTinRoute
+  '/nha-dau-tu/cam-nang': typeof NhaDauTuCamNangRoute
+  '/nha-dau-tu/dang-ky-quan-tam': typeof NhaDauTuDangKyQuanTamRoute
+  '/nha-dau-tu/su-kien': typeof NhaDauTuSuKienRoute
+  '/nha-dau-tu/tai-lieu': typeof NhaDauTuTaiLieuRoute
+  '/tin-tuc/$slug': typeof TinTucSlugRoute
+  '/tin-tuc/chinh-sach': typeof TinTucChinhSachRoute
+  '/tin-tuc/dia-phuong': typeof TinTucDiaPhuongRoute
+  '/tin-tuc/fdi': typeof TinTucFdiRoute
+  '/tin-tuc/ha-tang': typeof TinTucHaTangRoute
+  '/tinh-thanh/$slug': typeof TinhThanhSlugRoute
+  '/dia-phuong': typeof DiaPhuongIndexRoute
+  '/multimedia': typeof MultimediaIndexRoute
+  '/nha-dau-tu': typeof NhaDauTuIndexRoute
+  '/tin-tuc': typeof TinTucIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ban-do-dau-tu': typeof BanDoDauTuRoute
+  '/bao-mat': typeof BaoMatRoute
+  '/dia-phuong': typeof DiaPhuongRouteWithChildren
+  '/dieu-khoan': typeof DieuKhoanRoute
+  '/du-an': typeof DuAnRouteWithChildren
+  '/gioi-thieu': typeof GioiThieuRoute
+  '/lien-he': typeof LienHeRoute
+  '/multimedia': typeof MultimediaRouteWithChildren
+  '/nha-dau-tu': typeof NhaDauTuRouteWithChildren
+  '/so-sanh': typeof SoSanhRoute
+  '/su-kien': typeof SuKienRoute
+  '/tin-tuc': typeof TinTucRouteWithChildren
+  '/tinh-thanh': typeof TinhThanhRouteWithChildren
+  '/dia-phuong/case-study': typeof DiaPhuongCaseStudyRoute
+  '/dia-phuong/dang-ky-tu-van': typeof DiaPhuongDangKyTuVanRoute
+  '/dia-phuong/goi-dich-vu': typeof DiaPhuongGoiDichVuRoute
+  '/dia-phuong/quy-trinh-hop-tac': typeof DiaPhuongQuyTrinhHopTacRoute
+  '/du-an/$id': typeof DuAnIdRoute
+  '/multimedia/e-magazine': typeof MultimediaEMagazineRoute
+  '/multimedia/infographic': typeof MultimediaInfographicRoute
+  '/multimedia/livestream': typeof MultimediaLivestreamRoute
+  '/multimedia/podcast': typeof MultimediaPodcastRoute
+  '/multimedia/video': typeof MultimediaVideoRoute
+  '/nha-dau-tu/ban-tin': typeof NhaDauTuBanTinRoute
+  '/nha-dau-tu/cam-nang': typeof NhaDauTuCamNangRoute
+  '/nha-dau-tu/dang-ky-quan-tam': typeof NhaDauTuDangKyQuanTamRoute
+  '/nha-dau-tu/su-kien': typeof NhaDauTuSuKienRoute
+  '/nha-dau-tu/tai-lieu': typeof NhaDauTuTaiLieuRoute
+  '/tin-tuc/$slug': typeof TinTucSlugRoute
+  '/tin-tuc/chinh-sach': typeof TinTucChinhSachRoute
+  '/tin-tuc/dia-phuong': typeof TinTucDiaPhuongRoute
+  '/tin-tuc/fdi': typeof TinTucFdiRoute
+  '/tin-tuc/ha-tang': typeof TinTucHaTangRoute
+  '/tinh-thanh/$slug': typeof TinhThanhSlugRoute
+  '/dia-phuong/': typeof DiaPhuongIndexRoute
+  '/multimedia/': typeof MultimediaIndexRoute
+  '/nha-dau-tu/': typeof NhaDauTuIndexRoute
+  '/tin-tuc/': typeof TinTucIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/ban-do-dau-tu'
+    | '/bao-mat'
+    | '/dia-phuong'
+    | '/dieu-khoan'
+    | '/du-an'
+    | '/gioi-thieu'
+    | '/lien-he'
+    | '/multimedia'
+    | '/nha-dau-tu'
+    | '/so-sanh'
+    | '/su-kien'
+    | '/tin-tuc'
+    | '/tinh-thanh'
+    | '/dia-phuong/case-study'
+    | '/dia-phuong/dang-ky-tu-van'
+    | '/dia-phuong/goi-dich-vu'
+    | '/dia-phuong/quy-trinh-hop-tac'
+    | '/du-an/$id'
+    | '/multimedia/e-magazine'
+    | '/multimedia/infographic'
+    | '/multimedia/livestream'
+    | '/multimedia/podcast'
+    | '/multimedia/video'
+    | '/nha-dau-tu/ban-tin'
+    | '/nha-dau-tu/cam-nang'
+    | '/nha-dau-tu/dang-ky-quan-tam'
+    | '/nha-dau-tu/su-kien'
+    | '/nha-dau-tu/tai-lieu'
+    | '/tin-tuc/$slug'
+    | '/tin-tuc/chinh-sach'
+    | '/tin-tuc/dia-phuong'
+    | '/tin-tuc/fdi'
+    | '/tin-tuc/ha-tang'
+    | '/tinh-thanh/$slug'
+    | '/dia-phuong/'
+    | '/multimedia/'
+    | '/nha-dau-tu/'
+    | '/tin-tuc/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/ban-do-dau-tu'
+    | '/bao-mat'
+    | '/dieu-khoan'
+    | '/du-an'
+    | '/gioi-thieu'
+    | '/lien-he'
+    | '/so-sanh'
+    | '/su-kien'
+    | '/tinh-thanh'
+    | '/dia-phuong/case-study'
+    | '/dia-phuong/dang-ky-tu-van'
+    | '/dia-phuong/goi-dich-vu'
+    | '/dia-phuong/quy-trinh-hop-tac'
+    | '/du-an/$id'
+    | '/multimedia/e-magazine'
+    | '/multimedia/infographic'
+    | '/multimedia/livestream'
+    | '/multimedia/podcast'
+    | '/multimedia/video'
+    | '/nha-dau-tu/ban-tin'
+    | '/nha-dau-tu/cam-nang'
+    | '/nha-dau-tu/dang-ky-quan-tam'
+    | '/nha-dau-tu/su-kien'
+    | '/nha-dau-tu/tai-lieu'
+    | '/tin-tuc/$slug'
+    | '/tin-tuc/chinh-sach'
+    | '/tin-tuc/dia-phuong'
+    | '/tin-tuc/fdi'
+    | '/tin-tuc/ha-tang'
+    | '/tinh-thanh/$slug'
+    | '/dia-phuong'
+    | '/multimedia'
+    | '/nha-dau-tu'
+    | '/tin-tuc'
+  id:
+    | '__root__'
+    | '/'
+    | '/ban-do-dau-tu'
+    | '/bao-mat'
+    | '/dia-phuong'
+    | '/dieu-khoan'
+    | '/du-an'
+    | '/gioi-thieu'
+    | '/lien-he'
+    | '/multimedia'
+    | '/nha-dau-tu'
+    | '/so-sanh'
+    | '/su-kien'
+    | '/tin-tuc'
+    | '/tinh-thanh'
+    | '/dia-phuong/case-study'
+    | '/dia-phuong/dang-ky-tu-van'
+    | '/dia-phuong/goi-dich-vu'
+    | '/dia-phuong/quy-trinh-hop-tac'
+    | '/du-an/$id'
+    | '/multimedia/e-magazine'
+    | '/multimedia/infographic'
+    | '/multimedia/livestream'
+    | '/multimedia/podcast'
+    | '/multimedia/video'
+    | '/nha-dau-tu/ban-tin'
+    | '/nha-dau-tu/cam-nang'
+    | '/nha-dau-tu/dang-ky-quan-tam'
+    | '/nha-dau-tu/su-kien'
+    | '/nha-dau-tu/tai-lieu'
+    | '/tin-tuc/$slug'
+    | '/tin-tuc/chinh-sach'
+    | '/tin-tuc/dia-phuong'
+    | '/tin-tuc/fdi'
+    | '/tin-tuc/ha-tang'
+    | '/tinh-thanh/$slug'
+    | '/dia-phuong/'
+    | '/multimedia/'
+    | '/nha-dau-tu/'
+    | '/tin-tuc/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BanDoDauTuRoute: typeof BanDoDauTuRoute
+  BaoMatRoute: typeof BaoMatRoute
+  DiaPhuongRoute: typeof DiaPhuongRouteWithChildren
+  DieuKhoanRoute: typeof DieuKhoanRoute
+  DuAnRoute: typeof DuAnRouteWithChildren
+  GioiThieuRoute: typeof GioiThieuRoute
+  LienHeRoute: typeof LienHeRoute
+  MultimediaRoute: typeof MultimediaRouteWithChildren
+  NhaDauTuRoute: typeof NhaDauTuRouteWithChildren
+  SoSanhRoute: typeof SoSanhRoute
+  SuKienRoute: typeof SuKienRoute
+  TinTucRoute: typeof TinTucRouteWithChildren
+  TinhThanhRoute: typeof TinhThanhRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tinh-thanh': {
+      id: '/tinh-thanh'
+      path: '/tinh-thanh'
+      fullPath: '/tinh-thanh'
+      preLoaderRoute: typeof TinhThanhRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tin-tuc': {
+      id: '/tin-tuc'
+      path: '/tin-tuc'
+      fullPath: '/tin-tuc'
+      preLoaderRoute: typeof TinTucRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/su-kien': {
+      id: '/su-kien'
+      path: '/su-kien'
+      fullPath: '/su-kien'
+      preLoaderRoute: typeof SuKienRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/so-sanh': {
+      id: '/so-sanh'
+      path: '/so-sanh'
+      fullPath: '/so-sanh'
+      preLoaderRoute: typeof SoSanhRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nha-dau-tu': {
+      id: '/nha-dau-tu'
+      path: '/nha-dau-tu'
+      fullPath: '/nha-dau-tu'
+      preLoaderRoute: typeof NhaDauTuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/multimedia': {
+      id: '/multimedia'
+      path: '/multimedia'
+      fullPath: '/multimedia'
+      preLoaderRoute: typeof MultimediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lien-he': {
+      id: '/lien-he'
+      path: '/lien-he'
+      fullPath: '/lien-he'
+      preLoaderRoute: typeof LienHeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gioi-thieu': {
+      id: '/gioi-thieu'
+      path: '/gioi-thieu'
+      fullPath: '/gioi-thieu'
+      preLoaderRoute: typeof GioiThieuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/du-an': {
+      id: '/du-an'
+      path: '/du-an'
+      fullPath: '/du-an'
+      preLoaderRoute: typeof DuAnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dieu-khoan': {
+      id: '/dieu-khoan'
+      path: '/dieu-khoan'
+      fullPath: '/dieu-khoan'
+      preLoaderRoute: typeof DieuKhoanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dia-phuong': {
+      id: '/dia-phuong'
+      path: '/dia-phuong'
+      fullPath: '/dia-phuong'
+      preLoaderRoute: typeof DiaPhuongRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bao-mat': {
+      id: '/bao-mat'
+      path: '/bao-mat'
+      fullPath: '/bao-mat'
+      preLoaderRoute: typeof BaoMatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ban-do-dau-tu': {
+      id: '/ban-do-dau-tu'
+      path: '/ban-do-dau-tu'
+      fullPath: '/ban-do-dau-tu'
+      preLoaderRoute: typeof BanDoDauTuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +604,306 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tin-tuc/': {
+      id: '/tin-tuc/'
+      path: '/'
+      fullPath: '/tin-tuc/'
+      preLoaderRoute: typeof TinTucIndexRouteImport
+      parentRoute: typeof TinTucRoute
+    }
+    '/nha-dau-tu/': {
+      id: '/nha-dau-tu/'
+      path: '/'
+      fullPath: '/nha-dau-tu/'
+      preLoaderRoute: typeof NhaDauTuIndexRouteImport
+      parentRoute: typeof NhaDauTuRoute
+    }
+    '/multimedia/': {
+      id: '/multimedia/'
+      path: '/'
+      fullPath: '/multimedia/'
+      preLoaderRoute: typeof MultimediaIndexRouteImport
+      parentRoute: typeof MultimediaRoute
+    }
+    '/dia-phuong/': {
+      id: '/dia-phuong/'
+      path: '/'
+      fullPath: '/dia-phuong/'
+      preLoaderRoute: typeof DiaPhuongIndexRouteImport
+      parentRoute: typeof DiaPhuongRoute
+    }
+    '/tinh-thanh/$slug': {
+      id: '/tinh-thanh/$slug'
+      path: '/$slug'
+      fullPath: '/tinh-thanh/$slug'
+      preLoaderRoute: typeof TinhThanhSlugRouteImport
+      parentRoute: typeof TinhThanhRoute
+    }
+    '/tin-tuc/ha-tang': {
+      id: '/tin-tuc/ha-tang'
+      path: '/ha-tang'
+      fullPath: '/tin-tuc/ha-tang'
+      preLoaderRoute: typeof TinTucHaTangRouteImport
+      parentRoute: typeof TinTucRoute
+    }
+    '/tin-tuc/fdi': {
+      id: '/tin-tuc/fdi'
+      path: '/fdi'
+      fullPath: '/tin-tuc/fdi'
+      preLoaderRoute: typeof TinTucFdiRouteImport
+      parentRoute: typeof TinTucRoute
+    }
+    '/tin-tuc/dia-phuong': {
+      id: '/tin-tuc/dia-phuong'
+      path: '/dia-phuong'
+      fullPath: '/tin-tuc/dia-phuong'
+      preLoaderRoute: typeof TinTucDiaPhuongRouteImport
+      parentRoute: typeof TinTucRoute
+    }
+    '/tin-tuc/chinh-sach': {
+      id: '/tin-tuc/chinh-sach'
+      path: '/chinh-sach'
+      fullPath: '/tin-tuc/chinh-sach'
+      preLoaderRoute: typeof TinTucChinhSachRouteImport
+      parentRoute: typeof TinTucRoute
+    }
+    '/tin-tuc/$slug': {
+      id: '/tin-tuc/$slug'
+      path: '/$slug'
+      fullPath: '/tin-tuc/$slug'
+      preLoaderRoute: typeof TinTucSlugRouteImport
+      parentRoute: typeof TinTucRoute
+    }
+    '/nha-dau-tu/tai-lieu': {
+      id: '/nha-dau-tu/tai-lieu'
+      path: '/tai-lieu'
+      fullPath: '/nha-dau-tu/tai-lieu'
+      preLoaderRoute: typeof NhaDauTuTaiLieuRouteImport
+      parentRoute: typeof NhaDauTuRoute
+    }
+    '/nha-dau-tu/su-kien': {
+      id: '/nha-dau-tu/su-kien'
+      path: '/su-kien'
+      fullPath: '/nha-dau-tu/su-kien'
+      preLoaderRoute: typeof NhaDauTuSuKienRouteImport
+      parentRoute: typeof NhaDauTuRoute
+    }
+    '/nha-dau-tu/dang-ky-quan-tam': {
+      id: '/nha-dau-tu/dang-ky-quan-tam'
+      path: '/dang-ky-quan-tam'
+      fullPath: '/nha-dau-tu/dang-ky-quan-tam'
+      preLoaderRoute: typeof NhaDauTuDangKyQuanTamRouteImport
+      parentRoute: typeof NhaDauTuRoute
+    }
+    '/nha-dau-tu/cam-nang': {
+      id: '/nha-dau-tu/cam-nang'
+      path: '/cam-nang'
+      fullPath: '/nha-dau-tu/cam-nang'
+      preLoaderRoute: typeof NhaDauTuCamNangRouteImport
+      parentRoute: typeof NhaDauTuRoute
+    }
+    '/nha-dau-tu/ban-tin': {
+      id: '/nha-dau-tu/ban-tin'
+      path: '/ban-tin'
+      fullPath: '/nha-dau-tu/ban-tin'
+      preLoaderRoute: typeof NhaDauTuBanTinRouteImport
+      parentRoute: typeof NhaDauTuRoute
+    }
+    '/multimedia/video': {
+      id: '/multimedia/video'
+      path: '/video'
+      fullPath: '/multimedia/video'
+      preLoaderRoute: typeof MultimediaVideoRouteImport
+      parentRoute: typeof MultimediaRoute
+    }
+    '/multimedia/podcast': {
+      id: '/multimedia/podcast'
+      path: '/podcast'
+      fullPath: '/multimedia/podcast'
+      preLoaderRoute: typeof MultimediaPodcastRouteImport
+      parentRoute: typeof MultimediaRoute
+    }
+    '/multimedia/livestream': {
+      id: '/multimedia/livestream'
+      path: '/livestream'
+      fullPath: '/multimedia/livestream'
+      preLoaderRoute: typeof MultimediaLivestreamRouteImport
+      parentRoute: typeof MultimediaRoute
+    }
+    '/multimedia/infographic': {
+      id: '/multimedia/infographic'
+      path: '/infographic'
+      fullPath: '/multimedia/infographic'
+      preLoaderRoute: typeof MultimediaInfographicRouteImport
+      parentRoute: typeof MultimediaRoute
+    }
+    '/multimedia/e-magazine': {
+      id: '/multimedia/e-magazine'
+      path: '/e-magazine'
+      fullPath: '/multimedia/e-magazine'
+      preLoaderRoute: typeof MultimediaEMagazineRouteImport
+      parentRoute: typeof MultimediaRoute
+    }
+    '/du-an/$id': {
+      id: '/du-an/$id'
+      path: '/$id'
+      fullPath: '/du-an/$id'
+      preLoaderRoute: typeof DuAnIdRouteImport
+      parentRoute: typeof DuAnRoute
+    }
+    '/dia-phuong/quy-trinh-hop-tac': {
+      id: '/dia-phuong/quy-trinh-hop-tac'
+      path: '/quy-trinh-hop-tac'
+      fullPath: '/dia-phuong/quy-trinh-hop-tac'
+      preLoaderRoute: typeof DiaPhuongQuyTrinhHopTacRouteImport
+      parentRoute: typeof DiaPhuongRoute
+    }
+    '/dia-phuong/goi-dich-vu': {
+      id: '/dia-phuong/goi-dich-vu'
+      path: '/goi-dich-vu'
+      fullPath: '/dia-phuong/goi-dich-vu'
+      preLoaderRoute: typeof DiaPhuongGoiDichVuRouteImport
+      parentRoute: typeof DiaPhuongRoute
+    }
+    '/dia-phuong/dang-ky-tu-van': {
+      id: '/dia-phuong/dang-ky-tu-van'
+      path: '/dang-ky-tu-van'
+      fullPath: '/dia-phuong/dang-ky-tu-van'
+      preLoaderRoute: typeof DiaPhuongDangKyTuVanRouteImport
+      parentRoute: typeof DiaPhuongRoute
+    }
+    '/dia-phuong/case-study': {
+      id: '/dia-phuong/case-study'
+      path: '/case-study'
+      fullPath: '/dia-phuong/case-study'
+      preLoaderRoute: typeof DiaPhuongCaseStudyRouteImport
+      parentRoute: typeof DiaPhuongRoute
+    }
   }
 }
 
+interface DiaPhuongRouteChildren {
+  DiaPhuongCaseStudyRoute: typeof DiaPhuongCaseStudyRoute
+  DiaPhuongDangKyTuVanRoute: typeof DiaPhuongDangKyTuVanRoute
+  DiaPhuongGoiDichVuRoute: typeof DiaPhuongGoiDichVuRoute
+  DiaPhuongQuyTrinhHopTacRoute: typeof DiaPhuongQuyTrinhHopTacRoute
+  DiaPhuongIndexRoute: typeof DiaPhuongIndexRoute
+}
+
+const DiaPhuongRouteChildren: DiaPhuongRouteChildren = {
+  DiaPhuongCaseStudyRoute: DiaPhuongCaseStudyRoute,
+  DiaPhuongDangKyTuVanRoute: DiaPhuongDangKyTuVanRoute,
+  DiaPhuongGoiDichVuRoute: DiaPhuongGoiDichVuRoute,
+  DiaPhuongQuyTrinhHopTacRoute: DiaPhuongQuyTrinhHopTacRoute,
+  DiaPhuongIndexRoute: DiaPhuongIndexRoute,
+}
+
+const DiaPhuongRouteWithChildren = DiaPhuongRoute._addFileChildren(
+  DiaPhuongRouteChildren,
+)
+
+interface DuAnRouteChildren {
+  DuAnIdRoute: typeof DuAnIdRoute
+}
+
+const DuAnRouteChildren: DuAnRouteChildren = {
+  DuAnIdRoute: DuAnIdRoute,
+}
+
+const DuAnRouteWithChildren = DuAnRoute._addFileChildren(DuAnRouteChildren)
+
+interface MultimediaRouteChildren {
+  MultimediaEMagazineRoute: typeof MultimediaEMagazineRoute
+  MultimediaInfographicRoute: typeof MultimediaInfographicRoute
+  MultimediaLivestreamRoute: typeof MultimediaLivestreamRoute
+  MultimediaPodcastRoute: typeof MultimediaPodcastRoute
+  MultimediaVideoRoute: typeof MultimediaVideoRoute
+  MultimediaIndexRoute: typeof MultimediaIndexRoute
+}
+
+const MultimediaRouteChildren: MultimediaRouteChildren = {
+  MultimediaEMagazineRoute: MultimediaEMagazineRoute,
+  MultimediaInfographicRoute: MultimediaInfographicRoute,
+  MultimediaLivestreamRoute: MultimediaLivestreamRoute,
+  MultimediaPodcastRoute: MultimediaPodcastRoute,
+  MultimediaVideoRoute: MultimediaVideoRoute,
+  MultimediaIndexRoute: MultimediaIndexRoute,
+}
+
+const MultimediaRouteWithChildren = MultimediaRoute._addFileChildren(
+  MultimediaRouteChildren,
+)
+
+interface NhaDauTuRouteChildren {
+  NhaDauTuBanTinRoute: typeof NhaDauTuBanTinRoute
+  NhaDauTuCamNangRoute: typeof NhaDauTuCamNangRoute
+  NhaDauTuDangKyQuanTamRoute: typeof NhaDauTuDangKyQuanTamRoute
+  NhaDauTuSuKienRoute: typeof NhaDauTuSuKienRoute
+  NhaDauTuTaiLieuRoute: typeof NhaDauTuTaiLieuRoute
+  NhaDauTuIndexRoute: typeof NhaDauTuIndexRoute
+}
+
+const NhaDauTuRouteChildren: NhaDauTuRouteChildren = {
+  NhaDauTuBanTinRoute: NhaDauTuBanTinRoute,
+  NhaDauTuCamNangRoute: NhaDauTuCamNangRoute,
+  NhaDauTuDangKyQuanTamRoute: NhaDauTuDangKyQuanTamRoute,
+  NhaDauTuSuKienRoute: NhaDauTuSuKienRoute,
+  NhaDauTuTaiLieuRoute: NhaDauTuTaiLieuRoute,
+  NhaDauTuIndexRoute: NhaDauTuIndexRoute,
+}
+
+const NhaDauTuRouteWithChildren = NhaDauTuRoute._addFileChildren(
+  NhaDauTuRouteChildren,
+)
+
+interface TinTucRouteChildren {
+  TinTucSlugRoute: typeof TinTucSlugRoute
+  TinTucChinhSachRoute: typeof TinTucChinhSachRoute
+  TinTucDiaPhuongRoute: typeof TinTucDiaPhuongRoute
+  TinTucFdiRoute: typeof TinTucFdiRoute
+  TinTucHaTangRoute: typeof TinTucHaTangRoute
+  TinTucIndexRoute: typeof TinTucIndexRoute
+}
+
+const TinTucRouteChildren: TinTucRouteChildren = {
+  TinTucSlugRoute: TinTucSlugRoute,
+  TinTucChinhSachRoute: TinTucChinhSachRoute,
+  TinTucDiaPhuongRoute: TinTucDiaPhuongRoute,
+  TinTucFdiRoute: TinTucFdiRoute,
+  TinTucHaTangRoute: TinTucHaTangRoute,
+  TinTucIndexRoute: TinTucIndexRoute,
+}
+
+const TinTucRouteWithChildren =
+  TinTucRoute._addFileChildren(TinTucRouteChildren)
+
+interface TinhThanhRouteChildren {
+  TinhThanhSlugRoute: typeof TinhThanhSlugRoute
+}
+
+const TinhThanhRouteChildren: TinhThanhRouteChildren = {
+  TinhThanhSlugRoute: TinhThanhSlugRoute,
+}
+
+const TinhThanhRouteWithChildren = TinhThanhRoute._addFileChildren(
+  TinhThanhRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BanDoDauTuRoute: BanDoDauTuRoute,
+  BaoMatRoute: BaoMatRoute,
+  DiaPhuongRoute: DiaPhuongRouteWithChildren,
+  DieuKhoanRoute: DieuKhoanRoute,
+  DuAnRoute: DuAnRouteWithChildren,
+  GioiThieuRoute: GioiThieuRoute,
+  LienHeRoute: LienHeRoute,
+  MultimediaRoute: MultimediaRouteWithChildren,
+  NhaDauTuRoute: NhaDauTuRouteWithChildren,
+  SoSanhRoute: SoSanhRoute,
+  SuKienRoute: SuKienRoute,
+  TinTucRoute: TinTucRouteWithChildren,
+  TinhThanhRoute: TinhThanhRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
