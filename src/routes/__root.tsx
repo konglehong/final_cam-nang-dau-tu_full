@@ -43,7 +43,7 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Cẩm nang Đầu tư Việt Nam" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "theme-color", content: "#8b1a1a" },
+      { name: "theme-color", content: "#635bff" },
       { property: "og:title", content: "Cẩm nang Đầu tư Việt Nam" },
       { name: "twitter:title", content: "Cẩm nang Đầu tư Việt Nam" },
       { name: "description", content: "Investment Guide Map provides a comprehensive sitemap for an investment handbook." },
