@@ -1,33 +1,62 @@
 import { useEffect } from "react";
-import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl, Rectangle, Tooltip } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Marker, Popup, LayersControl, LayerGroup, ZoomControl, Polygon, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
+import { ARCHIPELAGOS, type IslandPoint } from "@/data/archipelagos";
 
-// Hai quần đảo thuộc chủ quyền Việt Nam — luôn hiển thị marker để khẳng định
-const VN_ARCHIPELAGOS = [
-  {
-    name: "Quần đảo Hoàng Sa",
-    sub: "TP. Đà Nẵng, Việt Nam",
-    lat: 16.5,
-    lng: 112.0,
-    bounds: [[15.7, 111.0], [17.1, 113.0]] as [[number, number], [number, number]],
-  },
-  {
-    name: "Quần đảo Trường Sa",
-    sub: "Tỉnh Khánh Hòa, Việt Nam",
-    lat: 9.6,
-    lng: 114.0,
-    bounds: [[7.5, 111.5], [12.0, 117.5]] as [[number, number], [number, number]],
-  },
-];
+// Label chính cho quần đảo (kiểu Google Maps: chữ in hoa, có viền trắng)
+const archipelagoLabelIcon = (name: string, sub: string) =>
+  L.divIcon({
+    className: "",
+    html: `
+      <div style="text-align:center;pointer-events:none;transform:translateY(-50%)">
+        <div style="
+          font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          color: #1a1a1a;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          text-shadow:
+            -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff,
+            -1.5px 1.5px 0 #fff, 1.5px 1.5px 0 #fff,
+            0 0 4px rgba(255,255,255,.9);
+          white-space: nowrap;
+        ">${name}</div>
+        <div style="
+          font-family: -apple-system, system-ui, sans-serif;
+          font-size: 10px;
+          font-weight: 500;
+          color: #c2410c;
+          margin-top: 2px;
+          text-shadow:
+            -1px -1px 0 #fff, 1px -1px 0 #fff,
+            -1px 1px 0 #fff, 1px 1px 0 #fff;
+          white-space: nowrap;
+        ">🇻🇳 ${sub}</div>
+      </div>`,
+    iconSize: [200, 40],
+    iconAnchor: [100, 20],
+  });
 
-const archipelagoIcon = L.divIcon({
-  className: "",
-  html: `<div style="background:oklch(0.55 0.18 25);color:white;padding:4px 10px;border-radius:14px;font-size:11px;font-weight:700;white-space:nowrap;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,.4)">🇻🇳 VN</div>`,
-  iconSize: [60, 24],
-  iconAnchor: [30, 12],
-});
+// Chấm cho đảo chính (style Google Maps)
+const islandDotIcon = (type: IslandPoint["type"]) => {
+  const color = type === "bank" ? "#0891b2" : type === "reef" ? "#0ea5e9" : "#dc2626";
+  const size = type === "island" ? 8 : 6;
+  return L.divIcon({
+    className: "",
+    html: `<div style="
+      width:${size}px;height:${size}px;
+      background:${color};
+      border:1.5px solid white;
+      border-radius:50%;
+      box-shadow:0 1px 3px rgba(0,0,0,.5);
+    "></div>`,
+    iconSize: [size + 3, size + 3],
+    iconAnchor: [(size + 3) / 2, (size + 3) / 2],
+  });
+};
 
 // Fix Leaflet default icon paths (Vite/bundler issue)
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
