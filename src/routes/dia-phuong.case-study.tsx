@@ -173,7 +173,7 @@ const CASES: CaseStudy[] = [
 export const Route = createFileRoute("/dia-phuong/case-study")({
   head: () => ({
     meta: [
-      { title: "Case study — 11+ tỉnh đã triển khai cùng Greencom × Tiền Phong" },
+      { title: "Case study — 11+ tỉnh đã triển khai xúc tiến đầu tư" },
       { name: "description", content: "Câu chuyện hợp tác xúc tiến đầu tư tại TP.HCM, Đồng Nai, Long An, Tây Ninh, Bình Thuận, Lâm Đồng, Đồng Tháp, Sơn La và nhiều tỉnh khác." },
       { property: "og:title", content: "Case study xúc tiến đầu tư địa phương" },
     ],
@@ -234,8 +234,7 @@ function CaseStudyPage() {
         <div className="mt-12 rounded-2xl bg-gradient-to-br from-primary to-[oklch(0.32_0.12_20)] p-10 text-center text-primary-foreground">
           <h2 className="font-display text-3xl font-bold">Tỉnh của bạn sẽ là case study tiếp theo?</h2>
           <p className="mx-auto mt-3 max-w-2xl text-primary-foreground/85">
-            Liên hệ Greencom × Báo Tiền Phong để khởi động chiến dịch xúc tiến đầu tư phù hợp với
-            địa phương.
+            Liên hệ với chúng tôi để khởi động chiến dịch xúc tiến đầu tư phù hợp với địa phương.
           </p>
           <a
             href="/dia-phuong/dang-ky-tu-van"

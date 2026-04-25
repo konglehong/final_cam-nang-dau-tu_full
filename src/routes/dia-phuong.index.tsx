@@ -8,7 +8,7 @@ export const Route = createFileRoute("/dia-phuong/")({
       <PageHero
         eyebrow="Dành cho Lãnh đạo Địa phương"
         title="Kể câu chuyện địa phương — Thiết kế cơ hội đầu tư"
-        description="Greencom × Báo Tiền Phong giúp tỉnh của bạn xây dựng lại hình ảnh sau sáp nhập, quảng bá tiềm năng và thu hút nhà đầu tư hiệu quả."
+        description="Giúp tỉnh của bạn xây dựng lại hình ảnh sau sáp nhập, quảng bá tiềm năng và thu hút nhà đầu tư hiệu quả."
       >
         <Link
           to="/dia-phuong/dang-ky-tu-van"
@@ -19,9 +19,8 @@ export const Route = createFileRoute("/dia-phuong/")({
       </PageHero>
 
       <section className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 md:grid-cols-3">
           {[
-            { to: "/dia-phuong/goi-dich-vu" as const, title: "3 Gói dịch vụ", desc: "Cơ bản · Nâng cao · Premium" },
             { to: "/dia-phuong/quy-trinh-hop-tac" as const, title: "Quy trình hợp tác", desc: "5 bước minh bạch" },
             { to: "/dia-phuong/case-study" as const, title: "Case study", desc: "11+ tỉnh đã triển khai" },
             { to: "/dia-phuong/dang-ky-tu-van" as const, title: "Đăng ký tư vấn", desc: "Báo giá theo nhu cầu" },

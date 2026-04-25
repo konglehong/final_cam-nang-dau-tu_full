@@ -10,20 +10,20 @@ const STEPS = [
     deliverables: [
       "Báo cáo phân tích định vị địa phương",
       "Đề xuất chiến lược nội dung sơ bộ",
-      "Báo giá theo gói dịch vụ phù hợp",
+      "Báo giá theo nhu cầu phù hợp",
     ],
-    parties: { tinhPhong: "Cố vấn nội dung", greencom: "Khảo sát & báo giá", local: "Cung cấp dữ liệu, định hướng" },
+    parties: { partner: "Khảo sát & báo giá", local: "Cung cấp dữ liệu, định hướng" },
   },
   {
     n: 2,
-    title: "Ký kết hợp đồng & chọn gói",
+    title: "Ký kết hợp đồng & chốt phạm vi",
     duration: "1 tuần",
     deliverables: [
       "Hợp đồng dịch vụ truyền thông",
       "Phụ lục KPI cam kết",
       "Lịch triển khai 12 tháng",
     ],
-    parties: { tinhPhong: "Bảo lãnh thương hiệu", greencom: "Ký hợp đồng & nhận đầu tư 100% chi phí sản xuất", local: "Phê duyệt gói & cử đầu mối" },
+    parties: { partner: "Ký hợp đồng & chuẩn bị nguồn lực", local: "Phê duyệt phạm vi & cử đầu mối" },
   },
   {
     n: 3,
@@ -34,7 +34,7 @@ const STEPS = [
       "Bản đồ KCN, dự án trọng điểm cập nhật",
       "Phỏng vấn lãnh đạo tỉnh",
     ],
-    parties: { tinhPhong: "Phóng viên đi cùng", greencom: "Đội sản xuất 3-5 người", local: "Cung cấp xe, thông dịch và quyền tiếp cận" },
+    parties: { partner: "Đội sản xuất 3-5 người", local: "Cung cấp xe, thông dịch và quyền tiếp cận" },
   },
   {
     n: 4,
@@ -45,7 +45,7 @@ const STEPS = [
       "Bộ tài liệu xúc tiến đa ngôn ngữ",
       "5-8 bài viết và 2-5 video lên kênh chính thức",
     ],
-    parties: { tinhPhong: "Xuất bản trên Tiền Phong + báo in", greencom: "Sản xuất, thiết kế, dịch thuật", local: "Phê duyệt nội dung trong 5 ngày" },
+    parties: { partner: "Sản xuất, thiết kế, dịch thuật & xuất bản", local: "Phê duyệt nội dung trong 5 ngày" },
   },
   {
     n: 5,
@@ -53,10 +53,10 @@ const STEPS = [
     duration: "12 tháng",
     deliverables: [
       "Báo cáo KPI hàng tháng",
-      "1-2 bài viết/tháng + video/podcast theo gói",
+      "1-2 bài viết/tháng + video/podcast theo phạm vi",
       "Dashboard reach / engagement / lead realtime",
     ],
-    parties: { tinhPhong: "Hỗ trợ truyền thông sự kiện", greencom: "Quản lý vận hành & tối ưu", local: "Cung cấp tin mới, phản hồi nhanh" },
+    parties: { partner: "Quản lý vận hành & tối ưu", local: "Cung cấp tin mới, phản hồi nhanh" },
   },
 ];
 
@@ -64,7 +64,7 @@ export const Route = createFileRoute("/dia-phuong/quy-trinh-hop-tac")({
   head: () => ({
     meta: [
       { title: "Quy trình hợp tác 5 bước — Cẩm nang Đầu tư × Địa phương" },
-      { name: "description", content: "Quy trình minh bạch 5 bước giữa Greencom × Báo Tiền Phong và UBND tỉnh." },
+      { name: "description", content: "Quy trình minh bạch 5 bước giữa đối tác truyền thông và UBND tỉnh." },
       { property: "og:title", content: "Quy trình hợp tác xúc tiến đầu tư địa phương" },
     ],
   }),
@@ -109,9 +109,8 @@ function QuyTrinhPage() {
                   </ul>
                 </div>
 
-                <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-3">
-                  <Party name="Báo Tiền Phong" role={s.parties.tinhPhong} accent="primary" />
-                  <Party name="Greencom" role={s.parties.greencom} accent="gold" />
+                <div className="mt-4 grid gap-3 border-t border-border pt-4 sm:grid-cols-2">
+                  <Party name="Đơn vị triển khai" role={s.parties.partner} accent="primary" />
                   <Party name="UBND Tỉnh" role={s.parties.local} accent="muted" />
                 </div>
               </div>

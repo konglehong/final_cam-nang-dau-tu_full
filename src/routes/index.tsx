@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Cổng thông tin đầu tư chính thống cho 34 tỉnh thành Việt Nam: bản đồ tương tác, dữ liệu kinh tế, chính sách ưu đãi và cơ hội đầu tư. Hợp tác giữa Báo Tiền Phong và Greencom.",
+          "Cổng thông tin đầu tư chính thống cho 34 tỉnh thành Việt Nam: bản đồ tương tác, dữ liệu kinh tế, chính sách ưu đãi và cơ hội đầu tư.",
       },
       {
         property: "og:title",
@@ -96,7 +96,7 @@ function HomePage() {
           <div className="max-w-3xl">
             <span className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-primary backdrop-blur">
               <Sparkles className="h-3.5 w-3.5" />
-              Báo Tiền Phong × Greencom
+              Cẩm nang Đầu tư Việt Nam
             </span>
             <h1
               className="animate-fade-up mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
@@ -432,7 +432,7 @@ function HomePage() {
               Bạn là <span className="text-white/95 underline decoration-white/40 decoration-2 underline-offset-4">Lãnh đạo địa phương</span>?
             </h3>
             <p className="relative mt-3 max-w-md text-sm leading-relaxed text-white/85">
-              Khám phá 3 gói dịch vụ truyền thông xúc tiến đầu tư — từ Cơ bản (1 tỷ/năm) đến Premium (theo nhu cầu). Greencom đầu tư 100% chi phí xây dựng nội dung.
+              Khám phá quy trình hợp tác minh bạch và các case study thực tế — đồng hành cùng tỉnh của bạn trong truyền thông xúc tiến đầu tư hiệu quả.
             </p>
             <Link
               to="/dia-phuong"

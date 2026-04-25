@@ -39,7 +39,7 @@ export const Route = createRootRoute({
         content:
           "Cổng thông tin đầu tư chính thống cho 34 tỉnh thành Việt Nam sau sáp nhập — bản đồ, dữ liệu, chính sách ưu đãi và cơ hội đầu tư.",
       },
-      { name: "author", content: "Báo Tiền Phong × Greencom" },
+      { name: "author", content: "Cẩm nang Đầu tư Việt Nam" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Cẩm nang Đầu tư Việt Nam" },
       { name: "twitter:card", content: "summary_large_image" },

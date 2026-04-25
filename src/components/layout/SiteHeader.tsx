@@ -72,7 +72,7 @@ export function SiteHeader() {
               Cẩm nang Đầu tư
             </span>
             <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
-              Việt Nam · Tiền Phong × Greencom
+              Việt Nam
             </span>
           </div>
         </Link>

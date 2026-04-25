@@ -62,7 +62,6 @@ export const PRIMARY_NAV: NavItem[] = [
     label: "Địa phương",
     to: "/dia-phuong",
     children: [
-      { label: "Gói dịch vụ", to: "/dia-phuong/goi-dich-vu" },
       { label: "Quy trình hợp tác", to: "/dia-phuong/quy-trinh-hop-tac" },
       { label: "Case study", to: "/dia-phuong/case-study" },
       { label: "Đăng ký tư vấn", to: "/dia-phuong/dang-ky-tu-van" },
@@ -84,7 +83,6 @@ export const FOOTER_NAV = {
     { label: "Sự kiện xúc tiến", to: "/su-kien" },
   ],
   "Địa phương": [
-    { label: "Gói dịch vụ", to: "/dia-phuong/goi-dich-vu" },
     { label: "Quy trình hợp tác", to: "/dia-phuong/quy-trinh-hop-tac" },
     { label: "Case study", to: "/dia-phuong/case-study" },
     { label: "Đăng ký tư vấn", to: "/dia-phuong/dang-ky-tu-van" },
