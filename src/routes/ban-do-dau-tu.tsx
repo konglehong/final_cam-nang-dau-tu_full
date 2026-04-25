@@ -18,12 +18,11 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
 const InvestmentMap = lazy(async () => {
-  if (typeof window === "undefined") {
-    return {
-      default: (_: import("@/components/map/InvestmentMap").InvestmentMapProps) => null,
-    };
-  }
   const m = await import("@/components/map/InvestmentMap");
+  if (typeof window === "undefined") {
+    const Stub: typeof m.InvestmentMap = () => null;
+    return { default: Stub };
+  }
   return { default: m.InvestmentMap };
 });
 
