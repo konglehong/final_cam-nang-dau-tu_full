@@ -21,7 +21,7 @@ export type MapLayers = {
   seaports: boolean;
 };
 
-type Props = {
+export type InvestmentMapProps = {
   layers: MapLayers;
   region: "all" | Region;
   className?: string;
