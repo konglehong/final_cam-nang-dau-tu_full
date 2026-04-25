@@ -46,12 +46,12 @@ const STATS = [
 ];
 
 const REGIONS = [
-  { name: "Đồng bằng Bắc Bộ", count: 7, color: "from-primary to-[oklch(0.55_0.18_30)]" },
-  { name: "Bắc Trung Bộ", count: 5, color: "from-[oklch(0.55_0.16_60)] to-gold" },
-  { name: "Nam Trung Bộ", count: 6, color: "from-gold to-[oklch(0.62_0.15_90)]" },
-  { name: "Tây Nguyên", count: 3, color: "from-[oklch(0.55_0.12_160)] to-[oklch(0.45_0.1_170)]" },
-  { name: "Đông Nam Bộ", count: 5, color: "from-navy to-[oklch(0.4_0.1_245)]" },
-  { name: "Đồng bằng SCL", count: 8, color: "from-[oklch(0.5_0.13_240)] to-[oklch(0.55_0.15_220)]" },
+  { name: "Đồng bằng Bắc Bộ", count: 7, color: "from-[oklch(0.55_0.22_280)] to-[oklch(0.6_0.2_255)]" },
+  { name: "Bắc Trung Bộ", count: 5, color: "from-[oklch(0.6_0.2_250)] to-[oklch(0.65_0.18_220)]" },
+  { name: "Nam Trung Bộ", count: 6, color: "from-[oklch(0.65_0.18_220)] to-[oklch(0.7_0.16_200)]" },
+  { name: "Tây Nguyên", count: 3, color: "from-[oklch(0.55_0.18_200)] to-[oklch(0.6_0.16_180)]" },
+  { name: "Đông Nam Bộ", count: 5, color: "from-[oklch(0.5_0.22_290)] to-[oklch(0.55_0.2_270)]" },
+  { name: "Đồng bằng SCL", count: 8, color: "from-[oklch(0.5_0.2_310)] to-[oklch(0.55_0.22_285)]" },
 ];
 
 const FEATURED_NEWS = [
