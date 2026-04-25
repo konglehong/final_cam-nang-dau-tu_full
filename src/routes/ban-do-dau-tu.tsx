@@ -236,7 +236,7 @@ function BanDoPage() {
             <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
               {t.filterRegion}
             </span>
-            {REGIONS.map((r) => (
+            {regions.map((r) => (
               <Button
                 key={r.value}
                 variant={region === r.value ? "default" : "outline"}
