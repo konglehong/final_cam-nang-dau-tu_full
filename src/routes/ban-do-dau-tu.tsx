@@ -243,8 +243,11 @@ function BanDoPage() {
               <InvestmentMap layers={mapLayers} region={region} />
             </Suspense>
 
-            {/* In-map legend */}
-            <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-xs rounded-md border border-border/80 bg-background/95 p-3 shadow-[var(--shadow-elegant)] backdrop-blur">
+            {/* In-map legend (overlay above Leaflet) */}
+            <div
+              className="pointer-events-none absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-xs rounded-md border border-border/80 bg-background/95 p-3 shadow-[var(--shadow-elegant)] backdrop-blur"
+              style={{ zIndex: 500 }}
+            >
               <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                 Đang hiển thị
               </p>
@@ -338,8 +341,13 @@ function BanDoPage() {
                               <Icon className="h-4 w-4" />
                             </span>
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-sm font-medium text-foreground">
+                              <p className="flex items-center gap-1.5 truncate text-sm font-medium text-foreground">
                                 {l.label}
+                                {!l.live && (
+                                  <span className="rounded-sm bg-muted px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
+                                    Sắp có
+                                  </span>
+                                )}
                               </p>
                               <p className="truncate text-xs text-muted-foreground">
                                 {l.description} · {l.count}
@@ -349,6 +357,7 @@ function BanDoPage() {
                               checked={isOn}
                               onCheckedChange={() => toggle(l.id)}
                               aria-label={`Toggle ${l.label}`}
+                              disabled={!l.live}
                             />
                           </label>
                         </li>
