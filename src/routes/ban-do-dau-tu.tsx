@@ -16,6 +16,8 @@ import {
 import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { useLanguage } from "@/lib/i18n";
+import { getMapStrings } from "@/lib/map-i18n";
 
 // Hàm import chia sẻ — tái sử dụng khi prefetch để bundler chỉ tạo 1 chunk
 const loadMap = () => import("@/components/map/InvestmentMap");
@@ -58,103 +60,105 @@ type LayerId =
   | "nangluong"
   | "dulich";
 
+type GroupKey = "admin" | "economic" | "transport" | "keyProject";
+
 type LayerDef = {
   id: LayerId;
-  label: string;
-  description: string;
   count: number;
   icon: typeof Factory;
   color: string;
-  group: "Hành chính" | "Khu kinh tế" | "Hạ tầng giao thông" | "Dự án trọng điểm";
+  group: GroupKey;
   live?: boolean; // có data thật trên map
 };
 
 const LAYERS: LayerDef[] = [
   {
     id: "tinh",
-    label: "34 Tỉnh thành",
-    description: "Sau sáp nhập 01/07/2025",
     count: 34,
     icon: MapPin,
     color: "var(--primary)",
-    group: "Hành chính",
+    group: "admin",
     live: true,
   },
   {
     id: "sanbay",
-    label: "Sân bay quốc tế",
-    description: "Đang khai thác & xây dựng",
     count: 12,
     icon: Plane,
     color: "oklch(0.5 0.18 250)",
-    group: "Hạ tầng giao thông",
+    group: "transport",
     live: true,
   },
   {
     id: "cang",
-    label: "Cảng biển lớn",
-    description: "Loại đặc biệt & loại I",
     count: 13,
     icon: Ship,
     color: "oklch(0.4 0.12 230)",
-    group: "Hạ tầng giao thông",
+    group: "transport",
     live: true,
   },
   {
     id: "kcn",
-    label: "Khu công nghiệp",
-    description: "418 KCN (đang cập nhật)",
     count: 418,
     icon: Factory,
     color: "var(--primary)",
-    group: "Khu kinh tế",
+    group: "economic",
   },
   {
     id: "dulich",
-    label: "Khu du lịch trọng điểm",
-    description: "Cụm du lịch quốc gia",
     count: 47,
     icon: Trees,
     color: "var(--gold)",
-    group: "Khu kinh tế",
+    group: "economic",
   },
   {
     id: "caotoc",
-    label: "Cao tốc & vành đai",
-    description: "Mạng lưới cao tốc",
     count: 41,
     icon: TrainFront,
     color: "oklch(0.55 0.15 250)",
-    group: "Hạ tầng giao thông",
+    group: "transport",
   },
   {
     id: "duan",
-    label: "Dự án trọng điểm",
-    description: "Top dự án FDI tỷ USD",
     count: 156,
     icon: Building2,
     color: "oklch(0.5 0.18 145)",
-    group: "Dự án trọng điểm",
+    group: "keyProject",
   },
   {
     id: "nangluong",
-    label: "Nhà máy năng lượng",
-    description: "Điện gió, mặt trời, LNG",
     count: 89,
     icon: Zap,
     color: "oklch(0.65 0.15 60)",
-    group: "Dự án trọng điểm",
+    group: "keyProject",
   },
 ];
 
-const REGIONS = [
-  { value: "all", label: "Toàn quốc" },
-  { value: "bac", label: "Miền Bắc" },
-  { value: "trung", label: "Miền Trung" },
-  { value: "nam", label: "Miền Nam" },
-];
+const REGION_VALUES = ["all", "bac", "trung", "nam"] as const;
 
 function BanDoPage() {
+  const { lang } = useLanguage();
+  const t = useMemo(() => getMapStrings(lang), [lang]);
+
+  const REGIONS = useMemo(
+    () => [
+      { value: "all" as const, label: t.regionAll },
+      { value: "bac" as const, label: t.regionNorth },
+      { value: "trung" as const, label: t.regionCentral },
+      { value: "nam" as const, label: t.regionSouth },
+    ],
+    [t],
+  );
+
+  const GROUP_LABEL: Record<GroupKey, string> = useMemo(
+    () => ({
+      admin: t.groupAdmin,
+      economic: t.groupEconomic,
+      transport: t.groupTransport,
+      keyProject: t.groupKeyProject,
+    }),
+    [t],
+  );
+
   const [active, setActive] = useState<Record<LayerId, boolean>>({
     tinh: true,
     sanbay: true,
@@ -165,10 +169,9 @@ function BanDoPage() {
     nangluong: false,
     dulich: false,
   });
-  const [region, setRegion] = useState<"all" | "bac" | "trung" | "nam">("all");
+  const [region, setRegion] = useState<(typeof REGION_VALUES)[number]>("all");
 
-  // Prefetch chunk InvestmentMap ngay khi page mount (song song với render UI khác)
-  // → khi React render Suspense, chunk thường đã sẵn sàng → giảm thời gian thấy bản đồ.
+  // Prefetch chunk InvestmentMap ngay khi page mount
   useEffect(() => {
     const start = () => {
       void loadMap();
@@ -183,9 +186,14 @@ function BanDoPage() {
   }, []);
 
   const grouped = useMemo(() => {
-    const map: Record<string, LayerDef[]> = {};
+    const map: Record<GroupKey, LayerDef[]> = {
+      admin: [],
+      economic: [],
+      transport: [],
+      keyProject: [],
+    };
     for (const l of LAYERS) {
-      (map[l.group] ||= []).push(l);
+      map[l.group].push(l);
     }
     return map;
   }, []);
@@ -216,9 +224,9 @@ function BanDoPage() {
   return (
     <>
       <PageHero
-        eyebrow="Bản đồ tương tác"
-        title="Bản đồ đầu tư Việt Nam"
-        description="Khám phá 34 tỉnh thành sau sáp nhập với dữ liệu kinh tế, hạ tầng, chính sách ưu đãi và cơ hội đầu tư cập nhật theo thời gian thực."
+        eyebrow={t.pageHeroEyebrow}
+        title={t.pageHeroTitle}
+        description={t.pageHeroDesc}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-12">
@@ -226,25 +234,25 @@ function BanDoPage() {
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-border bg-card p-4 shadow-[var(--shadow-card)]">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-              Vùng:
+              {t.filterRegion}
             </span>
             {REGIONS.map((r) => (
               <Button
                 key={r.value}
                 variant={region === r.value ? "default" : "outline"}
                 size="sm"
-                onClick={() => setRegion(r.value as typeof region)}
+                onClick={() => setRegion(r.value)}
               >
                 {r.label}
               </Button>
             ))}
           </div>
           <div className="text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">{activeCount}</span> lớp ·{" "}
+            <span className="font-semibold text-foreground">{activeCount}</span> {t.layersCountSuffix} ·{" "}
             <span className="font-semibold text-foreground">
-              {totalPoints.toLocaleString("vi-VN")}
+              {totalPoints.toLocaleString(t.numberLocale)}
             </span>{" "}
-            điểm hiển thị
+            {t.pointsShownSuffix}
           </div>
         </div>
 
@@ -257,7 +265,7 @@ function BanDoPage() {
                   <div className="text-center">
                     <Layers className="mx-auto mb-3 h-12 w-12 animate-pulse text-muted-foreground/40" />
                     <p className="text-sm text-muted-foreground">
-                      Đang tải bản đồ…
+                      {t.loadingMap}
                     </p>
                   </div>
                 </div>
@@ -272,11 +280,12 @@ function BanDoPage() {
               style={{ zIndex: 500 }}
             >
               <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                Đang hiển thị
+                {t.legendShowing}
               </p>
               <ul className="space-y-1.5">
                 {LAYERS.filter((l) => active[l.id]).map((l) => {
                   const Icon = l.icon;
+                  const meta = t.layer[l.id];
                   return (
                     <li key={l.id} className="flex items-center gap-2 text-xs">
                       <span
@@ -288,7 +297,7 @@ function BanDoPage() {
                       >
                         <Icon className="h-3 w-3" />
                       </span>
-                      <span className="flex-1 text-foreground">{l.label}</span>
+                      <span className="flex-1 text-foreground">{meta.label}</span>
                       <span className="font-mono text-muted-foreground">
                         {l.count}
                       </span>
@@ -297,7 +306,7 @@ function BanDoPage() {
                 })}
                 {activeCount === 0 && (
                   <li className="text-xs italic text-muted-foreground">
-                    Bật lớp ở panel bên phải để hiển thị
+                    {t.legendEmpty}
                   </li>
                 )}
               </ul>
@@ -309,10 +318,10 @@ function BanDoPage() {
             <div className="flex items-center justify-between border-b border-border px-4 py-3">
               <div>
                 <h2 className="font-display text-base font-bold text-foreground">
-                  Lớp dữ liệu
+                  {t.sidebarTitle}
                 </h2>
                 <p className="text-xs text-muted-foreground">
-                  Bật/tắt để lọc bản đồ
+                  {t.sidebarSubtitle}
                 </p>
               </div>
               <div className="flex gap-1">
@@ -322,7 +331,7 @@ function BanDoPage() {
                   className="h-7 px-2 text-xs"
                   onClick={() => toggleAll(true)}
                 >
-                  <Eye className="mr-1 h-3 w-3" /> Tất cả
+                  <Eye className="mr-1 h-3 w-3" /> {t.toggleAll}
                 </Button>
                 <Button
                   variant="ghost"
@@ -330,21 +339,22 @@ function BanDoPage() {
                   className="h-7 px-2 text-xs"
                   onClick={() => toggleAll(false)}
                 >
-                  <EyeOff className="mr-1 h-3 w-3" /> Ẩn
+                  <EyeOff className="mr-1 h-3 w-3" /> {t.toggleNone}
                 </Button>
               </div>
             </div>
 
             <div className="max-h-[640px] overflow-y-auto p-2">
-              {Object.entries(grouped).map(([group, items]) => (
+              {(Object.entries(grouped) as [GroupKey, LayerDef[]][]).map(([group, items]) => (
                 <div key={group} className="mb-2">
                   <p className="px-2 py-2 text-[10px] font-bold uppercase tracking-widest text-gold">
-                    {group}
+                    {GROUP_LABEL[group]}
                   </p>
                   <ul className="space-y-1">
                     {items.map((l) => {
                       const Icon = l.icon;
                       const isOn = active[l.id];
+                      const meta = t.layer[l.id];
                       return (
                         <li key={l.id}>
                           <label
@@ -365,21 +375,21 @@ function BanDoPage() {
                             </span>
                             <div className="min-w-0 flex-1">
                               <p className="flex items-center gap-1.5 truncate text-sm font-medium text-foreground">
-                                {l.label}
+                                {meta.label}
                                 {!l.live && (
                                   <span className="rounded-sm bg-muted px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
-                                    Sắp có
+                                    {t.comingSoon}
                                   </span>
                                 )}
                               </p>
                               <p className="truncate text-xs text-muted-foreground">
-                                {l.description} · {l.count}
+                                {meta.description} · {l.count}
                               </p>
                             </div>
                             <Switch
                               checked={isOn}
                               onCheckedChange={() => toggle(l.id)}
-                              aria-label={`Toggle ${l.label}`}
+                              aria-label={`Toggle ${meta.label}`}
                               disabled={!l.live}
                             />
                           </label>
