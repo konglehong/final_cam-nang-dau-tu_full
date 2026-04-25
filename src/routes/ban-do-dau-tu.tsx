@@ -139,7 +139,7 @@ function BanDoPage() {
   const { lang } = useLanguage();
   const t = useMemo(() => getMapStrings(lang), [lang]);
 
-  const REGIONS = useMemo(
+  const regions = useMemo(
     () => [
       { value: "all" as const, label: t.regionAll },
       { value: "bac" as const, label: t.regionNorth },
