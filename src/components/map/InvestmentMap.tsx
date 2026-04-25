@@ -8,6 +8,7 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
 import { ARCHIPELAGOS, HOANG_SA, TRUONG_SA, type IslandPoint } from "@/data/archipelagos";
 import { VIETNAM_MAINLAND, VIETNAM_ISLANDS, WORLD_BBOX } from "@/data/vietnam-outline";
+import { INDUSTRIAL_PARKS, HIGHWAYS, KEY_PROJECTS, POWER_PLANTS, TOURISM_ZONES } from "@/data/map-layers";
 import {
   getProvinceName,
   SEA_LABELS,
