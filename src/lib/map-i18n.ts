@@ -378,6 +378,7 @@ export type TileSpec = {
 
 export function getStandardTile(lang: LangCode): TileSpec {
   if (lang === "vi") {
+    // VI: OSM gốc đã có nhãn tiếng Việt, đầy đủ địa danh + HS/TS
     return {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       attribution:
@@ -386,8 +387,10 @@ export function getStandardTile(lang: LangCode): TileSpec {
       maxZoom: 19,
     };
   }
+  // Các ngôn ngữ khác: tile KHÔNG nhãn (CartoDB Positron no-labels)
+  // → ta tự vẽ overlay nhãn 34 tỉnh + biển + nước theo ngôn ngữ chọn.
   return {
-    url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+    url: "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
     subdomains: ["a", "b", "c", "d"],

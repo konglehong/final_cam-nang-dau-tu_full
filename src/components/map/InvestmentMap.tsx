@@ -7,8 +7,80 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
 import { ARCHIPELAGOS, type IslandPoint } from "@/data/archipelagos";
+import {
+  getProvinceName,
+  SEA_LABELS,
+  COUNTRY_LABELS,
+} from "@/data/province-i18n";
 import { useLanguage } from "@/lib/i18n";
 import { getMapStrings, getStandardTile, getTerrainTile, getSatelliteTile } from "@/lib/map-i18n";
+
+// Nhãn tỉnh — chữ nhỏ có viền trắng, không nhận click
+const provinceLabelIcon = (name: string) =>
+  L.divIcon({
+    className: "",
+    html: `<div style="
+      font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: #1f2937;
+      white-space: nowrap;
+      pointer-events: none;
+      transform: translate(8px, -50%);
+      text-shadow:
+        -1px -1px 0 #fff, 1px -1px 0 #fff,
+        -1px 1px 0 #fff, 1px 1px 0 #fff,
+        0 0 3px rgba(255,255,255,.85);
+    ">${name}</div>`,
+    iconSize: [120, 16],
+    iconAnchor: [0, 8],
+  });
+
+// Nhãn biển — chữ in nghiêng xanh dương, kích thước tuỳ chỉnh
+const seaLabelIcon = (name: string, fontSize = 14) =>
+  L.divIcon({
+    className: "",
+    html: `<div style="
+      font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
+      font-size: ${fontSize}px;
+      font-weight: 700;
+      font-style: italic;
+      color: #1e40af;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      pointer-events: none;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      text-shadow:
+        -1px -1px 0 #fff, 1px -1px 0 #fff,
+        -1px 1px 0 #fff, 1px 1px 0 #fff,
+        0 0 4px rgba(255,255,255,.9);
+    ">${name}</div>`,
+    iconSize: [200, 24],
+    iconAnchor: [100, 12],
+  });
+
+// Nhãn quốc gia láng giềng — chữ in hoa xám
+const countryLabelIcon = (name: string) =>
+  L.divIcon({
+    className: "",
+    html: `<div style="
+      font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #6b7280;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      text-shadow:
+        -1px -1px 0 #fff, 1px -1px 0 #fff,
+        -1px 1px 0 #fff, 1px 1px 0 #fff;
+    ">${name}</div>`,
+    iconSize: [180, 20],
+    iconAnchor: [90, 10],
+  });
 
 // Hook nhỏ để track zoom hiện tại — dùng để ẩn các chấm đảo ở zoom thấp
 function ZoomTracker({ onZoom }: { onZoom: (z: number) => void }) {
@@ -251,38 +323,82 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
 
       {layers.provinces && (
         <LayerGroup>
-          {visibleProvinces.map((p) => (
-            <CircleMarker
-              key={p.slug}
-              center={[p.lat, p.lng]}
-              radius={9}
-              pathOptions={{
-                color: "white",
-                weight: 2,
-                fillColor: REGION_COLOR[p.region],
-                fillOpacity: 0.85,
-              }}
-            >
-              <Popup>
-                <div style={{ minWidth: 200 }}>
-                  <strong style={{ fontSize: 14 }}>{p.name}</strong>
-                  <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
-                    {t.capital}: {p.capital}
-                  </div>
-                  {p.merged && (
-                    <div style={{ fontSize: 11, marginTop: 6, padding: "4px 6px", background: "#fef3c7", borderRadius: 4, color: "#92400e" }}>
-                      {t.mergedFrom}: {p.merged}
+          {visibleProvinces.map((p) => {
+            const localizedName = getProvinceName(p.slug, lang, p.name);
+            return (
+              <CircleMarker
+                key={p.slug}
+                center={[p.lat, p.lng]}
+                radius={9}
+                pathOptions={{
+                  color: "white",
+                  weight: 2,
+                  fillColor: REGION_COLOR[p.region],
+                  fillOpacity: 0.85,
+                }}
+              >
+                <Popup>
+                  <div style={{ minWidth: 200 }}>
+                    <strong style={{ fontSize: 14 }}>{localizedName}</strong>
+                    {lang !== "vi" && (
+                      <div style={{ fontSize: 11, color: "#888", fontStyle: "italic" }}>
+                        {p.name}
+                      </div>
+                    )}
+                    <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                      {t.capital}: {p.capital}
                     </div>
-                  )}
-                  <a
-                    href={`/tinh-thanh/${p.slug}`}
-                    style={{ display: "inline-block", marginTop: 8, fontSize: 12, color: "oklch(0.45 0.18 25)", fontWeight: 600 }}
-                  >
-                    {t.viewDetails}
-                  </a>
-                </div>
-              </Popup>
-            </CircleMarker>
+                    {p.merged && (
+                      <div style={{ fontSize: 11, marginTop: 6, padding: "4px 6px", background: "#fef3c7", borderRadius: 4, color: "#92400e" }}>
+                        {t.mergedFrom}: {p.merged}
+                      </div>
+                    )}
+                    <a
+                      href={`/tinh-thanh/${p.slug}`}
+                      style={{ display: "inline-block", marginTop: 8, fontSize: 12, color: "oklch(0.45 0.18 25)", fontWeight: 600 }}
+                    >
+                      {t.viewDetails}
+                    </a>
+                  </div>
+                </Popup>
+              </CircleMarker>
+            );
+          })}
+        </LayerGroup>
+      )}
+
+      {/* Overlay nhãn cho non-VI: tile nền không có nhãn → tự vẽ tên tỉnh + biển + nước */}
+      {lang !== "vi" && (
+        <LayerGroup>
+          {/* Nhãn tỉnh — hiện từ zoom 6 trở lên để không rối */}
+          {zoom >= 6 && layers.provinces && visibleProvinces.map((p) => (
+            <Marker
+              key={`label-${p.slug}`}
+              position={[p.lat, p.lng]}
+              icon={provinceLabelIcon(getProvinceName(p.slug, lang, p.name))}
+              interactive={false}
+              keyboard={false}
+            />
+          ))}
+          {/* Nhãn biển — luôn hiện */}
+          {SEA_LABELS.map((s) => (
+            <Marker
+              key={`sea-${s.id}`}
+              position={[s.lat, s.lng]}
+              icon={seaLabelIcon(s.names[lang] || s.names.en, s.fontSize)}
+              interactive={false}
+              keyboard={false}
+            />
+          ))}
+          {/* Nhãn quốc gia láng giềng — chỉ hiện khi zoom thấp/trung bình */}
+          {zoom <= 7 && COUNTRY_LABELS.map((c) => (
+            <Marker
+              key={`country-${c.id}`}
+              position={[c.lat, c.lng]}
+              icon={countryLabelIcon(c.names[lang] || c.names.en)}
+              interactive={false}
+              keyboard={false}
+            />
           ))}
         </LayerGroup>
       )}
