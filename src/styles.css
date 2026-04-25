@@ -208,3 +208,16 @@
 .vn-archipelago-label::before {
   border-top-color: oklch(0.55 0.18 25) !important;
 }
+
+/* Keep Leaflet panes/controls below the sticky site header and its menus. */
+.leaflet-container,
+.leaflet-pane,
+.leaflet-top,
+.leaflet-bottom,
+.leaflet-control,
+.leaflet-popup-pane,
+.marker-cluster,
+.leaflet-marker-icon,
+.leaflet-tooltip {
+  z-index: 0 !important;
+}
