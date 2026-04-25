@@ -3,11 +3,13 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X, Search, Globe, ChevronDown } from "lucide-react";
 import { PRIMARY_NAV, LANGUAGES } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
+import { useLanguage, type LangCode } from "@/lib/i18n";
 
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const { lang, setLang } = useLanguage();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -28,9 +30,10 @@ export function SiteHeader() {
               <button
                 onClick={() => setLangOpen((v) => !v)}
                 className="flex items-center gap-1.5 hover:text-gold"
+                aria-label="Chọn ngôn ngữ"
               >
                 <Globe className="h-3.5 w-3.5" />
-                <span>VI</span>
+                <span>{lang.toUpperCase()}</span>
                 <ChevronDown className="h-3 w-3" />
               </button>
               {langOpen && (
@@ -38,7 +41,14 @@ export function SiteHeader() {
                   {LANGUAGES.map((l) => (
                     <button
                       key={l.code}
-                      className="flex w-full items-center gap-2 px-3 py-2 text-left text-xs hover:bg-accent"
+                      onClick={() => {
+                        setLang(l.code as LangCode);
+                        setLangOpen(false);
+                      }}
+                      className={cn(
+                        "flex w-full items-center gap-2 px-3 py-2 text-left text-xs hover:bg-accent",
+                        lang === l.code && "bg-accent/60 font-semibold",
+                      )}
                     >
                       <span className="text-base">{l.flag}</span>
                       <span>{l.label}</span>
