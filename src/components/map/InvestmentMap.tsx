@@ -7,7 +7,7 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { PROVINCES, AIRPORTS, SEAPORTS, type Region } from "@/data/provinces";
 import { ARCHIPELAGOS, HOANG_SA, TRUONG_SA, type IslandPoint } from "@/data/archipelagos";
-import { VIETNAM_MAINLAND, WORLD_BBOX } from "@/data/vietnam-outline";
+import { VIETNAM_MAINLAND, VIETNAM_ISLANDS, WORLD_BBOX } from "@/data/vietnam-outline";
 import {
   getProvinceName,
   SEA_LABELS,
