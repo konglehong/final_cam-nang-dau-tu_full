@@ -527,6 +527,127 @@ export function InvestmentMap({ layers, region, className }: InvestmentMapProps)
           ))}
         </MarkerClusterGroup>
       )}
+
+      {/* ===== Cao tốc & vành đai ===== */}
+      {layers.highways && (
+        <LayerGroup>
+          {HIGHWAYS.map((h) => {
+            const style = HIGHWAY_STYLE[h.status];
+            return (
+              <Polyline
+                key={h.id}
+                positions={h.path}
+                pathOptions={{
+                  color: style.color,
+                  weight: 3.5,
+                  opacity: 0.85,
+                  dashArray: style.dash,
+                }}
+              >
+                <Popup>
+                  <strong style={{ fontSize: 13 }}>{h.name}</strong>
+                  <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                    {h.length} km · {h.status === "operating" ? "Đang khai thác" : h.status === "construction" ? "Đang thi công" : "Quy hoạch"}
+                  </div>
+                </Popup>
+              </Polyline>
+            );
+          })}
+        </LayerGroup>
+      )}
+
+      {/* ===== Khu công nghiệp ===== */}
+      {layers.industrial && (
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={50}
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
+          {INDUSTRIAL_PARKS.map((ip) => (
+            <Marker key={ip.id} position={[ip.lat, ip.lng]} icon={industrialIcon}>
+              <Popup>
+                <strong style={{ fontSize: 13 }}>{ip.name}</strong>
+                <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                  {ip.province} · {ip.area.toLocaleString()} ha
+                  {typeof ip.occupancy === "number" && ` · Lấp đầy ${ip.occupancy}%`}
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+      )}
+
+      {/* ===== Dự án trọng điểm ===== */}
+      {layers.projects && (
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={45}
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
+          {KEY_PROJECTS.map((p) => (
+            <Marker key={p.id} position={[p.lat, p.lng]} icon={projectIcon}>
+              <Popup>
+                <strong style={{ fontSize: 13 }}>{p.name}</strong>
+                <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                  {p.investor} · {p.capital} tỷ USD
+                </div>
+                <div style={{ fontSize: 11, color: "#888", marginTop: 2 }}>
+                  {p.province} · {p.year} · {p.status === "operating" ? "Đang vận hành" : p.status === "construction" ? "Đang triển khai" : "Đã phê duyệt"}
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+      )}
+
+      {/* ===== Nhà máy điện ===== */}
+      {layers.power && (
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={45}
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
+          {POWER_PLANTS.map((pp) => (
+            <Marker key={pp.id} position={[pp.lat, pp.lng]} icon={powerIcon(pp.type)}>
+              <Popup>
+                <strong style={{ fontSize: 13 }}>{pp.name}</strong>
+                <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                  {pp.capacity.toLocaleString()} MW · {pp.type === "hydro" ? "Thủy điện" : pp.type === "thermal" ? "Nhiệt điện than" : pp.type === "lng" ? "LNG" : pp.type === "wind" ? "Điện gió" : pp.type === "solar" ? "Điện mặt trời" : pp.type}
+                </div>
+                <div style={{ fontSize: 11, color: "#888", marginTop: 2 }}>
+                  {pp.province} · {pp.status === "operating" ? "Đang vận hành" : pp.status === "construction" ? "Đang xây dựng" : "Quy hoạch"}
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+      )}
+
+      {/* ===== Khu du lịch ===== */}
+      {layers.tourism && (
+        <MarkerClusterGroup
+          chunkedLoading
+          maxClusterRadius={45}
+          showCoverageOnHover={false}
+          disableClusteringAtZoom={9}
+        >
+          {TOURISM_ZONES.map((tz) => (
+            <Marker key={tz.id} position={[tz.lat, tz.lng]} icon={tourismIcon}>
+              <Popup>
+                <strong style={{ fontSize: 13 }}>
+                  {tz.name} {tz.unesco && <span style={{ color: "#b45309" }}>· UNESCO</span>}
+                </strong>
+                <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
+                  {tz.province} · {tz.type === "beach" ? "Biển" : tz.type === "heritage" ? "Di sản" : tz.type === "ecology" ? "Sinh thái" : tz.type === "city" ? "Đô thị du lịch" : "Resort"}
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+      )}
     </MapContainer>
   );
 }
