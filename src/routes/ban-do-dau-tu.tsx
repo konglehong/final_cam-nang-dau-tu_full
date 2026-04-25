@@ -16,6 +16,8 @@ import {
 import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { useLanguage } from "@/lib/i18n";
+import { getMapStrings } from "@/lib/map-i18n";
 
 // Hàm import chia sẻ — tái sử dụng khi prefetch để bundler chỉ tạo 1 chunk
 const loadMap = () => import("@/components/map/InvestmentMap");
