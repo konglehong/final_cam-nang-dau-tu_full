@@ -60,101 +60,80 @@ type LayerId =
   | "nangluong"
   | "dulich";
 
+type GroupKey = "admin" | "economic" | "transport" | "keyProject";
+
 type LayerDef = {
   id: LayerId;
-  label: string;
-  description: string;
   count: number;
   icon: typeof Factory;
   color: string;
-  group: "Hành chính" | "Khu kinh tế" | "Hạ tầng giao thông" | "Dự án trọng điểm";
+  group: GroupKey;
   live?: boolean; // có data thật trên map
 };
 
 const LAYERS: LayerDef[] = [
   {
     id: "tinh",
-    label: "34 Tỉnh thành",
-    description: "Sau sáp nhập 01/07/2025",
     count: 34,
     icon: MapPin,
     color: "var(--primary)",
-    group: "Hành chính",
+    group: "admin",
     live: true,
   },
   {
     id: "sanbay",
-    label: "Sân bay quốc tế",
-    description: "Đang khai thác & xây dựng",
     count: 12,
     icon: Plane,
     color: "oklch(0.5 0.18 250)",
-    group: "Hạ tầng giao thông",
+    group: "transport",
     live: true,
   },
   {
     id: "cang",
-    label: "Cảng biển lớn",
-    description: "Loại đặc biệt & loại I",
     count: 13,
     icon: Ship,
     color: "oklch(0.4 0.12 230)",
-    group: "Hạ tầng giao thông",
+    group: "transport",
     live: true,
   },
   {
     id: "kcn",
-    label: "Khu công nghiệp",
-    description: "418 KCN (đang cập nhật)",
     count: 418,
     icon: Factory,
     color: "var(--primary)",
-    group: "Khu kinh tế",
+    group: "economic",
   },
   {
     id: "dulich",
-    label: "Khu du lịch trọng điểm",
-    description: "Cụm du lịch quốc gia",
     count: 47,
     icon: Trees,
     color: "var(--gold)",
-    group: "Khu kinh tế",
+    group: "economic",
   },
   {
     id: "caotoc",
-    label: "Cao tốc & vành đai",
-    description: "Mạng lưới cao tốc",
     count: 41,
     icon: TrainFront,
     color: "oklch(0.55 0.15 250)",
-    group: "Hạ tầng giao thông",
+    group: "transport",
   },
   {
     id: "duan",
-    label: "Dự án trọng điểm",
-    description: "Top dự án FDI tỷ USD",
     count: 156,
     icon: Building2,
     color: "oklch(0.5 0.18 145)",
-    group: "Dự án trọng điểm",
+    group: "keyProject",
   },
   {
     id: "nangluong",
-    label: "Nhà máy năng lượng",
-    description: "Điện gió, mặt trời, LNG",
     count: 89,
     icon: Zap,
     color: "oklch(0.65 0.15 60)",
-    group: "Dự án trọng điểm",
+    group: "keyProject",
   },
 ];
 
-const REGIONS = [
-  { value: "all", label: "Toàn quốc" },
-  { value: "bac", label: "Miền Bắc" },
-  { value: "trung", label: "Miền Trung" },
-  { value: "nam", label: "Miền Nam" },
-];
+const REGION_VALUES = ["all", "bac", "trung", "nam"] as const;
 
 function BanDoPage() {
   const [active, setActive] = useState<Record<LayerId, boolean>>({
