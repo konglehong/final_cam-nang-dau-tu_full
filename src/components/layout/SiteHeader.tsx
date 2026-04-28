@@ -13,7 +13,7 @@ import {
 import { PRIMARY_NAV, LANGUAGES } from "@/lib/navigation";
 import { ARTICLES } from "@/data/content";
 import { cn } from "@/lib/utils";
-import { useLanguage, type LangCode } from "@/lib/i18n";
+import { useLanguage, useT, type LangCode } from "@/lib/i18n";
 
 function formatVNDate(d: Date) {
   const days = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
@@ -31,6 +31,7 @@ export function SiteHeader() {
   const [langOpen, setLangOpen] = useState(false);
   const [date, setDate] = useState("");
   const { lang, setLang } = useLanguage();
+  const t = useT();
 
   useEffect(() => setDate(formatVNDate(new Date())), []);
 
