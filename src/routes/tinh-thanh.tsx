@@ -60,29 +60,35 @@ function TinhThanhListing() {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary"><TrendingUp className="mr-2 inline h-3 w-3" /> Top FDI 2024</p>
             <ul className="mt-4 divide-y divide-border/60">
-              {TOP_FDI_2024.slice(0, 6).map((p, i) => (
-                <li key={p.slug} className="flex items-center justify-between py-2 text-sm">
-                  <Link to="/tinh-thanh/$slug" params={{ slug: p.slug }} className="flex items-center gap-3 hover:text-primary">
-                    <span className="font-mono text-muted-foreground">#{i + 1}</span>
-                    <span className="font-medium">{p.name}</span>
-                  </Link>
-                  <span className="font-mono text-primary">{p.fdi2024.toFixed(1)} <span className="text-muted-foreground">tỷ USD</span></span>
-                </li>
-              ))}
+              {TOP_FDI_2024.slice(0, 6).map((p, i) => {
+                const prov = PROVINCES.find((x) => x.slug === p.slug);
+                return (
+                  <li key={p.slug} className="flex items-center justify-between py-2 text-sm">
+                    <Link to="/tinh-thanh/$slug" params={{ slug: p.slug }} className="flex items-center gap-3 hover:text-primary">
+                      <span className="font-mono text-muted-foreground">#{i + 1}</span>
+                      <span className="font-medium">{prov?.name ?? p.slug}</span>
+                    </Link>
+                    <span className="font-mono text-primary">{p.fdi2024.toFixed(1)} <span className="text-muted-foreground">tỷ USD</span></span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary"><Building2 className="mr-2 inline h-3 w-3" /> Top PCI 2024</p>
             <ul className="mt-4 divide-y divide-border/60">
-              {TOP_PCI_2024.slice(0, 6).map((p, i) => (
-                <li key={p.slug} className="flex items-center justify-between py-2 text-sm">
-                  <Link to="/tinh-thanh/$slug" params={{ slug: p.slug }} className="flex items-center gap-3 hover:text-primary">
-                    <span className="font-mono text-muted-foreground">#{i + 1}</span>
-                    <span className="font-medium">{p.name}</span>
-                  </Link>
-                  <span className="font-mono text-primary">{p.pci2024.toFixed(1)}</span>
-                </li>
-              ))}
+              {TOP_PCI_2024.slice(0, 6).map((p, i) => {
+                const prov = PROVINCES.find((x) => x.slug === p.slug);
+                return (
+                  <li key={p.slug} className="flex items-center justify-between py-2 text-sm">
+                    <Link to="/tinh-thanh/$slug" params={{ slug: p.slug }} className="flex items-center gap-3 hover:text-primary">
+                      <span className="font-mono text-muted-foreground">#{i + 1}</span>
+                      <span className="font-medium">{prov?.name ?? p.slug}</span>
+                    </Link>
+                    <span className="font-mono text-primary">{p.pciScore.toFixed(1)}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
