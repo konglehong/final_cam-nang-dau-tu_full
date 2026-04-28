@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowRight, Building2, MapPin, Search, TrendingUp } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
@@ -16,8 +16,15 @@ export const Route = createFileRoute("/tinh-thanh")({
       { property: "og:description", content: "Khám phá thông tin đầy đủ của từng tỉnh sau sáp nhập đơn vị hành chính." },
     ],
   }),
-  component: TinhThanhPage,
+  component: TinhThanhRoute,
 });
+
+function TinhThanhRoute() {
+  const { pathname } = useLocation();
+  // Nếu URL là /tinh-thanh hoặc /tinh-thanh/ → render danh sách; ngược lại → render child (slug detail)
+  const isList = pathname === "/tinh-thanh" || pathname === "/tinh-thanh/";
+  return isList ? <TinhThanhPage /> : <Outlet />;
+}
 
 const REGION_LABEL: Record<Region | "all", string> = {
   all: "Toàn quốc",
