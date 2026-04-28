@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { UI_STRINGS } from "./i18n-strings";
 
 export type LangCode = "vi" | "en" | "zh" | "ko" | "ja";
 
@@ -414,7 +415,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const t = useCallback(
     (key: string) => {
-      return DICTIONARY[lang]?.[key] ?? DICTIONARY.vi[key] ?? key;
+      return (
+        DICTIONARY[lang]?.[key] ??
+        UI_STRINGS[lang]?.[key] ??
+        DICTIONARY.vi[key] ??
+        UI_STRINGS.vi[key] ??
+        key
+      );
     },
     [lang],
   );
