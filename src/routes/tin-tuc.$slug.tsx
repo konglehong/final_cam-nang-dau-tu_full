@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageHero } from "@/components/layout/PageHero";
-import { ARTICLES, CATEGORY_LABEL } from "@/data/content";
+import { ARTICLES, CATEGORY_LABEL, type NewsCategory } from "@/data/content";
 import { ArticleCard } from "@/components/news/ArticleCard";
 import { fmtDate } from "@/lib/format";
 import { ArrowLeft, Calendar, Clock, Share2, User } from "lucide-react";
@@ -50,7 +50,7 @@ function BaiVietDetail() {
         </Link>
 
         <span className="mt-6 inline-block rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-primary">
-          {CATEGORY_LABEL[a.category]}
+          {CATEGORY_LABEL[a.category as NewsCategory]}
         </span>
 
         <h1 className="mt-3 font-display text-3xl font-bold leading-tight text-foreground lg:text-5xl">
@@ -73,7 +73,7 @@ function BaiVietDetail() {
         </div>
 
         <div className="prose prose-lg mt-8 max-w-none text-foreground">
-          {(a.body ?? a.excerpt).split("\n").map((p, i) => (
+          {((a.body ?? a.excerpt) as string).split("\n").map((p: string, i: number) => (
             <p key={i} className="mb-4 text-base leading-relaxed">
               {p}
             </p>
@@ -85,7 +85,7 @@ function BaiVietDetail() {
         </div>
 
         <div className="mt-10 flex flex-wrap gap-2">
-          {a.tags.map((t) => (
+          {(a.tags as string[]).map((t: string) => (
             <span
               key={t}
               className="rounded-full border border-border bg-muted px-3 py-1 text-xs text-muted-foreground"
