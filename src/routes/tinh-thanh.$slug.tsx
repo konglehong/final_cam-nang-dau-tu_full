@@ -42,30 +42,19 @@ export const Route = createFileRoute("/tinh-thanh/$slug")({
 });
 
 function TinhDetailDispatcher() {
-  const data = Route.useLoaderData();
-  if (!data) return <div data-testid="no-data">NO DATA</div>;
-  const { province, profile } = data;
+  const { province, profile } = Route.useLoaderData();
   const { variant } = getTier(province.slug);
 
-  return (
-    <div>
-      <div data-testid="dispatcher-debug" style={{ padding: 20, background: "yellow", color: "black", fontWeight: "bold" }}>
-        DISPATCHER OK — slug={province.slug} variant={variant}
-      </div>
-      {(() => {
-        switch (variant) {
-          case "editorial":   return <PremiumEditorial   province={province} profile={profile} />;
-          case "cinematic":   return <PremiumCinematic   province={province} profile={profile} />;
-          case "showcase":    return <PremiumShowcase    province={province} profile={profile} />;
-          case "dossier":     return <AdvancedDossier    province={province} profile={profile} />;
-          case "spotlight":   return <AdvancedSpotlight  province={province} profile={profile} />;
-          case "compact-pro": return <AdvancedCompactPro province={province} profile={profile} />;
-          case "factsheet":   return <BasicFactsheet     province={province} profile={profile} />;
-          case "brief":       return <BasicBrief         province={province} profile={profile} />;
-          case "card":        return <BasicCard          province={province} profile={profile} />;
-          default:            return <BasicFactsheet     province={province} profile={profile} />;
-        }
-      })()}
-    </div>
-  );
+  switch (variant) {
+    case "editorial":   return <PremiumEditorial   province={province} profile={profile} />;
+    case "cinematic":   return <PremiumCinematic   province={province} profile={profile} />;
+    case "showcase":    return <PremiumShowcase    province={province} profile={profile} />;
+    case "dossier":     return <AdvancedDossier    province={province} profile={profile} />;
+    case "spotlight":   return <AdvancedSpotlight  province={province} profile={profile} />;
+    case "compact-pro": return <AdvancedCompactPro province={province} profile={profile} />;
+    case "factsheet":   return <BasicFactsheet     province={province} profile={profile} />;
+    case "brief":       return <BasicBrief         province={province} profile={profile} />;
+    case "card":        return <BasicCard          province={province} profile={profile} />;
+    default:            return <BasicFactsheet     province={province} profile={profile} />;
+  }
 }
