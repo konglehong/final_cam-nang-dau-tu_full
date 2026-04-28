@@ -20,9 +20,12 @@ export const Route = createFileRoute("/tinh-thanh")({
 });
 
 function TinhThanhRoute() {
-  const childMatches = useChildMatches();
-  if (childMatches.length > 0) return <Outlet />;
-  return <TinhThanhPage />;
+  return (
+    <>
+      <Outlet />
+      <TinhThanhPage />
+    </>
+  );
 }
 
 const REGION_LABEL: Record<Region | "all", string> = {
