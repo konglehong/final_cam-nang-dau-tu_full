@@ -46,15 +46,12 @@ function TinhDetailDispatcher() {
   const { variant } = getTier(province.slug);
 
   switch (variant) {
-    // Premium
     case "editorial":   return <PremiumEditorial   province={province} profile={profile} />;
     case "cinematic":   return <PremiumCinematic   province={province} profile={profile} />;
     case "showcase":    return <PremiumShowcase    province={province} profile={profile} />;
-    // Advanced
     case "dossier":     return <AdvancedDossier    province={province} profile={profile} />;
     case "spotlight":   return <AdvancedSpotlight  province={province} profile={profile} />;
     case "compact-pro": return <AdvancedCompactPro province={province} profile={profile} />;
-    // Basic
     case "factsheet":   return <BasicFactsheet     province={province} profile={profile} />;
     case "brief":       return <BasicBrief         province={province} profile={profile} />;
     case "card":        return <BasicCard          province={province} profile={profile} />;

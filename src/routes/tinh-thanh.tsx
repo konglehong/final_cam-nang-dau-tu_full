@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useChildMatches } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowRight, Building2, MapPin, Search, TrendingUp } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
@@ -16,14 +16,14 @@ export const Route = createFileRoute("/tinh-thanh")({
       { property: "og:description", content: "Khám phá thông tin đầy đủ của từng tỉnh sau sáp nhập đơn vị hành chính." },
     ],
   }),
-  component: TinhThanhRoute,
+  component: TinhThanhRouteShell,
 });
 
-function TinhThanhRoute() {
-  const { pathname } = useLocation();
-  // Nếu URL là /tinh-thanh hoặc /tinh-thanh/ → render danh sách; ngược lại → render child (slug detail)
-  const isList = pathname === "/tinh-thanh" || pathname === "/tinh-thanh/";
-  return isList ? <TinhThanhPage /> : <Outlet />;
+// Layout shell: nếu có child match (vd /tinh-thanh/$slug) → render child; nếu không → render danh sách.
+function TinhThanhRouteShell() {
+  const childMatches = useChildMatches();
+  if (childMatches.length > 0) return <Outlet />;
+  return <TinhThanhListing />;
 }
 
 const REGION_LABEL: Record<Region | "all", string> = {
@@ -35,136 +35,108 @@ const REGION_LABEL: Record<Region | "all", string> = {
 
 const REGION_FILTERS = ["all", "bac", "trung", "nam"] as const;
 
-function TinhThanhPage() {
-  const [region, setRegion] = useState<(typeof REGION_FILTERS)[number]>("all");
+function TinhThanhListing() {
+  const [region, setRegion] = useState<Region | "all">("all");
   const [query, setQuery] = useState("");
 
-  const list = useMemo(() => {
-    return PROVINCES.filter((p) => region === "all" || p.region === region)
-      .filter((p) => p.name.toLowerCase().includes(query.toLowerCase()))
-      .map((p) => {
-        const profile = PROVINCE_PROFILES.find((x) => x.slug === p.slug)!;
-        return { ...p, ...profile };
-      })
-      .sort((a, b) => b.fdi2024 - a.fdi2024);
+  const filtered = useMemo(() => {
+    return PROVINCES.filter((p) => {
+      const matchRegion = region === "all" || p.region === region;
+      const matchQuery = !query || p.name.toLowerCase().includes(query.toLowerCase());
+      return matchRegion && matchQuery;
+    });
   }, [region, query]);
 
   return (
-    <>
+    <main className="bg-background">
       <PageHero
         eyebrow="Trung tâm 34 tỉnh thành"
         title="Khám phá Việt Nam sau sáp nhập"
         description="Mỗi địa phương là một câu chuyện đầu tư riêng. Tìm hiểu thế mạnh, quy hoạch, chính sách ưu đãi và cơ hội kết nối đầu tư của từng tỉnh."
       />
 
-      {/* Top KPI strip */}
-      <section className="border-b border-border bg-card">
+      <section className="border-b border-border bg-card/40">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 py-10 md:grid-cols-2">
           <div>
-            <h3 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-gold">
-              <TrendingUp className="h-4 w-4" /> Top FDI 2024
-            </h3>
-            <ol className="space-y-1.5 text-sm">
-              {TOP_FDI_2024.slice(0, 5).map((p, i) => {
-                const prov = PROVINCES.find((x) => x.slug === p.slug)!;
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary"><TrendingUp className="mr-2 inline h-3 w-3" /> Top FDI 2024</p>
+            <ul className="mt-4 divide-y divide-border/60">
+              {TOP_FDI_2024.slice(0, 6).map((p, i) => {
+                const prov = PROVINCES.find((x) => x.slug === p.slug);
                 return (
-                  <li key={p.slug} className="flex items-baseline justify-between gap-2 border-b border-dashed border-border/60 pb-1.5">
-                    <span className="font-medium text-foreground"><span className="font-mono text-muted-foreground mr-2">#{i + 1}</span>{prov.name}</span>
-                    <span className="font-mono text-sm font-semibold text-primary">{p.fdi2024.toFixed(1)} tỷ USD</span>
+                  <li key={p.slug} className="flex items-center justify-between py-2 text-sm">
+                    <Link to="/tinh-thanh/$slug" params={{ slug: p.slug }} className="flex items-center gap-3 hover:text-primary">
+                      <span className="font-mono text-muted-foreground">#{i + 1}</span>
+                      <span className="font-medium">{prov?.name ?? p.slug}</span>
+                    </Link>
+                    <span className="font-mono text-primary">{p.fdi2024.toFixed(1)} <span className="text-muted-foreground">tỷ USD</span></span>
                   </li>
                 );
               })}
-            </ol>
+            </ul>
           </div>
           <div>
-            <h3 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-gold">
-              <Building2 className="h-4 w-4" /> Top PCI 2024
-            </h3>
-            <ol className="space-y-1.5 text-sm">
-              {TOP_PCI_2024.slice(0, 5).map((p) => {
-                const prov = PROVINCES.find((x) => x.slug === p.slug)!;
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary"><Building2 className="mr-2 inline h-3 w-3" /> Top PCI 2024</p>
+            <ul className="mt-4 divide-y divide-border/60">
+              {TOP_PCI_2024.slice(0, 6).map((p, i) => {
+                const prov = PROVINCES.find((x) => x.slug === p.slug);
                 return (
-                  <li key={p.slug} className="flex items-baseline justify-between gap-2 border-b border-dashed border-border/60 pb-1.5">
-                    <span className="font-medium text-foreground"><span className="font-mono text-muted-foreground mr-2">#{p.pciRank}</span>{prov.name}</span>
-                    <span className="font-mono text-sm font-semibold text-primary">{p.pciScore.toFixed(1)}</span>
+                  <li key={p.slug} className="flex items-center justify-between py-2 text-sm">
+                    <Link to="/tinh-thanh/$slug" params={{ slug: p.slug }} className="flex items-center gap-3 hover:text-primary">
+                      <span className="font-mono text-muted-foreground">#{i + 1}</span>
+                      <span className="font-medium">{prov?.name ?? p.slug}</span>
+                    </Link>
+                    <span className="font-mono text-primary">{p.pciScore.toFixed(1)}</span>
                   </li>
                 );
               })}
-            </ol>
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="mx-auto max-w-7xl px-6 py-10">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-border bg-card p-4 shadow-[var(--shadow-card)]">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Vùng:</span>
+      <section className="mx-auto max-w-7xl px-6 py-12">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-wrap gap-2">
             {REGION_FILTERS.map((r) => (
-              <Button key={r} variant={region === r ? "default" : "outline"} size="sm" onClick={() => setRegion(r)}>
+              <Button key={r} size="sm" variant={region === r ? "default" : "outline"} onClick={() => setRegion(r)}>
                 {REGION_LABEL[r]}
               </Button>
             ))}
           </div>
-          <div className="relative w-full max-w-xs">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <div className="relative w-full md:w-72">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Tìm tỉnh..." className="pl-9" />
           </div>
         </div>
 
-        <p className="mb-4 text-sm text-muted-foreground">
-          Hiển thị <span className="font-semibold text-foreground">{list.length}</span> / 34 tỉnh thành — sắp xếp theo FDI 2024
-        </p>
-
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {list.map((p) => (
-            <Link
-              key={p.slug}
-              to="/tinh-thanh/$slug"
-              params={{ slug: p.slug }}
-              className="group flex flex-col rounded-lg border border-border bg-card p-5 shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"
-            >
-              <div className="mb-3 flex items-start justify-between gap-2">
-                <div>
-                  <h3 className="font-display text-lg font-bold text-foreground group-hover:text-primary">
-                    {p.name}
-                  </h3>
-                  <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <MapPin className="h-3 w-3" /> {p.capital} · {REGION_LABEL[p.region]}
-                  </p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filtered.map((p) => {
+            const profile = PROVINCE_PROFILES.find((pp) => pp.slug === p.slug);
+            return (
+              <Link key={p.slug} to="/tinh-thanh/$slug" params={{ slug: p.slug }} className="group rounded-2xl border border-border bg-card p-5 transition hover:border-primary hover:shadow-[var(--shadow-elegant)]">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{REGION_LABEL[p.region]}</p>
+                    <h3 className="mt-1 font-display text-xl font-semibold group-hover:text-primary">{p.name}</h3>
+                  </div>
+                  <MapPin className="h-4 w-4 text-muted-foreground" />
                 </div>
-                <span className="rounded-sm bg-gold/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-gold">
-                  PCI #{p.pciRank}
-                </span>
-              </div>
-              {p.merged && (
-                <p className="mb-3 rounded-md bg-muted px-2 py-1 text-[11px] text-muted-foreground">
-                  📌 {p.merged}
-                </p>
-              )}
-              <div className="mb-4 grid grid-cols-3 gap-2 text-center">
-                <Stat value={`${p.grdp.toFixed(1)}`} unit="tỷ USD" label="GRDP" />
-                <Stat value={`${p.fdi2024.toFixed(1)}`} unit="tỷ USD" label="FDI'24" />
-                <Stat value={`${p.industrialParks}`} unit="KCN" label="" />
-              </div>
-              <div className="mt-auto flex items-center justify-between text-xs">
-                <span className="text-muted-foreground">{p.population.toLocaleString()}k dân · {p.area.toLocaleString()} km²</span>
-                <ArrowRight className="h-4 w-4 text-primary opacity-0 transition group-hover:opacity-100" />
-              </div>
-            </Link>
-          ))}
+                {profile && (
+                  <p className="mt-3 line-clamp-2 text-sm text-muted-foreground">{profile.tagline}</p>
+                )}
+                <div className="mt-4 flex items-center justify-between text-xs">
+                  {profile && <span className="font-mono text-primary">FDI {profile.fdi2024.toFixed(1)} tỷ USD</span>}
+                  <ArrowRight className="h-4 w-4 text-muted-foreground transition group-hover:translate-x-1 group-hover:text-primary" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
-      </section>
-    </>
-  );
-}
 
-function Stat({ value, unit, label }: { value: string; unit: string; label: string }) {
-  return (
-    <div className="rounded-md bg-muted/40 px-1 py-2">
-      <p className="font-display text-base font-bold text-foreground leading-none">{value}</p>
-      <p className="text-[9px] uppercase tracking-wider text-muted-foreground mt-0.5">{label || unit}</p>
-      {label && <p className="text-[9px] text-muted-foreground/70">{unit}</p>}
-    </div>
+        {filtered.length === 0 && (
+          <p className="mt-12 text-center text-muted-foreground">Không tìm thấy tỉnh phù hợp.</p>
+        )}
+      </section>
+    </main>
   );
 }
