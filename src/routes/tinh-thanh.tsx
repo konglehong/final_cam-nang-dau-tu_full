@@ -21,8 +21,8 @@ export const Route = createFileRoute("/tinh-thanh")({
 
 function TinhThanhRoute() {
   const childMatches = useChildMatches();
-  // Có child route match (ví dụ /tinh-thanh/$slug) → render Outlet; ngược lại render danh sách
-  return childMatches.length > 0 ? <Outlet /> : <TinhThanhPage />;
+  if (childMatches.length > 0) return <Outlet />;
+  return <TinhThanhPage />;
 }
 
 const REGION_LABEL: Record<Region | "all", string> = {
