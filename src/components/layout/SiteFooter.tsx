@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Youtube, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { FOOTER_NAV } from "@/lib/navigation";
+import { useT } from "@/lib/i18n";
 
 export function SiteFooter() {
+  const t = useT();
   return (
     <footer className="border-t border-border bg-background text-foreground">
       {/* Newsletter strip — gradient on light */}
@@ -14,10 +16,10 @@ export function SiteFooter() {
           >
             <div>
               <h3 className="font-display text-2xl font-semibold tracking-tight text-white lg:text-3xl">
-                Đăng ký bản tin Đầu tư Việt Nam
+                {t("footer.newsletter.title")}
               </h3>
               <p className="mt-2 max-w-xl text-sm text-white/85">
-                Nhận tin tức, dữ liệu và cơ hội đầu tư mới nhất từ 34 tỉnh thành — gửi đến hộp thư của bạn hàng tuần.
+                {t("footer.newsletter.desc")}
               </p>
             </div>
             <form
@@ -27,14 +29,14 @@ export function SiteFooter() {
               <input
                 type="email"
                 required
-                placeholder="email@congty.com"
+                placeholder={t("footer.newsletter.placeholder")}
                 className="flex-1 rounded-lg bg-white px-4 py-3 text-sm text-foreground shadow-[var(--shadow-soft)] placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-white/60"
               />
               <button
                 type="submit"
                 className="rounded-lg bg-white px-5 py-3 text-sm font-semibold text-primary shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-lg"
               >
-                Đăng ký miễn phí
+                {t("footer.newsletter.submit")}
               </button>
             </form>
           </div>
@@ -53,20 +55,20 @@ export function SiteFooter() {
             </div>
             <div>
               <p className="font-display text-lg font-semibold tracking-tight text-foreground">
-                Cẩm nang Đầu tư
+                {t("footer.brandFull")}
               </p>
               <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                Việt Nam
+                {t("footer.country")}
               </p>
             </div>
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Cổng thông tin đầu tư chính thống cho nhà đầu tư, địa phương và công chúng trong bối cảnh sáp nhập đơn vị hành chính tại Việt Nam.
+            {t("footer.about")}
           </p>
           <div className="space-y-2 text-sm text-muted-foreground">
             <p className="flex items-start gap-2">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              15 Hồ Xuân Hương, Hai Bà Trưng, Hà Nội
+              {t("footer.address")}
             </p>
             <p className="flex items-center gap-2">
               <Phone className="h-4 w-4 shrink-0 text-primary" />
@@ -102,10 +104,10 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {Object.entries(FOOTER_NAV).map(([heading, links]) => (
-          <div key={heading}>
+        {Object.entries(FOOTER_NAV).map(([headingKey, links]) => (
+          <div key={headingKey}>
             <h4 className="mb-4 font-display text-xs font-semibold uppercase tracking-[0.16em] text-foreground">
-              {heading}
+              {t(headingKey)}
             </h4>
             <ul className="space-y-2.5 text-sm">
               {links.map((l) => (
@@ -114,7 +116,7 @@ export function SiteFooter() {
                     to={l.to}
                     className="text-muted-foreground transition-colors hover:text-primary"
                   >
-                    {l.label}
+                    {t(l.labelKey)}
                   </Link>
                 </li>
               ))}
@@ -126,9 +128,9 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-5 text-xs text-muted-foreground sm:flex-row sm:justify-between">
           <p>
-            © {new Date().getFullYear()} Cẩm nang Đầu tư Việt Nam. Bảo lưu mọi quyền.
+            © {new Date().getFullYear()} {t("footer.brandFull")} {t("footer.country")}. {t("footer.copyright")}
           </p>
-          <p>Cổng thông tin đầu tư chính thống</p>
+          <p>{t("footer.tagline")}</p>
         </div>
       </div>
     </footer>

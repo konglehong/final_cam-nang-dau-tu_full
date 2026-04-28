@@ -237,7 +237,7 @@ export function SiteHeader() {
               onClick={() => setMobileOpen(false)}
               className="btn-gradient mt-3 rounded-lg px-3 py-2.5 text-center text-sm font-medium"
             >
-              Đăng ký quan tâm đầu tư
+              {t("header.cta")}
             </Link>
           </nav>
         </div>
