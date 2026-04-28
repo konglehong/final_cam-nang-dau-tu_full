@@ -277,6 +277,29 @@
   transform: translateY(0);
 }
 
+/* ===== CNDT-style header utilities ===== */
+.nav-underline { position: relative; }
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 2px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px;
+}
+.nav-underline:hover::after,
+.nav-underline[data-active="true"]::after { transform: scaleX(1); }
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 50s linear infinite; }
+.marquee-track:hover { animation-play-state: paused; }
+
 /* Leaflet — label permanent cho Hoàng Sa / Trường Sa */
 .vn-archipelago-label {
   background: rgba(255, 255, 255, 0.95) !important;
