@@ -63,6 +63,7 @@ export const PRIMARY_NAV: NavItem[] = [
     to: "/dia-phuong",
     children: [
       { label: "Quy trình hợp tác", to: "/dia-phuong/quy-trinh-hop-tac" },
+      { label: "Gói dịch vụ", to: "/dia-phuong/goi-dich-vu" },
       { label: "Case study", to: "/dia-phuong/case-study" },
       { label: "Đăng ký tư vấn", to: "/dia-phuong/dang-ky-tu-van" },
     ],
