@@ -45,14 +45,14 @@ export function SiteHeader() {
       <div className="hidden border-b border-border/70 bg-background/60 md:block">
         <div className="mx-auto flex h-8 max-w-7xl items-center justify-between px-4 text-xs text-muted-foreground lg:px-6">
           <p className="font-medium">
-            Cổng thông tin đầu tư · 34 tỉnh thành Việt Nam sau sáp nhập
+            {t("header.tagline")}
           </p>
           <div className="flex items-center gap-4">
             <span className="inline-flex items-center gap-1">
               <MapPin className="h-3 w-3" /> Hà Nội
             </span>
             <span className="hidden items-center gap-1 lg:inline-flex">
-              <CloudSun className="h-3 w-3" /> 28°C · Nắng nhẹ
+              <CloudSun className="h-3 w-3" /> {t("header.weather")}
             </span>
             <span>{date}</span>
           </div>
@@ -67,7 +67,7 @@ export function SiteHeader() {
               className="shrink-0 rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary-foreground"
               style={{ backgroundImage: "var(--gradient-primary)" }}
             >
-              Mới nhất
+              {t("header.latest")}
             </span>
             <div className="relative flex-1 overflow-hidden">
               <div className="marquee-track flex w-max gap-8 whitespace-nowrap text-sm text-foreground/85">
@@ -89,7 +89,7 @@ export function SiteHeader() {
               <button
                 onClick={() => setLangOpen((v) => !v)}
                 className="inline-flex h-7 items-center gap-1 rounded-md border border-border bg-background px-2 text-xs font-medium text-foreground/80 transition-colors hover:text-primary"
-                aria-label="Chọn ngôn ngữ"
+                aria-label={t("header.langAria")}
               >
                 <Globe className="h-3 w-3" />
                 <span>{lang.toUpperCase()}</span>
@@ -120,7 +120,7 @@ export function SiteHeader() {
               <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="search"
-                placeholder="Tìm tỉnh, dự án, tin tức..."
+                placeholder={t("header.searchPlaceholder")}
                 className="h-7 w-56 rounded-md border border-border bg-background pl-7 pr-2 text-xs placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/40"
               />
             </div>
@@ -128,7 +128,7 @@ export function SiteHeader() {
           <button
             className="shrink-0 rounded-md border border-border p-1.5 md:hidden"
             onClick={() => setMobileOpen((v) => !v)}
-            aria-label="Menu"
+            aria-label={t("header.menuAria")}
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -142,7 +142,7 @@ export function SiteHeader() {
             to="/"
             className="mr-2 inline-flex h-9 w-9 items-center justify-center rounded-lg text-primary-foreground shadow-[var(--shadow-glow)] transition-transform hover:scale-105"
             style={{ backgroundImage: "var(--gradient-primary)" }}
-            aria-label="Trang chủ"
+            aria-label={t("header.homeAria")}
           >
             <Home className="h-4 w-4" />
           </Link>
@@ -150,7 +150,7 @@ export function SiteHeader() {
             to="/"
             className="mr-3 hidden text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-primary lg:inline"
           >
-            Cẩm nang Đầu tư VN
+            {t("header.brand")}
           </Link>
           <nav className="flex items-center gap-1">
             {navItems.map((item) => {
@@ -165,7 +165,7 @@ export function SiteHeader() {
                     data-active={active}
                     className="nav-underline inline-flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/85 transition-colors duration-150 hover:text-primary"
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                     {item.children && (
                       <ChevronDown className="h-3 w-3 opacity-60" />
                     )}
@@ -178,7 +178,7 @@ export function SiteHeader() {
                           to={c.to}
                           className="block px-4 py-2 text-sm text-popover-foreground transition-colors hover:bg-accent hover:text-primary"
                         >
-                          {c.label}
+                          {t(c.labelKey)}
                         </Link>
                       ))}
                     </div>
@@ -191,7 +191,7 @@ export function SiteHeader() {
             to="/nha-dau-tu/dang-ky-quan-tam"
             className="btn-gradient ml-auto inline-flex items-center rounded-lg px-3.5 py-1.5 text-sm font-medium"
           >
-            Đăng ký quan tâm
+            {t("header.cta")}
           </Link>
         </div>
       </div>
@@ -205,7 +205,7 @@ export function SiteHeader() {
               onClick={() => setMobileOpen(false)}
               className="border-b border-border py-2.5 text-sm font-semibold"
             >
-              Trang chủ
+              {t("nav.home")}
             </Link>
             {navItems.map((item) => (
               <div key={item.to}>
@@ -214,7 +214,7 @@ export function SiteHeader() {
                   onClick={() => setMobileOpen(false)}
                   className="block border-b border-border py-2.5 text-sm font-semibold"
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
                 {item.children && (
                   <div className="ml-3 border-l border-border pl-3">
@@ -225,7 +225,7 @@ export function SiteHeader() {
                         onClick={() => setMobileOpen(false)}
                         className="block py-1.5 text-xs text-muted-foreground hover:text-primary"
                       >
-                        {c.label}
+                        {t(c.labelKey)}
                       </Link>
                     ))}
                   </div>
