@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { PROVINCES, type Region } from "@/data/provinces";
 import { PROVINCE_PROFILES, TOP_FDI_2024, TOP_PCI_2024 } from "@/data/province-profiles";
 
-export const Route = createFileRoute("/tinh-thanh")({
+export const Route = createFileRoute("/tinh-thanh/")({
   head: () => ({
     meta: [
       { title: "34 tỉnh thành Việt Nam sau sáp nhập — Cẩm nang Đầu tư" },
