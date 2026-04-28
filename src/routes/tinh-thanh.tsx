@@ -22,6 +22,7 @@ export const Route = createFileRoute("/tinh-thanh")({
 function TinhThanhRoute() {
   return (
     <>
+      <div data-testid="parent-marker" style={{ padding: 8, background: "lime", color: "black" }}>PARENT v3</div>
       <Outlet />
       <TinhThanhPage />
     </>
