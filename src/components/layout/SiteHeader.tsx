@@ -170,7 +170,7 @@ export function SiteHeader() {
                     )}
                   </Link>
                   {item.children && (
-                    <div className="invisible absolute left-0 top-full z-[1300] -mt-1 min-w-[220px] translate-y-1 rounded-xl bg-popover py-1.5 opacity-0 shadow-[var(--shadow-elegant)] transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 border-none">
+                    <div className="invisible absolute left-0 top-full z-[1300] mt-0 min-w-[220px] translate-y-1 rounded-none border-t-2 border-t-primary bg-popover py-1.5 opacity-0 shadow-[var(--shadow-elegant)] transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
                       {item.children.map((c) => (
                         <Link
                           key={c.to}
