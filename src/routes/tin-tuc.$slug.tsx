@@ -39,7 +39,7 @@ export const Route = createFileRoute("/tin-tuc/$slug")({
 function BaiVietDetail() {
   const t = useT();
   const { article: a } = Route.useLoaderData();
-  const tr = useTranslatedItem(a as never);
+  const tr = useTranslatedItem(a as { slug: string; title?: string; excerpt?: string; body?: string; tags?: string[] });
   const related = ARTICLES.filter((x) => x.slug !== a.slug && x.category === a.category).slice(0, 3);
   const cat = a.category as NewsCategory;
   const catKey =
