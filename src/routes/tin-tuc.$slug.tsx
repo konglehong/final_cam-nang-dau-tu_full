@@ -1,9 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { PageHero } from "@/components/layout/PageHero";
-import { ARTICLES, CATEGORY_LABEL, type NewsCategory } from "@/data/content";
+import { ARTICLES, type NewsCategory } from "@/data/content";
 import { ArticleCard } from "@/components/news/ArticleCard";
 import { fmtDate } from "@/lib/format";
 import { ArrowLeft, Calendar, Clock, Share2, User } from "lucide-react";
+import { useT } from "@/lib/i18n";
+import { useTranslatedItem } from "@/lib/use-translated";
 
 export const Route = createFileRoute("/tin-tuc/$slug")({
   loader: ({ params }) => {
@@ -36,8 +37,13 @@ export const Route = createFileRoute("/tin-tuc/$slug")({
 });
 
 function BaiVietDetail() {
+  const t = useT();
   const { article: a } = Route.useLoaderData();
+  const tr = useTranslatedItem(a as never);
   const related = ARTICLES.filter((x) => x.slug !== a.slug && x.category === a.category).slice(0, 3);
+  const cat = a.category as NewsCategory;
+  const catKey =
+    cat === "chinh-sach" ? "policy" : cat === "ha-tang" ? "infra" : cat === "dia-phuong" ? "local" : "fdi";
 
   return (
     <>
@@ -46,18 +52,18 @@ function BaiVietDetail() {
           to="/tin-tuc"
           className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> Tin tức
+          <ArrowLeft className="h-4 w-4" /> {t("nav.news")}
         </Link>
 
         <span className="mt-6 inline-block rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-primary">
-          {CATEGORY_LABEL[a.category as NewsCategory]}
+          {t(`news.category.${catKey}`)}
         </span>
 
         <h1 className="mt-3 font-display text-3xl font-bold leading-tight text-foreground lg:text-5xl">
-          {a.title}
+          {tr.title}
         </h1>
 
-        <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{a.excerpt}</p>
+        <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{tr.excerpt}</p>
 
         <div className="mt-6 flex flex-wrap items-center gap-4 border-y border-border py-4 text-sm text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
@@ -67,37 +73,36 @@ function BaiVietDetail() {
             <Calendar className="h-4 w-4" /> {fmtDate(a.publishedAt)}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Clock className="h-4 w-4" /> {a.readingMinutes} phút đọc
+            <Clock className="h-4 w-4" /> {a.readingMinutes} {t("common.minutesRead")}
           </span>
-          {a.source && <span>Nguồn: {a.source}</span>}
+          {a.source && <span>{t("common.source")}: {a.source}</span>}
         </div>
 
         <div className="prose prose-lg mt-8 max-w-none text-foreground">
-          {((a.body ?? a.excerpt) as string).split("\n").map((p: string, i: number) => (
+          {((tr.body ?? tr.excerpt ?? "") as string).split("\n").map((p: string, i: number) => (
             <p key={i} className="mb-4 text-base leading-relaxed">
               {p}
             </p>
           ))}
           <p className="mt-6 rounded-lg border-l-4 border-gold bg-muted/40 p-4 text-sm italic text-muted-foreground">
-            Bài viết tham khảo dữ liệu công khai. Để có thông tin chính xác phục vụ quyết định đầu
-            tư, vui lòng liên hệ Trung tâm Xúc tiến Đầu tư của địa phương hoặc Bộ KH&ĐT.
+            {t("news.disclaimer")}
           </p>
         </div>
 
         <div className="mt-10 flex flex-wrap gap-2">
-          {(a.tags as string[]).map((t: string) => (
+          {((tr.tags ?? a.tags) as string[]).map((tag: string) => (
             <span
-              key={t}
+              key={tag}
               className="rounded-full border border-border bg-muted px-3 py-1 text-xs text-muted-foreground"
             >
-              #{t}
+              #{tag}
             </span>
           ))}
         </div>
 
         <div className="mt-8 flex items-center gap-3 border-t border-border pt-6">
           <Share2 className="h-4 w-4 text-muted-foreground" />
-          <span className="text-sm text-muted-foreground">Chia sẻ:</span>
+          <span className="text-sm text-muted-foreground">{t("common.share")}:</span>
           {["Facebook", "LinkedIn", "Zalo", "X / Twitter"].map((s) => (
             <button
               key={s}
@@ -112,7 +117,7 @@ function BaiVietDetail() {
       {related.length > 0 && (
         <section className="border-t border-border bg-muted/30">
           <div className="mx-auto max-w-7xl px-6 py-12">
-            <h2 className="mb-5 font-display text-2xl font-bold">Bài viết liên quan</h2>
+            <h2 className="mb-5 font-display text-2xl font-bold">{t("news.related")}</h2>
             <div className="grid gap-5 md:grid-cols-3">
               {related.map((r) => (
                 <ArticleCard key={r.slug} a={r} />
