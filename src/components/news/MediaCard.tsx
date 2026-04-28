@@ -1,8 +1,12 @@
 import type { MediaItem } from "@/data/content";
 import { fmtDate } from "@/lib/format";
 import { Calendar, Clock, FileText } from "lucide-react";
+import { useT } from "@/lib/i18n";
+import { useTranslatedItem } from "@/lib/use-translated";
 
 export function MediaCard({ item, accent = "primary" }: { item: MediaItem; accent?: "primary" | "gold" }) {
+  const t = useT();
+  const tr = useTranslatedItem(item);
   return (
     <article
       className={`group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:border-${accent}/40 hover:shadow-[var(--shadow-elegant)]`}
@@ -17,8 +21,8 @@ export function MediaCard({ item, accent = "primary" }: { item: MediaItem; accen
         <FileText className="h-10 w-10 opacity-50" />
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-base font-bold leading-snug text-foreground">{item.title}</h3>
-        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>
+        <h3 className="font-display text-base font-bold leading-snug text-foreground">{tr.title}</h3>
+        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{tr.description}</p>
         <div className="mt-auto flex flex-wrap items-center gap-3 pt-4 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1">
             <Calendar className="h-3 w-3" /> {fmtDate(item.publishedAt)}
@@ -30,17 +34,17 @@ export function MediaCard({ item, accent = "primary" }: { item: MediaItem; accen
           )}
           {item.pages && (
             <span className="inline-flex items-center gap-1">
-              <FileText className="h-3 w-3" /> {item.pages} trang
+              <FileText className="h-3 w-3" /> {item.pages} {t("common.pages")}
             </span>
           )}
         </div>
         <div className="mt-3 flex flex-wrap gap-1">
-          {item.tags.slice(0, 3).map((t) => (
+          {(tr.tags ?? []).slice(0, 3).map((tag) => (
             <span
-              key={t}
+              key={tag}
               className="rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground"
             >
-              #{t}
+              #{tag}
             </span>
           ))}
         </div>
@@ -50,10 +54,11 @@ export function MediaCard({ item, accent = "primary" }: { item: MediaItem; accen
 }
 
 export function MediaGrid({ items, accent }: { items: MediaItem[]; accent?: "primary" | "gold" }) {
+  const t = useT();
   if (items.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-border bg-muted/30 p-10 text-center text-sm text-muted-foreground">
-        Chưa có nội dung trong định dạng này.
+        {t("common.notFound")}
       </div>
     );
   }
