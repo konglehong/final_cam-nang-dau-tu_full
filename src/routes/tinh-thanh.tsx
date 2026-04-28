@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useChildMatches } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowRight, Building2, MapPin, Search, TrendingUp } from "lucide-react";
 import { PageHero } from "@/components/layout/PageHero";
@@ -20,10 +20,9 @@ export const Route = createFileRoute("/tinh-thanh")({
 });
 
 function TinhThanhRoute() {
-  const { pathname } = useLocation();
-  // Nếu URL là /tinh-thanh hoặc /tinh-thanh/ → render danh sách; ngược lại → render child (slug detail)
-  const isList = pathname === "/tinh-thanh" || pathname === "/tinh-thanh/";
-  return isList ? <TinhThanhPage /> : <Outlet />;
+  const childMatches = useChildMatches();
+  // Có child route match (ví dụ /tinh-thanh/$slug) → render Outlet; ngược lại render danh sách
+  return childMatches.length > 0 ? <Outlet /> : <TinhThanhPage />;
 }
 
 const REGION_LABEL: Record<Region | "all", string> = {
