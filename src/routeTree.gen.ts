@@ -45,6 +45,7 @@ import { Route as MultimediaInfographicRouteImport } from './routes/multimedia.i
 import { Route as MultimediaEMagazineRouteImport } from './routes/multimedia.e-magazine'
 import { Route as DuAnIdRouteImport } from './routes/du-an.$id'
 import { Route as DiaPhuongQuyTrinhHopTacRouteImport } from './routes/dia-phuong.quy-trinh-hop-tac'
+import { Route as DiaPhuongGoiDichVuRouteImport } from './routes/dia-phuong.goi-dich-vu'
 import { Route as DiaPhuongDangKyTuVanRouteImport } from './routes/dia-phuong.dang-ky-tu-van'
 import { Route as DiaPhuongCaseStudyRouteImport } from './routes/dia-phuong.case-study'
 
@@ -228,6 +229,11 @@ const DiaPhuongQuyTrinhHopTacRoute = DiaPhuongQuyTrinhHopTacRouteImport.update({
   path: '/quy-trinh-hop-tac',
   getParentRoute: () => DiaPhuongRoute,
 } as any)
+const DiaPhuongGoiDichVuRoute = DiaPhuongGoiDichVuRouteImport.update({
+  id: '/goi-dich-vu',
+  path: '/goi-dich-vu',
+  getParentRoute: () => DiaPhuongRoute,
+} as any)
 const DiaPhuongDangKyTuVanRoute = DiaPhuongDangKyTuVanRouteImport.update({
   id: '/dang-ky-tu-van',
   path: '/dang-ky-tu-van',
@@ -256,6 +262,7 @@ export interface FileRoutesByFullPath {
   '/tinh-thanh': typeof TinhThanhRouteWithChildren
   '/dia-phuong/case-study': typeof DiaPhuongCaseStudyRoute
   '/dia-phuong/dang-ky-tu-van': typeof DiaPhuongDangKyTuVanRoute
+  '/dia-phuong/goi-dich-vu': typeof DiaPhuongGoiDichVuRoute
   '/dia-phuong/quy-trinh-hop-tac': typeof DiaPhuongQuyTrinhHopTacRoute
   '/du-an/$id': typeof DuAnIdRoute
   '/multimedia/e-magazine': typeof MultimediaEMagazineRoute
@@ -292,6 +299,7 @@ export interface FileRoutesByTo {
   '/tinh-thanh': typeof TinhThanhRouteWithChildren
   '/dia-phuong/case-study': typeof DiaPhuongCaseStudyRoute
   '/dia-phuong/dang-ky-tu-van': typeof DiaPhuongDangKyTuVanRoute
+  '/dia-phuong/goi-dich-vu': typeof DiaPhuongGoiDichVuRoute
   '/dia-phuong/quy-trinh-hop-tac': typeof DiaPhuongQuyTrinhHopTacRoute
   '/du-an/$id': typeof DuAnIdRoute
   '/multimedia/e-magazine': typeof MultimediaEMagazineRoute
@@ -333,6 +341,7 @@ export interface FileRoutesById {
   '/tinh-thanh': typeof TinhThanhRouteWithChildren
   '/dia-phuong/case-study': typeof DiaPhuongCaseStudyRoute
   '/dia-phuong/dang-ky-tu-van': typeof DiaPhuongDangKyTuVanRoute
+  '/dia-phuong/goi-dich-vu': typeof DiaPhuongGoiDichVuRoute
   '/dia-phuong/quy-trinh-hop-tac': typeof DiaPhuongQuyTrinhHopTacRoute
   '/du-an/$id': typeof DuAnIdRoute
   '/multimedia/e-magazine': typeof MultimediaEMagazineRoute
@@ -375,6 +384,7 @@ export interface FileRouteTypes {
     | '/tinh-thanh'
     | '/dia-phuong/case-study'
     | '/dia-phuong/dang-ky-tu-van'
+    | '/dia-phuong/goi-dich-vu'
     | '/dia-phuong/quy-trinh-hop-tac'
     | '/du-an/$id'
     | '/multimedia/e-magazine'
@@ -411,6 +421,7 @@ export interface FileRouteTypes {
     | '/tinh-thanh'
     | '/dia-phuong/case-study'
     | '/dia-phuong/dang-ky-tu-van'
+    | '/dia-phuong/goi-dich-vu'
     | '/dia-phuong/quy-trinh-hop-tac'
     | '/du-an/$id'
     | '/multimedia/e-magazine'
@@ -451,6 +462,7 @@ export interface FileRouteTypes {
     | '/tinh-thanh'
     | '/dia-phuong/case-study'
     | '/dia-phuong/dang-ky-tu-van'
+    | '/dia-phuong/goi-dich-vu'
     | '/dia-phuong/quy-trinh-hop-tac'
     | '/du-an/$id'
     | '/multimedia/e-magazine'
@@ -746,6 +758,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiaPhuongQuyTrinhHopTacRouteImport
       parentRoute: typeof DiaPhuongRoute
     }
+    '/dia-phuong/goi-dich-vu': {
+      id: '/dia-phuong/goi-dich-vu'
+      path: '/goi-dich-vu'
+      fullPath: '/dia-phuong/goi-dich-vu'
+      preLoaderRoute: typeof DiaPhuongGoiDichVuRouteImport
+      parentRoute: typeof DiaPhuongRoute
+    }
     '/dia-phuong/dang-ky-tu-van': {
       id: '/dia-phuong/dang-ky-tu-van'
       path: '/dang-ky-tu-van'
@@ -766,6 +785,7 @@ declare module '@tanstack/react-router' {
 interface DiaPhuongRouteChildren {
   DiaPhuongCaseStudyRoute: typeof DiaPhuongCaseStudyRoute
   DiaPhuongDangKyTuVanRoute: typeof DiaPhuongDangKyTuVanRoute
+  DiaPhuongGoiDichVuRoute: typeof DiaPhuongGoiDichVuRoute
   DiaPhuongQuyTrinhHopTacRoute: typeof DiaPhuongQuyTrinhHopTacRoute
   DiaPhuongIndexRoute: typeof DiaPhuongIndexRoute
 }
@@ -773,6 +793,7 @@ interface DiaPhuongRouteChildren {
 const DiaPhuongRouteChildren: DiaPhuongRouteChildren = {
   DiaPhuongCaseStudyRoute: DiaPhuongCaseStudyRoute,
   DiaPhuongDangKyTuVanRoute: DiaPhuongDangKyTuVanRoute,
+  DiaPhuongGoiDichVuRoute: DiaPhuongGoiDichVuRoute,
   DiaPhuongQuyTrinhHopTacRoute: DiaPhuongQuyTrinhHopTacRoute,
   DiaPhuongIndexRoute: DiaPhuongIndexRoute,
 }
