@@ -1,38 +1,96 @@
-import { useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { Menu, X, Search, Globe, ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import {
+  Home,
+  Search,
+  MapPin,
+  CloudSun,
+  ChevronDown,
+  Menu,
+  X,
+  Globe,
+} from "lucide-react";
 import { PRIMARY_NAV, LANGUAGES } from "@/lib/navigation";
+import { ARTICLES } from "@/data/content";
 import { cn } from "@/lib/utils";
 import { useLanguage, type LangCode } from "@/lib/i18n";
 
+function formatVNDate(d: Date) {
+  const days = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+  return `${days[d.getDay()]}, ${d.getDate().toString().padStart(2, "0")}/${(
+    d.getMonth() + 1
+  )
+    .toString()
+    .padStart(2, "0")}/${d.getFullYear()}`;
+}
+
 export function SiteHeader() {
+  const { location } = useRouterState();
+  const pathname = location.pathname;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [date, setDate] = useState("");
   const { lang, setLang } = useLanguage();
 
+  useEffect(() => setDate(formatVNDate(new Date())), []);
+
+  // Skip the "Trang chủ" item — it's represented by the home icon
+  const navItems = PRIMARY_NAV.filter((i) => i.to !== "/");
+  const ticker = ARTICLES.slice(0, 6);
+
   return (
-    <header className="sticky top-0 z-[1200] border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-      {/* Top utility bar — light & airy */}
-      <div className="hidden border-b border-border/60 bg-background/60 lg:block">
-        <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 text-xs text-muted-foreground">
-          <p className="font-medium tracking-wide">
-            Cổng thông tin đầu tư chính thống · 34 tỉnh thành sau sáp nhập
+    <header className="sticky top-0 z-[1200] border-b border-border bg-card/95 backdrop-blur-md supports-[backdrop-filter]:bg-card/80">
+      {/* Layer 1 — Info bar */}
+      <div className="hidden border-b border-border/70 bg-background/60 md:block">
+        <div className="mx-auto flex h-8 max-w-7xl items-center justify-between px-4 text-xs text-muted-foreground lg:px-6">
+          <p className="font-medium">
+            Cổng thông tin đầu tư · 34 tỉnh thành Việt Nam sau sáp nhập
           </p>
-          <div className="flex items-center gap-5">
-            <Link to="/su-kien" className="hover:text-primary transition-colors">
-              Lịch sự kiện
-            </Link>
-            <Link to="/lien-he" className="hover:text-primary transition-colors">
-              Liên hệ
-            </Link>
+          <div className="flex items-center gap-4">
+            <span className="inline-flex items-center gap-1">
+              <MapPin className="h-3 w-3" /> Hà Nội
+            </span>
+            <span className="hidden items-center gap-1 lg:inline-flex">
+              <CloudSun className="h-3 w-3" /> 28°C · Nắng nhẹ
+            </span>
+            <span>{date}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Layer 2 — Utility bar (ticker + lang + search) */}
+      <div className="border-b border-border/70">
+        <div className="mx-auto flex h-10 max-w-7xl items-center gap-4 px-4 lg:px-6">
+          <div className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden">
+            <span
+              className="shrink-0 rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary-foreground"
+              style={{ backgroundImage: "var(--gradient-primary)" }}
+            >
+              Mới nhất
+            </span>
+            <div className="relative flex-1 overflow-hidden">
+              <div className="marquee-track flex w-max gap-8 whitespace-nowrap text-sm text-foreground/85">
+                {[...ticker, ...ticker].map((n, i) => (
+                  <Link
+                    key={`${n.slug}-${i}`}
+                    to="/tin-tuc/$slug"
+                    params={{ slug: n.slug }}
+                    className="transition-colors hover:text-primary"
+                  >
+                    <span className="text-gradient">●</span> {n.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="hidden shrink-0 items-center gap-3 md:flex">
             <div className="relative">
               <button
                 onClick={() => setLangOpen((v) => !v)}
-                className="flex items-center gap-1.5 hover:text-primary transition-colors"
+                className="inline-flex h-7 items-center gap-1 rounded-md border border-border bg-background px-2 text-xs font-medium text-foreground/80 transition-colors hover:text-primary"
                 aria-label="Chọn ngôn ngữ"
               >
-                <Globe className="h-3.5 w-3.5" />
+                <Globe className="h-3 w-3" />
                 <span>{lang.toUpperCase()}</span>
                 <ChevronDown className="h-3 w-3" />
               </button>
@@ -57,99 +115,103 @@ export function SiteHeader() {
                 </div>
               )}
             </div>
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="search"
+                placeholder="Tìm tỉnh, dự án, tin tức..."
+                className="h-7 w-56 rounded-md border border-border bg-background pl-7 pr-2 text-xs placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/40"
+              />
+            </div>
           </div>
+          <button
+            className="shrink-0 rounded-md border border-border p-1.5 md:hidden"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label="Menu"
+          >
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
         </div>
       </div>
 
-      {/* Main bar */}
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 lg:px-6">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl text-primary-foreground shadow-[var(--shadow-glow)] transition-transform group-hover:scale-105" style={{ backgroundImage: "var(--gradient-primary)" }}>
-            <span className="font-display text-base font-bold tracking-tight">CN</span>
-          </div>
-          <div className="hidden flex-col leading-tight sm:flex">
-            <span className="font-display text-base font-semibold tracking-tight text-foreground">
-              Cẩm nang Đầu tư
-            </span>
-            <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
-              Việt Nam
-            </span>
-          </div>
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex">
-          {PRIMARY_NAV.slice(0, 7).map((item) => (
-            <div
-              key={item.to}
-              className="relative"
-              onMouseEnter={() => item.children && setOpenDropdown(item.to)}
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
-              <Link
-                to={item.to}
-                className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-primary"
-                activeProps={{ className: "text-primary bg-accent/60" }}
-                activeOptions={{ exact: item.to === "/" }}
-              >
-                {item.label}
-                {item.children && <ChevronDown className="h-3.5 w-3.5" />}
-              </Link>
-              {item.children && openDropdown === item.to && (
-                <div className="absolute left-0 top-full z-[1300] w-56 rounded-md border border-border bg-popover py-2 shadow-lg">
-                  {item.children.map((c) => (
-                    <Link
-                      key={c.to}
-                      to={c.to}
-                      className="block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-primary"
-                    >
-                      {c.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <button
-            aria-label="Tìm kiếm"
-            className="hidden h-9 w-9 items-center justify-center rounded-md text-foreground/70 hover:bg-accent hover:text-primary lg:flex"
+      {/* Layer 3 — Main navigation */}
+      <div className="hidden md:block">
+        <div className="mx-auto flex h-12 max-w-7xl items-center gap-1 px-4 lg:px-6">
+          <Link
+            to="/"
+            className="mr-2 inline-flex h-9 w-9 items-center justify-center rounded-lg text-primary-foreground shadow-[var(--shadow-glow)] transition-transform hover:scale-105"
+            style={{ backgroundImage: "var(--gradient-primary)" }}
+            aria-label="Trang chủ"
           >
-            <Search className="h-4 w-4" />
-          </button>
+            <Home className="h-4 w-4" />
+          </Link>
+          <Link
+            to="/"
+            className="mr-3 hidden text-sm font-semibold tracking-tight text-foreground transition-colors hover:text-primary lg:inline"
+          >
+            Cẩm nang Đầu tư VN
+          </Link>
+          <nav className="flex items-center gap-1">
+            {navItems.map((item) => {
+              const active =
+                item.to === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.to);
+              return (
+                <div key={item.to} className="group relative">
+                  <Link
+                    to={item.to}
+                    data-active={active}
+                    className="nav-underline inline-flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/85 transition-colors duration-150 hover:text-primary"
+                  >
+                    {item.label}
+                    {item.children && (
+                      <ChevronDown className="h-3 w-3 opacity-60" />
+                    )}
+                  </Link>
+                  {item.children && (
+                    <div className="invisible absolute left-0 top-full z-[1300] min-w-[220px] translate-y-1 rounded-xl border border-border bg-popover py-1.5 opacity-0 shadow-[var(--shadow-elegant)] transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                      {item.children.map((c) => (
+                        <Link
+                          key={c.to}
+                          to={c.to}
+                          className="block px-4 py-2 text-sm text-popover-foreground transition-colors hover:bg-accent hover:text-primary"
+                        >
+                          {c.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </nav>
           <Link
             to="/nha-dau-tu/dang-ky-quan-tam"
-            className="btn-gradient hidden rounded-lg px-4 py-2 text-sm font-medium lg:inline-flex"
+            className="btn-gradient ml-auto inline-flex items-center rounded-lg px-3.5 py-1.5 text-sm font-medium"
           >
             Đăng ký quan tâm
           </Link>
-          <button
-            aria-label="Mở menu"
-            onClick={() => setMobileOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center rounded-md text-foreground hover:bg-accent lg:hidden"
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="relative z-[1300] border-t border-border bg-background lg:hidden">
-          <nav className="mx-auto max-w-7xl space-y-1 px-4 py-3">
-            {PRIMARY_NAV.map((item) => (
+        <div className="border-t border-border bg-card md:hidden">
+          <nav className="mx-auto flex max-w-7xl flex-col px-4 py-2">
+            <Link
+              to="/"
+              onClick={() => setMobileOpen(false)}
+              className="border-b border-border py-2.5 text-sm font-semibold"
+            >
+              Trang chủ
+            </Link>
+            {navItems.map((item) => (
               <div key={item.to}>
                 <Link
                   to={item.to}
                   onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "block rounded-md px-3 py-2 text-sm font-medium",
-                    "hover:bg-accent hover:text-primary",
-                  )}
-                  activeProps={{ className: "text-primary bg-accent" }}
-                  activeOptions={{ exact: item.to === "/" }}
+                  className="block border-b border-border py-2.5 text-sm font-semibold"
                 >
                   {item.label}
                 </Link>
@@ -160,7 +222,7 @@ export function SiteHeader() {
                         key={c.to}
                         to={c.to}
                         onClick={() => setMobileOpen(false)}
-                        className="block rounded-md px-3 py-1.5 text-xs text-muted-foreground hover:text-primary"
+                        className="block py-1.5 text-xs text-muted-foreground hover:text-primary"
                       >
                         {c.label}
                       </Link>
@@ -172,7 +234,7 @@ export function SiteHeader() {
             <Link
               to="/nha-dau-tu/dang-ky-quan-tam"
               onClick={() => setMobileOpen(false)}
-              className="mt-3 block rounded-md bg-primary px-3 py-2.5 text-center text-sm font-medium text-primary-foreground"
+              className="btn-gradient mt-3 rounded-lg px-3 py-2.5 text-center text-sm font-medium"
             >
               Đăng ký quan tâm đầu tư
             </Link>
