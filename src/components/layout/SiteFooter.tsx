@@ -14,19 +14,19 @@ import type { LucideIcon } from "lucide-react";
 import { FOOTER_NAV } from "@/lib/navigation";
 import { useT } from "@/lib/i18n";
 
-const eyebrow = "text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#163300]";
+const eyebrow = "text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#163300]";
 
 export function SiteFooter() {
   const t = useT();
 
   return (
     <footer className="border-t border-[rgba(14,15,12,0.10)] bg-[#F7F8F2] text-[#0E0F0C]">
-      <section className="border-b border-[rgba(14,15,12,0.10)] bg-white px-6 py-10 lg:py-12">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#163300]">
+      <section className="border-b border-[rgba(14,15,12,0.10)] bg-white px-6 py-8 lg:py-10">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#163300]">
             Dành cho nhà đầu tư
           </p>
-      
+
           <div className="mt-4 grid gap-4 lg:grid-cols-2">
             <ActionCard
               icon={Users}
@@ -170,47 +170,47 @@ function ActionCard({
 
   return (
     <article
-      className={`relative flex min-h-[224px] flex-col rounded-[30px] border border-[rgba(14,15,12,0.10)] p-6 ring-0 lg:min-h-[232px] lg:p-7 ${
+      className={`relative flex min-h-[176px] flex-col rounded-[24px] border border-[rgba(14,15,12,0.10)] p-5 ring-0 lg:min-h-[184px] lg:p-6 ${
         dark
           ? "overflow-hidden bg-[linear-gradient(90deg,#173800_0%,#184500_42%,#245B14_100%)] text-white"
           : "bg-[#FAFAF6] text-[#0E0F0C]"
       }`}
     >
       {dark && (
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_38%,rgba(159,232,112,0.11),transparent_34%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_38%,rgba(159,232,112,0.10),transparent_34%)]" />
       )}
       <div
-        className={`relative flex h-12 w-12 items-center justify-center rounded-full ${
+        className={`relative flex h-10 w-10 items-center justify-center rounded-full ${
           dark
             ? "bg-[rgba(159,232,112,0.14)] text-[#9FE870] ring-1 ring-[rgba(255,255,255,0.08)]"
             : "bg-[#E2F6D5] text-[#163300]"
         }`}
       >
-        <Icon className="h-6 w-6" />
+        <Icon className="h-5 w-5" />
       </div>
       <h3
-        className={`relative mt-6 font-display text-[24px] font-extrabold leading-[1.12] tracking-normal sm:text-[28px] ${
+        className={`relative mt-5 font-display text-[21px] font-extrabold leading-[1.12] tracking-normal sm:text-[24px] ${
           dark ? "text-white" : "text-[#0E0F0C]"
         }`}
       >
         {title}
       </h3>
       <p
-        className={`relative mt-3 max-w-xl text-sm font-medium leading-relaxed lg:text-[15px] ${
+        className={`relative mt-2 max-w-xl text-[13px] font-medium leading-relaxed lg:text-sm ${
           dark ? "text-white/85" : "text-[#454745]"
         }`}
       >
         {desc}
       </p>
-      <div className="relative mt-auto pt-5">
+      <div className="relative mt-auto pt-4">
         <Link
           to={to}
-          className={`inline-flex h-10 items-center justify-center gap-2 rounded-full px-5 text-sm font-bold transition-transform hover:scale-[1.02] active:scale-[0.98] ${
+          className={`inline-flex h-9 items-center justify-center gap-2 rounded-full px-4 text-xs font-bold transition-transform hover:scale-[1.02] active:scale-[0.98] ${
             dark ? "bg-white text-[#163300]" : "bg-[#163300] text-white"
           }`}
         >
           {cta}
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
     </article>
