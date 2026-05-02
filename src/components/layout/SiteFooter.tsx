@@ -2,11 +2,11 @@ import { Link, useLocation } from "@tanstack/react-router";
 import {
   ArrowRight,
   Facebook,
-  FolderOpen,
   Instagram,
   Mail,
   MapPin,
   Phone,
+  Target,
   Users,
   Youtube,
 } from "lucide-react";
@@ -27,44 +27,42 @@ export function SiteFooter() {
               Dành cho nhà đầu tư
             </p>
             <div className="mt-6 grid gap-5 lg:grid-cols-2">
-              <article className="rounded-[34px] bg-white p-8 ring-1 ring-[rgba(14,15,12,0.12)] lg:p-10">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#E2F6D5] text-[#163300]">
+              <article className="rounded-[34px] bg-[#F7F8F2] p-8 ring-1 ring-[rgba(14,15,12,0.12)] lg:p-10">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#E2F6D5] text-[#163300]">
                   <Users className="h-7 w-7" />
                 </div>
                 <h3 className="mt-8 font-display text-[34px] font-extrabold leading-[1.12] tracking-normal text-[#0E0F0C] sm:text-[40px]">
                   Bạn là Nhà đầu tư?
                 </h3>
                 <p className="mt-5 max-w-xl text-base font-medium leading-relaxed text-[#454745] lg:text-lg">
-                  Truy cập thư viện tài liệu xúc tiến đa ngôn ngữ, đăng ký quan tâm dự án và kết nối trực tiếp với đầu mối phù hợp.
+                  Đăng ký để nhận thông tin dự án, chính sách mới nhất và tư vấn đầu tư phù hợp với nhu cầu của bạn.
                 </p>
                 <Link
-                  to="/nha-dau-tu"
-                  className="mt-8 inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#163300] px-7 text-base font-bold text-[#F7F8F2] transition-transform hover:scale-105 active:scale-95"
+                  to="/nha-dau-tu/dang-ky-quan-tam"
+                  className="mt-8 inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#163300] px-7 text-base font-bold text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  Khu Nhà đầu tư
+                  Đăng ký quan tâm
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </article>
 
               <article className="relative overflow-hidden rounded-[34px] p-8 text-white ring-1 ring-[rgba(14,15,12,0.12)] lg:p-10">
-                <div className="absolute inset-0 bg-[linear-gradient(135deg,#163300_0%,#245b14_55%,#4b8f2b_100%)]" />
-                <div className="absolute inset-x-0 top-0 h-2 bg-[#9FE870]" />
-                <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
-                <div className="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-[#9FE870]/15 blur-3xl" />
+                <div className="absolute inset-0 bg-[linear-gradient(90deg,#163300_0%,#1c5205_55%,#245b14_100%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_30%,rgba(159,232,112,0.18),transparent_32%)]" />
 
                 <div className="relative">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/12 text-white ring-1 ring-white/15">
-                    <FolderOpen className="h-7 w-7" />
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[rgba(159,232,112,0.14)] text-[#9FE870] ring-1 ring-[rgba(255,255,255,0.08)]">
+                    <Target className="h-7 w-7" />
                   </div>
-                  <h3 className="mt-8 font-display text-[34px] font-extrabold leading-[1.12] tracking-normal sm:text-[40px]">
+                  <h3 className="mt-8 font-display text-[34px] font-extrabold leading-[1.12] tracking-normal text-white sm:text-[40px]">
                     Khám phá dự án nổi bật
                   </h3>
                   <p className="mt-5 max-w-xl text-base font-medium leading-relaxed text-white/85 lg:text-lg">
-                    Cập nhật các dự án trọng điểm đang kêu gọi đầu tư trên toàn quốc — thông tin rõ ràng, dễ tra cứu và sẵn sàng kết nối.
+                    Tìm kiếm và lọc các dự án kêu gọi vốn theo lĩnh vực, địa phương và quy mô đầu tư.
                   </p>
                   <Link
                     to="/du-an"
-                    className="mt-8 inline-flex h-14 items-center justify-center gap-2 rounded-full bg-white px-7 text-base font-bold text-[#163300] transition-transform hover:scale-105 active:scale-95"
+                    className="mt-8 inline-flex h-14 items-center justify-center gap-2 rounded-full bg-white px-7 text-base font-bold text-[#163300] transition-transform hover:scale-[1.02] active:scale-[0.98]"
                   >
                     Xem dự án
                     <ArrowRight className="h-5 w-5" />
