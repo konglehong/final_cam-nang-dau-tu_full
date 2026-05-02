@@ -23,7 +23,10 @@ export function SiteFooter() {
     <footer className="border-t border-[rgba(14,15,12,0.10)] bg-[#F7F8F2] text-[#0E0F0C]">
       <section className="border-b border-[rgba(14,15,12,0.10)] bg-white px-6 py-10 lg:py-12">
         <div className="mx-auto max-w-7xl">
-          <p className={eyebrow}>Dành cho nhà đầu tư</p>
+          <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#163300]">
+            Dành cho nhà đầu tư
+          </p>
+      
           <div className="mt-4 grid gap-4 lg:grid-cols-2">
             <ActionCard
               icon={Users}
