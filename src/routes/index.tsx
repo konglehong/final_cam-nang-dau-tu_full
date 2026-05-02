@@ -95,16 +95,18 @@ const FEATURED_NEWS = [
   },
 ];
 
+const sectionTitle = "mt-4 font-display text-[38px] font-black leading-[0.92] tracking-[-0.05em] text-[#0E0F0C] sm:text-[46px] lg:text-[56px]";
+
 function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-[rgba(14,15,12,0.12)] bg-[#F7F8F2] px-6 py-20 lg:py-28">
+      <section className="relative overflow-hidden border-b border-[rgba(14,15,12,0.12)] bg-[#F7F8F2] px-6 py-18 lg:py-24">
         <div
-          className="pointer-events-none absolute right-[-12%] top-[-18%] h-[460px] w-[460px] rounded-full bg-[#9FE870]/55 blur-3xl"
+          className="pointer-events-none absolute right-[-12%] top-[-18%] h-[420px] w-[420px] rounded-full bg-[#9FE870]/55 blur-3xl"
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute bottom-[-22%] left-[-10%] h-[420px] w-[420px] rounded-full bg-[#E2F6D5] blur-3xl"
+          className="pointer-events-none absolute bottom-[-22%] left-[-10%] h-[380px] w-[380px] rounded-full bg-[#E2F6D5] blur-3xl"
           aria-hidden
         />
 
@@ -113,15 +115,15 @@ function HomePage() {
             <span className="inline-flex rounded-full bg-[#E2F6D5] px-4 py-2 text-sm font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)]">
               Cẩm nang Đầu tư Việt Nam
             </span>
-            <h1 className="mt-8 max-w-5xl font-display text-[58px] font-black leading-[0.86] tracking-[-0.055em] text-[#0E0F0C] sm:text-[84px] lg:text-[118px]">
+            <h1 className="mt-8 max-w-5xl font-display text-[44px] font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] sm:text-[64px] lg:text-[80px] xl:text-[88px]">
               Đầu tư vào Việt Nam.
               <br />
               Rõ hơn. Nhanh hơn.
             </h1>
-            <p className="mt-8 max-w-3xl text-xl font-medium leading-[1.45] text-[#454745] sm:text-2xl">
+            <p className="mt-7 max-w-3xl text-lg font-medium leading-[1.45] text-[#454745] sm:text-xl">
               Khám phá bản đồ cơ hội đầu tư, hồ sơ 34 tỉnh thành, chính sách ưu đãi và tài liệu xúc tiến đa ngôn ngữ trong một cổng dữ liệu duy nhất.
             </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/ban-do-dau-tu"
                 className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#9FE870] px-7 text-base font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)] transition-transform hover:scale-105 active:scale-95"
@@ -139,7 +141,7 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {STATS.map((item) => (
               <div
                 key={item.label}
@@ -158,21 +160,21 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[#F7F8F2] px-6 py-20 lg:py-24">
+      <section className="bg-[#F7F8F2] px-6 py-16 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#163300]">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#163300]">
               Bản đồ cơ hội đầu tư
             </p>
-            <h2 className="mt-4 max-w-2xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] lg:text-7xl">
+            <h2 className={sectionTitle}>
               Một bản đồ. Nhiều lớp dữ liệu.
             </h2>
-            <p className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-[#454745]">
+            <p className="mt-6 max-w-xl text-base font-medium leading-relaxed text-[#454745] lg:text-lg">
               Bật/tắt lớp tỉnh thành, khu công nghiệp, cảng biển, sân bay, cao tốc, năng lượng, du lịch và dự án trọng điểm để nhìn nhanh lợi thế từng vùng.
             </p>
             <Link
               to="/ban-do-dau-tu"
-              className="mt-8 inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[#9FE870] px-6 py-3 text-base font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)] transition-transform hover:scale-105 active:scale-95"
+              className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-[#9FE870] px-6 py-3 text-base font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)] transition-transform hover:scale-105 active:scale-95"
             >
               Mở bản đồ đầu tư
               <ArrowRight className="h-5 w-5" />
@@ -207,16 +209,14 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-[rgba(14,15,12,0.12)] bg-white px-6 py-20 lg:py-24">
+      <section className="border-y border-[rgba(14,15,12,0.12)] bg-white px-6 py-16 lg:py-20">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#163300]">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#163300]">
                 Cơ hội nổi bật
               </p>
-              <h2 className="mt-4 font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] lg:text-7xl">
-                Dự án đang mở.
-              </h2>
+              <h2 className={sectionTitle}>Dự án đang mở.</h2>
             </div>
             <Link
               to="/du-an"
@@ -235,10 +235,10 @@ function HomePage() {
                 <span className="inline-flex rounded-full bg-[#E2F6D5] px-3 py-1 text-xs font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)]">
                   {item.status}
                 </span>
-                <p className="mt-8 text-sm font-bold uppercase tracking-[0.12em] text-[#454745]">
+                <p className="mt-8 text-xs font-bold uppercase tracking-[0.12em] text-[#454745]">
                   {item.tag}
                 </p>
-                <h3 className="mt-3 font-display text-4xl font-black leading-[0.92] tracking-[-0.05em] text-[#0E0F0C]">
+                <h3 className="mt-3 font-display text-[28px] font-black leading-[0.95] tracking-[-0.045em] text-[#0E0F0C] lg:text-[32px]">
                   {item.title}
                 </h3>
                 <div className="mt-8 grid gap-2 text-sm font-bold text-[#0E0F0C]">
@@ -255,15 +255,13 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[#F7F8F2] px-6 py-20 lg:py-24">
+      <section className="bg-[#F7F8F2] px-6 py-16 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#163300]">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#163300]">
               Hành trình nhà đầu tư
             </p>
-            <h2 className="mt-4 font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] lg:text-7xl">
-              Từ dữ liệu đến quyết định.
-            </h2>
+            <h2 className={sectionTitle}>Từ dữ liệu đến quyết định.</h2>
           </div>
           <div className="rounded-[36px] bg-white p-4 ring-1 ring-[rgba(14,15,12,0.12)]">
             {JOURNEY.map((step, index) => (
@@ -274,23 +272,21 @@ function HomePage() {
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#E2F6D5] text-lg font-black text-[#163300]">
                   {index + 1}
                 </span>
-                <p className="pt-2 text-lg font-bold leading-snug text-[#0E0F0C]">{step}</p>
+                <p className="pt-2 text-base font-bold leading-snug text-[#0E0F0C] lg:text-lg">{step}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white px-6 py-20 lg:py-24">
+      <section className="bg-white px-6 py-16 lg:py-20">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#163300]">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#163300]">
                 Tin tức & chính sách
               </p>
-              <h2 className="mt-4 font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] lg:text-7xl">
-                Cập nhật cần biết.
-              </h2>
+              <h2 className={sectionTitle}>Cập nhật cần biết.</h2>
             </div>
             <Link
               to="/tin-tuc"
@@ -321,16 +317,14 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-[rgba(14,15,12,0.12)] bg-[#F7F8F2] px-6 py-20 lg:py-24">
+      <section className="border-y border-[rgba(14,15,12,0.12)] bg-[#F7F8F2] px-6 py-16 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#163300]">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#163300]">
               Multimedia
             </p>
-            <h2 className="mt-4 font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] lg:text-7xl">
-              Xem nhanh. Hiểu nhanh.
-            </h2>
-            <p className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-[#454745]">
+            <h2 className={sectionTitle}>Xem nhanh. Hiểu nhanh.</h2>
+            <p className="mt-6 max-w-xl text-base font-medium leading-relaxed text-[#454745] lg:text-lg">
               Video, infographic, podcast và e-magazine giúp nhà đầu tư nắm nhanh xu hướng, lợi thế địa phương và thông tin chính sách.
             </p>
             <Link
@@ -356,14 +350,14 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[#0E0F0C] px-6 py-20 text-white lg:py-24">
-        <div className="mx-auto max-w-7xl rounded-[40px] bg-[#9FE870] p-8 text-[#163300] sm:p-10 lg:p-14">
+      <section className="bg-[#0E0F0C] px-6 py-16 text-white lg:py-20">
+        <div className="mx-auto max-w-7xl rounded-[40px] bg-[#9FE870] p-8 text-[#163300] sm:p-10 lg:p-12">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <h2 className="font-display text-5xl font-black leading-[0.88] tracking-[-0.055em] lg:text-7xl">
+              <h2 className="font-display text-[38px] font-black leading-[0.9] tracking-[-0.05em] sm:text-[46px] lg:text-[56px]">
                 Bắt đầu từ dữ liệu đúng.
               </h2>
-              <p className="mt-6 max-w-2xl text-lg font-bold leading-relaxed">
+              <p className="mt-6 max-w-2xl text-base font-bold leading-relaxed lg:text-lg">
                 Khám phá bản đồ cơ hội đầu tư, so sánh tỉnh thành và đăng ký quan tâm các dự án đang kêu gọi vốn.
               </p>
             </div>
