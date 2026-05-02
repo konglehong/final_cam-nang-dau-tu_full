@@ -95,7 +95,7 @@ const FEATURED_NEWS = [
   },
 ];
 
-const sectionTitle = "mt-4 font-display text-[38px] font-black leading-[0.92] tracking-[-0.05em] text-[#0E0F0C] sm:text-[46px] lg:text-[56px]";
+const sectionTitle = "mt-4 font-display text-[38px] font-black leading-[0.98] tracking-[-0.018em] text-[#0E0F0C] sm:text-[46px] lg:text-[56px]";
 
 function HomePage() {
   return (
@@ -115,7 +115,7 @@ function HomePage() {
             <span className="inline-flex rounded-full bg-[#E2F6D5] px-4 py-2 text-sm font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)]">
               Cẩm nang Đầu tư Việt Nam
             </span>
-            <h1 className="mt-8 max-w-5xl font-display text-[44px] font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] sm:text-[64px] lg:text-[80px] xl:text-[88px]">
+            <h1 className="mt-8 max-w-5xl font-display text-[44px] font-black leading-[0.98] tracking-[-0.018em] text-[#0E0F0C] sm:text-[64px] lg:text-[80px] xl:text-[88px]">
               Đầu tư vào Việt Nam.
               <br />
               Rõ hơn. Nhanh hơn.
@@ -150,7 +150,7 @@ function HomePage() {
                 <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#E2F6D5] text-[#163300]">
                   <item.icon className="h-5 w-5" />
                 </div>
-                <p className="mt-5 font-display text-4xl font-black leading-none tracking-[-0.04em] text-[#0E0F0C]">
+                <p className="mt-5 font-display text-4xl font-black leading-none tracking-[-0.01em] text-[#0E0F0C]">
                   {item.value}
                 </p>
                 <p className="mt-2 text-sm font-semibold text-[#454745]">{item.label}</p>
@@ -196,7 +196,7 @@ function HomePage() {
               <div className="mt-10 flex h-[72%] items-center justify-center rounded-[30px] bg-[#F7F8F2] ring-1 ring-[rgba(14,15,12,0.12)]">
                 <div className="text-center">
                   <Map className="mx-auto h-20 w-20 text-[#163300]" />
-                  <p className="mt-5 text-2xl font-black tracking-[-0.04em] text-[#0E0F0C]">
+                  <p className="mt-5 text-2xl font-black tracking-[-0.01em] text-[#0E0F0C]">
                     Preview bản đồ đầu tư
                   </p>
                   <p className="mt-2 text-sm font-semibold text-[#454745]">
@@ -238,7 +238,7 @@ function HomePage() {
                 <p className="mt-8 text-xs font-bold uppercase tracking-[0.12em] text-[#454745]">
                   {item.tag}
                 </p>
-                <h3 className="mt-3 font-display text-[28px] font-black leading-[0.95] tracking-[-0.045em] text-[#0E0F0C] lg:text-[32px]">
+                <h3 className="mt-3 font-display text-[28px] font-black leading-[1.02] tracking-[-0.014em] text-[#0E0F0C] lg:text-[32px]">
                   {item.title}
                 </h3>
                 <div className="mt-8 grid gap-2 text-sm font-bold text-[#0E0F0C]">
@@ -304,7 +304,7 @@ function HomePage() {
                 <span className="rounded-full bg-[#E2F6D5] px-3 py-1 text-xs font-bold text-[#163300]">
                   {item.tag}
                 </span>
-                <h3 className="mt-6 text-2xl font-black leading-tight tracking-[-0.035em] text-[#0E0F0C]">
+                <h3 className="mt-6 text-2xl font-black leading-tight tracking-[-0.01em] text-[#0E0F0C]">
                   {item.title}
                 </h3>
                 <p className="mt-4 text-base font-medium leading-relaxed text-[#454745]">
@@ -341,7 +341,7 @@ function HomePage() {
                 key={item}
                 className="flex aspect-[9/12] items-end rounded-[28px] bg-white p-4 ring-1 ring-[rgba(14,15,12,0.12)]"
               >
-                <p className="text-2xl font-black leading-none tracking-[-0.04em] text-[#0E0F0C]">
+                <p className="text-2xl font-black leading-none tracking-[-0.01em] text-[#0E0F0C]">
                   {item}
                 </p>
               </div>
@@ -354,7 +354,7 @@ function HomePage() {
         <div className="mx-auto max-w-7xl rounded-[40px] bg-[#9FE870] p-8 text-[#163300] sm:p-10 lg:p-12">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <h2 className="font-display text-[38px] font-black leading-[0.9] tracking-[-0.05em] sm:text-[46px] lg:text-[56px]">
+              <h2 className="font-display text-[38px] font-black leading-[0.98] tracking-[-0.018em] sm:text-[46px] lg:text-[56px]">
                 Bắt đầu từ dữ liệu đúng.
               </h2>
               <p className="mt-6 max-w-2xl text-base font-bold leading-relaxed lg:text-lg">
