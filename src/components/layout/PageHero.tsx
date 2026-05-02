@@ -10,31 +10,27 @@ type Props = {
 
 export function PageHero({ eyebrow, title, description, children, align = "left" }: Props) {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-background">
-      {/* Stripe-style soft mesh gradient */}
-      <div className="pointer-events-none absolute inset-0 bg-mesh opacity-90" aria-hidden />
+    <section className="relative overflow-hidden border-b border-[rgba(14,15,12,0.12)] bg-[#F7F8F2]">
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
-          backgroundSize: "28px 28px",
-          color: "var(--color-foreground)",
-        }}
+        className="pointer-events-none absolute right-[-18%] top-[-45%] h-[420px] w-[420px] rounded-full bg-[#9FE870]/45 blur-3xl"
         aria-hidden
       />
       <div
-        className={`relative mx-auto max-w-7xl px-6 py-20 lg:py-28 ${
+        className="pointer-events-none absolute bottom-[-45%] left-[-16%] h-[360px] w-[360px] rounded-full bg-[#E2F6D5] blur-3xl"
+        aria-hidden
+      />
+      <div
+        className={`relative mx-auto max-w-7xl px-6 py-16 lg:py-22 ${
           align === "center" ? "text-center" : ""
         }`}
       >
         {eyebrow && (
-          <p className="animate-fade-up mb-5 inline-block rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+          <p className="animate-fade-up mb-5 inline-flex rounded-full bg-[#E2F6D5] px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)]">
             {eyebrow}
           </p>
         )}
         <h1
-          className={`animate-fade-up font-display text-4xl font-semibold leading-[1.1] tracking-tight text-foreground lg:text-5xl xl:text-6xl ${
+          className={`animate-fade-up font-display text-[38px] font-black leading-[0.92] tracking-[-0.05em] text-[#0E0F0C] sm:text-[48px] lg:text-[56px] ${
             align === "center" ? "mx-auto max-w-3xl" : "max-w-3xl"
           }`}
           style={{ animationDelay: "60ms" }}
@@ -43,7 +39,7 @@ export function PageHero({ eyebrow, title, description, children, align = "left"
         </h1>
         {description && (
           <p
-            className={`animate-fade-up mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl ${
+            className={`animate-fade-up mt-6 text-base font-medium leading-relaxed text-[#454745] lg:text-lg ${
               align === "center" ? "mx-auto max-w-2xl" : "max-w-2xl"
             }`}
             style={{ animationDelay: "140ms" }}
@@ -52,7 +48,7 @@ export function PageHero({ eyebrow, title, description, children, align = "left"
           </p>
         )}
         {children && (
-          <div className="animate-fade-up mt-9" style={{ animationDelay: "220ms" }}>
+          <div className="animate-fade-up mt-8" style={{ animationDelay: "220ms" }}>
             {children}
           </div>
         )}
@@ -71,22 +67,22 @@ export function PlaceholderBlock({
   blocks: string[];
 }) {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-20">
-      <div className="mb-12 max-w-3xl">
-        <h2 className="font-display text-3xl font-semibold tracking-tight text-foreground lg:text-4xl">
+    <section className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
+      <div className="mb-10 max-w-3xl">
+        <h2 className="font-display text-[36px] font-black leading-[0.94] tracking-[-0.045em] text-[#0E0F0C] lg:text-[52px]">
           {title}
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+        <p className="mt-4 text-base font-medium leading-relaxed text-[#454745]">
           {description}
         </p>
       </div>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {blocks.map((b, i) => (
-          <div key={b} className="reveal card-soft p-7">
-            <span className="font-display text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+          <div key={b} className="reveal rounded-[30px] bg-white p-7 ring-1 ring-[rgba(14,15,12,0.12)]">
+            <span className="inline-flex rounded-full bg-[#E2F6D5] px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-[#163300]">
               Block {String(i + 1).padStart(2, "0")}
             </span>
-            <p className="mt-3 text-sm font-medium text-foreground">{b}</p>
+            <p className="mt-4 text-base font-bold text-[#0E0F0C]">{b}</p>
           </div>
         ))}
       </div>
