@@ -30,7 +30,7 @@ export function PageHero({ eyebrow, title, description, children, align = "left"
           </p>
         )}
         <h1
-          className={`animate-fade-up font-display text-[38px] font-black leading-[0.98] tracking-[-0.018em] text-[#0E0F0C] sm:text-[48px] lg:text-[56px] ${
+          className={`animate-fade-up font-display text-[38px] font-extrabold leading-[1.12] tracking-normal text-[#0E0F0C] sm:text-[48px] lg:text-[56px] ${
             align === "center" ? "mx-auto max-w-3xl" : "max-w-3xl"
           }`}
           style={{ animationDelay: "60ms" }}
@@ -69,7 +69,7 @@ export function PlaceholderBlock({
   return (
     <section className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
       <div className="mb-10 max-w-3xl">
-        <h2 className="font-display text-[36px] font-black leading-[1] tracking-[-0.018em] text-[#0E0F0C] lg:text-[52px]">
+        <h2 className="font-display text-[36px] font-extrabold leading-[1.12] tracking-normal text-[#0E0F0C] lg:text-[52px]">
           {title}
         </h2>
         <p className="mt-4 text-base font-medium leading-relaxed text-[#454745]">
