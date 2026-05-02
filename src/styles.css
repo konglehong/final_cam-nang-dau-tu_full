@@ -172,14 +172,50 @@
     font-family: var(--font-sans);
     font-feature-settings: "calt";
     -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 
   h1, h2, h3, h4, .font-display {
     font-family: var(--font-display);
     font-feature-settings: "calt";
-    letter-spacing: -0.045em;
+    letter-spacing: -0.022em;
     font-weight: 900;
+  }
+
+  :lang(vi) h1,
+  :lang(vi) h2,
+  :lang(vi) h3,
+  :lang(vi) h4,
+  :lang(vi) .font-display {
+    letter-spacing: -0.016em;
+    word-spacing: -0.005em;
+  }
+
+  :lang(en) h1,
+  :lang(en) h2,
+  :lang(en) h3,
+  :lang(en) h4,
+  :lang(en) .font-display {
+    letter-spacing: -0.026em;
+  }
+
+  :lang(zh) h1,
+  :lang(zh) h2,
+  :lang(zh) h3,
+  :lang(zh) h4,
+  :lang(zh) .font-display,
+  :lang(ja) h1,
+  :lang(ja) h2,
+  :lang(ja) h3,
+  :lang(ja) h4,
+  :lang(ja) .font-display,
+  :lang(ko) h1,
+  :lang(ko) h2,
+  :lang(ko) h3,
+  :lang(ko) h4,
+  :lang(ko) .font-display {
+    letter-spacing: 0;
+    word-spacing: 0;
   }
 }
 
