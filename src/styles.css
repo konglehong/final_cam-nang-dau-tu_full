@@ -178,17 +178,8 @@
   h1, h2, h3, h4, .font-display {
     font-family: var(--font-display);
     font-feature-settings: "calt";
-    letter-spacing: -0.022em;
-    font-weight: 900;
-  }
-
-  :lang(vi) h1,
-  :lang(vi) h2,
-  :lang(vi) h3,
-  :lang(vi) h4,
-  :lang(vi) .font-display {
-    letter-spacing: -0.016em;
-    word-spacing: -0.005em;
+    letter-spacing: 0;
+    font-weight: 800;
   }
 
   :lang(en) h1,
@@ -196,7 +187,7 @@
   :lang(en) h3,
   :lang(en) h4,
   :lang(en) .font-display {
-    letter-spacing: -0.026em;
+    letter-spacing: -0.012em;
   }
 
   :lang(zh) h1,
