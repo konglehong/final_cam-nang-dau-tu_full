@@ -14,17 +14,17 @@ import type { LucideIcon } from "lucide-react";
 import { FOOTER_NAV } from "@/lib/navigation";
 import { useT } from "@/lib/i18n";
 
-const eyebrow = "text-xs font-extrabold uppercase tracking-[0.16em] text-[#163300]";
+const eyebrow = "text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#163300]";
 
 export function SiteFooter() {
   const t = useT();
 
   return (
     <footer className="border-t border-[rgba(14,15,12,0.10)] bg-[#F7F8F2] text-[#0E0F0C]">
-      <section className="border-b border-[rgba(14,15,12,0.10)] bg-white px-6 py-14 lg:py-16">
+      <section className="border-b border-[rgba(14,15,12,0.10)] bg-white px-6 py-10 lg:py-12">
         <div className="mx-auto max-w-7xl">
           <p className={eyebrow}>Dành cho nhà đầu tư</p>
-          <div className="mt-5 grid gap-4 lg:grid-cols-2">
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
             <ActionCard
               icon={Users}
               title="Bạn là Nhà đầu tư?"
@@ -167,42 +167,42 @@ function ActionCard({
 
   return (
     <article
-      className={`flex min-h-[292px] flex-col rounded-[34px] border border-[rgba(14,15,12,0.10)] p-7 ring-0 lg:p-8 ${
+      className={`relative flex min-h-[224px] flex-col rounded-[30px] border border-[rgba(14,15,12,0.10)] p-6 ring-0 lg:min-h-[232px] lg:p-7 ${
         dark
-          ? "relative overflow-hidden bg-[linear-gradient(90deg,#173800_0%,#184500_34%,#1D5607_70%,#256312_100%)] text-white"
+          ? "overflow-hidden bg-[linear-gradient(90deg,#173800_0%,#184500_42%,#245B14_100%)] text-white"
           : "bg-[#FAFAF6] text-[#0E0F0C]"
       }`}
     >
       {dark && (
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_38%,rgba(159,232,112,0.14),transparent_34%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_38%,rgba(159,232,112,0.11),transparent_34%)]" />
       )}
       <div
-        className={`relative flex h-14 w-14 items-center justify-center rounded-full ${
+        className={`relative flex h-12 w-12 items-center justify-center rounded-full ${
           dark
             ? "bg-[rgba(159,232,112,0.14)] text-[#9FE870] ring-1 ring-[rgba(255,255,255,0.08)]"
             : "bg-[#E2F6D5] text-[#163300]"
         }`}
       >
-        <Icon className="h-7 w-7" />
+        <Icon className="h-6 w-6" />
       </div>
       <h3
-        className={`relative mt-8 font-display text-[28px] font-extrabold leading-[1.12] tracking-normal sm:text-[34px] ${
+        className={`relative mt-6 font-display text-[24px] font-extrabold leading-[1.12] tracking-normal sm:text-[28px] ${
           dark ? "text-white" : "text-[#0E0F0C]"
         }`}
       >
         {title}
       </h3>
       <p
-        className={`relative mt-4 max-w-xl text-base font-medium leading-relaxed ${
+        className={`relative mt-3 max-w-xl text-sm font-medium leading-relaxed lg:text-[15px] ${
           dark ? "text-white/85" : "text-[#454745]"
         }`}
       >
         {desc}
       </p>
-      <div className="relative mt-auto pt-7">
+      <div className="relative mt-auto pt-5">
         <Link
           to={to}
-          className={`inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-bold transition-transform hover:scale-[1.02] active:scale-[0.98] ${
+          className={`inline-flex h-10 items-center justify-center gap-2 rounded-full px-5 text-sm font-bold transition-transform hover:scale-[1.02] active:scale-[0.98] ${
             dark ? "bg-white text-[#163300]" : "bg-[#163300] text-white"
           }`}
         >
