@@ -5,22 +5,22 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Cẩm nang Đầu tư Việt Nam — Stripe-inspired Design System
- * Tone: Premium fintech SaaS. Light neutral canvas, generous whitespace,
- *       indigo→sky gradient accents, soft shadows, modern sans typography.
+ * Cẩm nang Đầu tư Việt Nam — Wise-inspired Design System
+ * Tone: bold fintech portal. Warm off-white canvas, near-black text,
+ *       Wise green CTA/accent, pill controls, large cards, ring borders.
  */
 
 @theme inline {
   --font-display: "Inter", "SF Pro Display", system-ui, sans-serif;
-  --font-sans: "Inter", "SF Pro Text", system-ui, sans-serif;
+  --font-sans: "Inter", "SF Pro Text", Helvetica, Arial, sans-serif;
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-2xl: 30px;
+  --radius-3xl: 36px;
+  --radius-4xl: 40px;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -63,183 +63,164 @@
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 1rem;
 
-  /* Stripe-style light neutral canvas (#F7F9FC) */
-  --background: oklch(0.978 0.005 250);
-  --foreground: oklch(0.21 0.03 265);
+  --background: #f7f8f2;
+  --foreground: #0e0f0c;
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.21 0.03 265);
+  --card: #ffffff;
+  --card-foreground: #0e0f0c;
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.21 0.03 265);
+  --popover: #ffffff;
+  --popover-foreground: #0e0f0c;
 
-  /* Indigo primary — Stripe purple/blue */
-  --primary: oklch(0.52 0.22 280);
-  --primary-foreground: oklch(0.99 0 0);
-  --primary-glow: oklch(0.62 0.2 255);
+  --primary: #9fe870;
+  --primary-foreground: #163300;
+  --primary-glow: #cdffad;
 
-  /* Soft neutral secondary */
-  --secondary: oklch(0.96 0.008 255);
-  --secondary-foreground: oklch(0.28 0.04 265);
+  --secondary: #e2f6d5;
+  --secondary-foreground: #163300;
 
-  --muted: oklch(0.96 0.006 255);
-  --muted-foreground: oklch(0.5 0.02 260);
+  --muted: #e8ebe6;
+  --muted-foreground: #454745;
 
-  --accent: oklch(0.95 0.02 270);
-  --accent-foreground: oklch(0.3 0.06 270);
+  --accent: #e2f6d5;
+  --accent-foreground: #163300;
 
-  /* Sky/cyan accent (replaces gold) */
-  --gold: oklch(0.7 0.15 230);
-  --gold-foreground: oklch(0.99 0 0);
+  --gold: #9fe870;
+  --gold-foreground: #163300;
 
-  /* Deep indigo navy */
-  --navy: oklch(0.32 0.1 270);
-  --navy-foreground: oklch(0.99 0 0);
+  --navy: #0e0f0c;
+  --navy-foreground: #ffffff;
 
-  --destructive: oklch(0.6 0.22 25);
-  --destructive-foreground: oklch(0.99 0 0);
+  --destructive: #d03238;
+  --destructive-foreground: #ffffff;
 
-  --border: oklch(0.92 0.008 255);
-  --input: oklch(0.94 0.008 255);
-  --ring: oklch(0.52 0.22 280);
+  --border: rgba(14, 15, 12, 0.12);
+  --input: rgba(14, 15, 12, 0.16);
+  --ring: #9fe870;
 
-  --chart-1: oklch(0.52 0.22 280);
-  --chart-2: oklch(0.7 0.15 230);
-  --chart-3: oklch(0.55 0.18 255);
-  --chart-4: oklch(0.65 0.15 200);
-  --chart-5: oklch(0.6 0.2 310);
+  --chart-1: #9fe870;
+  --chart-2: #054d28;
+  --chart-3: #0f62fe;
+  --chart-4: #ffc091;
+  --chart-5: #ffd11a;
 
-  /* Stripe-style gradients */
-  --gradient-hero: linear-gradient(135deg, oklch(0.92 0.05 285) 0%, oklch(0.94 0.04 235) 50%, oklch(0.97 0.02 220) 100%);
-  --gradient-primary: linear-gradient(135deg, oklch(0.52 0.22 280) 0%, oklch(0.6 0.2 250) 100%);
-  --gradient-gold: linear-gradient(135deg, oklch(0.62 0.2 255) 0%, oklch(0.7 0.15 220) 100%);
-  --gradient-overlay: linear-gradient(180deg, transparent 0%, oklch(0.21 0.03 265 / 0.4) 100%);
-  --gradient-mesh: radial-gradient(at 20% 20%, oklch(0.85 0.12 285 / 0.5) 0px, transparent 50%),
-                   radial-gradient(at 80% 0%, oklch(0.85 0.1 230 / 0.5) 0px, transparent 50%),
-                   radial-gradient(at 0% 80%, oklch(0.9 0.08 200 / 0.5) 0px, transparent 50%);
+  --gradient-hero:
+    radial-gradient(circle at 85% 12%, rgba(159, 232, 112, 0.55), transparent 34%),
+    radial-gradient(circle at 10% 82%, rgba(226, 246, 213, 0.9), transparent 36%),
+    linear-gradient(180deg, #f7f8f2 0%, #ffffff 100%);
+  --gradient-primary: linear-gradient(135deg, #9fe870 0%, #cdffad 100%);
+  --gradient-gold: linear-gradient(135deg, #9fe870 0%, #cdffad 100%);
+  --gradient-overlay: linear-gradient(180deg, transparent 0%, rgba(14, 15, 12, 0.45) 100%);
+  --gradient-mesh:
+    radial-gradient(at 20% 20%, rgba(159, 232, 112, 0.35) 0px, transparent 48%),
+    radial-gradient(at 80% 0%, rgba(226, 246, 213, 0.8) 0px, transparent 45%),
+    radial-gradient(at 0% 80%, rgba(205, 255, 173, 0.55) 0px, transparent 45%);
 
-  /* Soft shadows — Stripe-style */
-  --shadow-elegant: 0 10px 40px -12px oklch(0.52 0.22 280 / 0.18), 0 4px 12px -4px oklch(0.21 0.03 265 / 0.06);
-  --shadow-card: 0 1px 3px 0 oklch(0.21 0.03 265 / 0.04), 0 4px 16px -4px oklch(0.21 0.03 265 / 0.06);
-  --shadow-soft: 0 2px 8px -2px oklch(0.21 0.03 265 / 0.06);
-  --shadow-gold: 0 8px 32px -8px oklch(0.6 0.2 250 / 0.35);
-  --shadow-glow: 0 0 0 1px oklch(0.52 0.22 280 / 0.1), 0 8px 24px -8px oklch(0.52 0.22 280 / 0.25);
+  --shadow-elegant: rgba(14, 15, 12, 0.12) 0px 0px 0px 1px;
+  --shadow-card: rgba(14, 15, 12, 0.12) 0px 0px 0px 1px;
+  --shadow-soft: rgba(14, 15, 12, 0.08) 0px 0px 0px 1px;
+  --shadow-gold: rgba(22, 51, 0, 0.16) 0px 0px 0px 1px;
+  --shadow-glow: rgba(14, 15, 12, 0.12) 0px 0px 0px 1px;
 
-  --sidebar: oklch(0.99 0.003 250);
-  --sidebar-foreground: oklch(0.21 0.03 265);
-  --sidebar-primary: oklch(0.52 0.22 280);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.96 0.008 255);
-  --sidebar-accent-foreground: oklch(0.28 0.04 265);
-  --sidebar-border: oklch(0.92 0.008 255);
-  --sidebar-ring: oklch(0.52 0.22 280);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0e0f0c;
+  --sidebar-primary: #9fe870;
+  --sidebar-primary-foreground: #163300;
+  --sidebar-accent: #e2f6d5;
+  --sidebar-accent-foreground: #163300;
+  --sidebar-border: rgba(14, 15, 12, 0.12);
+  --sidebar-ring: #9fe870;
 }
 
 .dark {
-  --background: oklch(0.16 0.02 265);
-  --foreground: oklch(0.97 0.005 250);
-  --card: oklch(0.22 0.03 265);
-  --card-foreground: oklch(0.97 0.005 250);
-  --popover: oklch(0.22 0.03 265);
-  --popover-foreground: oklch(0.97 0.005 250);
-  --primary: oklch(0.65 0.22 280);
-  --primary-foreground: oklch(0.16 0.02 265);
-  --primary-glow: oklch(0.72 0.2 255);
-  --secondary: oklch(0.26 0.03 265);
-  --secondary-foreground: oklch(0.97 0.005 250);
-  --muted: oklch(0.24 0.03 265);
-  --muted-foreground: oklch(0.7 0.02 260);
-  --accent: oklch(0.3 0.05 275);
-  --accent-foreground: oklch(0.97 0.005 250);
-  --gold: oklch(0.72 0.16 230);
-  --gold-foreground: oklch(0.16 0.02 265);
-  --navy: oklch(0.5 0.15 270);
-  --navy-foreground: oklch(0.97 0.005 250);
-  --destructive: oklch(0.65 0.2 25);
-  --destructive-foreground: oklch(0.97 0.005 250);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.65 0.22 280);
-  --chart-1: oklch(0.65 0.22 280);
-  --chart-2: oklch(0.72 0.16 230);
-  --chart-3: oklch(0.6 0.2 255);
-  --chart-4: oklch(0.7 0.16 200);
-  --chart-5: oklch(0.68 0.2 310);
-  --sidebar: oklch(0.22 0.03 265);
-  --sidebar-foreground: oklch(0.97 0.005 250);
-  --sidebar-primary: oklch(0.65 0.22 280);
-  --sidebar-primary-foreground: oklch(0.16 0.02 265);
-  --sidebar-accent: oklch(0.26 0.03 265);
-  --sidebar-accent-foreground: oklch(0.97 0.005 250);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.65 0.22 280);
+  --background: #0e0f0c;
+  --foreground: #ffffff;
+  --card: #151713;
+  --card-foreground: #ffffff;
+  --popover: #151713;
+  --popover-foreground: #ffffff;
+  --primary: #9fe870;
+  --primary-foreground: #163300;
+  --primary-glow: #cdffad;
+  --secondary: rgba(159, 232, 112, 0.16);
+  --secondary-foreground: #cdffad;
+  --muted: rgba(255, 255, 255, 0.08);
+  --muted-foreground: #c7c9c2;
+  --accent: rgba(159, 232, 112, 0.16);
+  --accent-foreground: #cdffad;
+  --gold: #9fe870;
+  --gold-foreground: #163300;
+  --navy: #ffffff;
+  --navy-foreground: #0e0f0c;
+  --destructive: #d03238;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.16);
+  --ring: #9fe870;
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
+  * { border-color: var(--color-border); }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "cv11";
+    font-feature-settings: "calt";
     -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.005em;
+    letter-spacing: -0.01em;
   }
 
   h1, h2, h3, h4, .font-display {
     font-family: var(--font-display);
-    letter-spacing: -0.025em;
-    font-weight: 600;
+    font-feature-settings: "calt";
+    letter-spacing: -0.045em;
+    font-weight: 900;
   }
 }
 
-/* ===== Stripe-style utility classes ===== */
+/* ===== Wise-style utility classes ===== */
 
 .btn-gradient {
-  background-image: var(--gradient-primary);
-  color: var(--color-primary-foreground);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: var(--primary);
+  color: var(--primary-foreground);
   box-shadow: var(--shadow-glow);
-  transition: all 0.2s ease;
+  font-weight: 800;
+  transition: transform 160ms ease, background-color 160ms ease;
 }
 .btn-gradient:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 32px -8px oklch(0.52 0.22 280 / 0.4);
-  filter: brightness(1.05);
+  transform: scale(1.04);
+  background: var(--primary-glow);
+  filter: none;
 }
+.btn-gradient:active { transform: scale(0.96); }
 
 .text-gradient {
-  background-image: var(--gradient-primary);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--primary-foreground);
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
 }
 
 .card-soft {
   background-color: var(--color-card);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-card);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
-.card-soft:hover {
-  box-shadow: var(--shadow-elegant);
-  transform: translateY(-2px);
-}
+.card-soft:hover { transform: translateY(-2px); }
 
-.bg-mesh {
-  background-image: var(--gradient-mesh);
-}
-
-/* ===== Scroll reveal animations ===== */
+.bg-mesh { background-image: var(--gradient-mesh); }
 
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(24px); }
@@ -254,17 +235,10 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-up {
-  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.animate-slide-up {
-  animation: slide-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.animate-fade-soft {
-  animation: fade-in-soft 0.9s ease-out both;
-}
+.animate-fade-up { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-slide-up { animation: slide-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade-soft { animation: fade-in-soft 0.9s ease-out both; }
 
-/* IntersectionObserver-driven reveal */
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -272,26 +246,18 @@
               transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-/* ===== CNDT-style header utilities ===== */
-.nav-underline { position: relative; }
-.nav-underline::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: -6px;
-  height: 2px;
-  background: var(--gradient-primary);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 2px;
+.nav-underline {
+  position: relative;
+  border-radius: 9999px;
 }
-.nav-underline:hover::after,
-.nav-underline[data-active="true"]::after { transform: scaleX(1); }
+.nav-underline::after { display: none; }
+.nav-underline:hover,
+.nav-underline[data-active="true"] {
+  background: rgba(226, 246, 213, 0.9);
+  color: #163300;
+}
 
 @keyframes marquee {
   0%   { transform: translateX(0); }
@@ -300,21 +266,17 @@
 .marquee-track { animation: marquee 50s linear infinite; }
 .marquee-track:hover { animation-play-state: paused; }
 
-/* Leaflet — label permanent cho Hoàng Sa / Trường Sa */
 .vn-archipelago-label {
   background: rgba(255, 255, 255, 0.95) !important;
-  border: 1px solid oklch(0.52 0.22 280) !important;
-  border-radius: 6px !important;
+  border: 1px solid #9fe870 !important;
+  border-radius: 9999px !important;
   padding: 4px 8px !important;
   font-size: 11px !important;
-  color: oklch(0.21 0.03 265) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  color: #0e0f0c !important;
+  box-shadow: rgba(14, 15, 12, 0.12) 0px 0px 0px 1px !important;
 }
-.vn-archipelago-label::before {
-  border-top-color: oklch(0.52 0.22 280) !important;
-}
+.vn-archipelago-label::before { border-top-color: #9fe870 !important; }
 
-/* Keep Leaflet panes/controls below the sticky site header and its menus. */
 .leaflet-container,
 .leaflet-pane,
 .leaflet-top,
