@@ -1,20 +1,50 @@
 import { Link } from "@tanstack/react-router";
 import {
+  ArrowRight,
   Facebook,
   Instagram,
   Mail,
   MapPin,
   Phone,
+  Target,
+  Users,
   Youtube,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { FOOTER_NAV } from "@/lib/navigation";
 import { useT } from "@/lib/i18n";
+
+const eyebrow = "text-xs font-extrabold uppercase tracking-[0.16em] text-[#163300]";
 
 export function SiteFooter() {
   const t = useT();
 
   return (
     <footer className="border-t border-[rgba(14,15,12,0.10)] bg-[#F7F8F2] text-[#0E0F0C]">
+      <section className="bg-white px-6 py-16 lg:py-20">
+        <div className="mx-auto max-w-7xl">
+          <p className={eyebrow}>Dành cho nhà đầu tư</p>
+          <div className="mt-6 grid gap-5 lg:grid-cols-2">
+            <ActionCard
+              icon={Users}
+              title="Bạn là Nhà đầu tư?"
+              desc="Đăng ký để nhận thông tin dự án, chính sách mới nhất và tư vấn đầu tư phù hợp với nhu cầu của bạn."
+              cta="Đăng ký quan tâm"
+              to="/nha-dau-tu/dang-ky-quan-tam"
+              variant="light"
+            />
+            <ActionCard
+              icon={Target}
+              title="Khám phá dự án nổi bật"
+              desc="Tìm kiếm và lọc các dự án kêu gọi vốn theo lĩnh vực, địa phương và quy mô đầu tư."
+              cta="Xem dự án"
+              to="/du-an"
+              variant="dark"
+            />
+          </div>
+        </div>
+      </section>
+
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 lg:grid-cols-[1.45fr_repeat(4,1fr)] lg:gap-12">
         {/* Brand block */}
         <div className="space-y-4">
@@ -115,5 +145,56 @@ export function SiteFooter() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function ActionCard({
+  icon: Icon,
+  title,
+  desc,
+  cta,
+  to,
+  variant,
+}: {
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+  cta: string;
+  to: string;
+  variant: "light" | "dark";
+}) {
+  const dark = variant === "dark";
+
+  return (
+    <article
+      className={`rounded-[32px] p-8 ring-1 ring-[rgba(14,15,12,0.12)] ${
+        dark
+          ? "bg-[linear-gradient(135deg,#163300,#245B14)] text-white"
+          : "bg-[#F7F8F2] text-[#0E0F0C]"
+      }`}
+    >
+      <div
+        className={`flex h-16 w-16 items-center justify-center rounded-full ${
+          dark ? "bg-white/12 text-[#9FE870]" : "bg-[#E2F6D5] text-[#163300]"
+        }`}
+      >
+        <Icon className="h-8 w-8" />
+      </div>
+      <h3 className="mt-6 font-display text-3xl font-extrabold leading-snug tracking-normal">
+        {title}
+      </h3>
+      <p className={`mt-3 max-w-xl text-base font-medium leading-relaxed ${dark ? "text-white/80" : "text-[#454745]"}`}>
+        {desc}
+      </p>
+      <Link
+        to={to}
+        className={`mt-6 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-extrabold ${
+          dark ? "bg-white text-[#163300]" : "bg-[#163300] text-white"
+        }`}
+      >
+        {cta}
+        <ArrowRight className="h-4 w-4" />
+      </Link>
+    </article>
   );
 }
