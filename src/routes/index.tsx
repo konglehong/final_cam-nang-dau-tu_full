@@ -1,35 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  TrendingUp,
-  Building2,
-  Users,
-  Globe2,
-  PlayCircle,
-  Map,
-  FileText,
   Briefcase,
-  Sparkles,
+  FileText,
+  Globe2,
+  Map,
+  PlayCircle,
+  TrendingUp,
 } from "lucide-react";
 import heroImage from "@/assets/hero-vietnam.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Cẩm nang Đầu tư Việt Nam — 34 tỉnh thành sau sáp nhập" },
+      { title: "Cẩm nang Đầu tư Việt Nam — Bản đồ cơ hội đầu tư" },
       {
         name: "description",
         content:
-          "Cổng thông tin đầu tư chính thống cho 34 tỉnh thành Việt Nam: bản đồ tương tác, dữ liệu kinh tế, chính sách ưu đãi và cơ hội đầu tư.",
+          "Cổng dữ liệu đầu tư cho Việt Nam: bản đồ cơ hội đầu tư, hồ sơ 34 tỉnh thành, dự án kêu gọi vốn, chính sách ưu đãi và tài liệu xúc tiến đa ngôn ngữ.",
       },
       {
         property: "og:title",
-        content: "Cẩm nang Đầu tư Việt Nam — Cổng thông tin đầu tư chính thống",
+        content: "Cẩm nang Đầu tư Việt Nam — Cổng dữ liệu đầu tư",
       },
       {
         property: "og:description",
         content:
-          "Khám phá 34 tỉnh thành sau sáp nhập qua bản đồ tương tác, dữ liệu kinh tế và chính sách ưu đãi.",
+          "Khám phá cơ hội đầu tư tại Việt Nam qua bản đồ dữ liệu, hồ sơ tỉnh thành và tài liệu xúc tiến đa ngôn ngữ.",
       },
       { property: "og:image", content: heroImage },
       { name: "twitter:image", content: heroImage },
@@ -39,38 +36,61 @@ export const Route = createFileRoute("/")({
 });
 
 const STATS = [
-  { value: "34", label: "Tỉnh thành sau sáp nhập", icon: Map },
-  { value: "1.200+", label: "Dự án kêu gọi đầu tư", icon: Briefcase },
+  { value: "34", label: "tỉnh thành", icon: Map },
+  { value: "1.200+", label: "dự án kêu gọi đầu tư", icon: Briefcase },
   { value: "$36B", label: "FDI lũy kế 2024", icon: TrendingUp },
-  { value: "5", label: "Ngôn ngữ hỗ trợ", icon: Globe2 },
+  { value: "5", label: "ngôn ngữ hỗ trợ", icon: Globe2 },
 ];
 
-const REGIONS = [
-  { name: "Đồng bằng Bắc Bộ", count: 7, color: "from-[oklch(0.55_0.22_280)] to-[oklch(0.6_0.2_255)]" },
-  { name: "Bắc Trung Bộ", count: 5, color: "from-[oklch(0.6_0.2_250)] to-[oklch(0.65_0.18_220)]" },
-  { name: "Nam Trung Bộ", count: 6, color: "from-[oklch(0.65_0.18_220)] to-[oklch(0.7_0.16_200)]" },
-  { name: "Tây Nguyên", count: 3, color: "from-[oklch(0.55_0.18_200)] to-[oklch(0.6_0.16_180)]" },
-  { name: "Đông Nam Bộ", count: 5, color: "from-[oklch(0.5_0.22_290)] to-[oklch(0.55_0.2_270)]" },
-  { name: "Đồng bằng SCL", count: 8, color: "from-[oklch(0.5_0.2_310)] to-[oklch(0.55_0.22_285)]" },
+const OPPORTUNITIES = [
+  {
+    tag: "Logistics",
+    title: "Trung tâm logistics cảng biển",
+    province: "Bà Rịa - Vũng Tàu",
+    scale: "Kết nối cảng · cao tốc · KCN",
+    status: "Đang kêu gọi đầu tư",
+  },
+  {
+    tag: "Công nghiệp",
+    title: "Cụm công nghiệp phụ trợ điện tử",
+    province: "Bắc Ninh",
+    scale: "Chuỗi cung ứng FDI",
+    status: "Hồ sơ đang mở",
+  },
+  {
+    tag: "Năng lượng",
+    title: "Dự án năng lượng tái tạo ven biển",
+    province: "Nam Trung Bộ",
+    scale: "Điện gió · hạ tầng truyền tải",
+    status: "Ưu tiên xúc tiến",
+  },
+];
+
+const JOURNEY = [
+  "Mở bản đồ đầu tư và bật các lớp dữ liệu quan trọng",
+  "So sánh tỉnh thành theo hạ tầng, ngành, ưu đãi và dòng vốn",
+  "Xem hồ sơ dự án, vị trí, ngành nghề và trạng thái kêu gọi vốn",
+  "Tải tài liệu xúc tiến hoặc đăng ký quan tâm dự án",
+  "Kết nối đầu mối phù hợp để tiếp tục thẩm định cơ hội",
 ];
 
 const FEATURED_NEWS = [
   {
     tag: "Chính sách",
-    title: "10 chính sách đột phá cho FDI sau sáp nhập tỉnh",
-    excerpt: "Nghị định mới mở rộng ưu đãi thuế, đất đai và lao động cho dự án FDI tại các tỉnh sau sáp nhập.",
+    title: "Ưu đãi đầu tư mới cho các ngành công nghiệp chiến lược",
+    excerpt: "Cập nhật chính sách thuế, đất đai và thủ tục đầu tư cho các lĩnh vực ưu tiên.",
     date: "12/04/2026",
   },
   {
     tag: "Hạ tầng",
-    title: "Cao tốc Bắc-Nam giai đoạn 2 thông tuyến cuối 2026",
-    excerpt: "Hơn 1.800km cao tốc kết nối toàn bộ 34 tỉnh thành mở ra dòng vốn đầu tư mới.",
+    title: "Mạng lưới cao tốc mở thêm không gian đầu tư mới",
+    excerpt: "Các tuyến kết nối cảng biển, sân bay và khu công nghiệp tạo lợi thế logistics liên vùng.",
     date: "08/04/2026",
   },
   {
     tag: "FDI",
-    title: "Hàn Quốc rót thêm $4.2 tỷ vào ngành bán dẫn Việt Nam",
-    excerpt: "Samsung, LG và SK Hynix mở rộng nhà máy tại Bắc Ninh, Thái Nguyên và Hải Phòng.",
+    title: "Dòng vốn công nghệ cao tiếp tục dịch chuyển vào Việt Nam",
+    excerpt: "Nhà đầu tư quan tâm mạnh hơn đến bán dẫn, điện tử, năng lượng và logistics.",
     date: "05/04/2026",
   },
 ];
@@ -78,368 +98,290 @@ const FEATURED_NEWS = [
 function HomePage() {
   return (
     <>
-      {/* HERO — Stripe-style light gradient */}
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="pointer-events-none absolute inset-0 bg-mesh opacity-90" aria-hidden />
+      <section className="relative overflow-hidden border-b border-[rgba(14,15,12,0.12)] bg-[#F7F8F2] px-6 py-20 lg:py-28">
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
-            backgroundSize: "32px 32px",
-            color: "var(--color-foreground)",
-          }}
+          className="pointer-events-none absolute right-[-12%] top-[-18%] h-[460px] w-[460px] rounded-full bg-[#9FE870]/55 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute bottom-[-22%] left-[-10%] h-[420px] w-[420px] rounded-full bg-[#E2F6D5] blur-3xl"
           aria-hidden
         />
 
-        <div className="relative mx-auto grid min-h-[600px] max-w-7xl items-center px-6 py-24 lg:py-32">
-          <div className="max-w-3xl">
-            <span className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-primary backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5" />
+        <div className="relative mx-auto max-w-7xl">
+          <div className="max-w-5xl">
+            <span className="inline-flex rounded-full bg-[#E2F6D5] px-4 py-2 text-sm font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)]">
               Cẩm nang Đầu tư Việt Nam
             </span>
-            <h1
-              className="animate-fade-up mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
-              style={{ animationDelay: "60ms" }}
-            >
-              Cẩm nang Đầu tư <br />
-              <span className="text-gradient">Việt Nam</span>
+            <h1 className="mt-8 max-w-5xl font-display text-[58px] font-black leading-[0.86] tracking-[-0.055em] text-[#0E0F0C] sm:text-[84px] lg:text-[118px]">
+              Đầu tư vào Việt Nam.
+              <br />
+              Rõ hơn. Nhanh hơn.
             </h1>
-            <p
-              className="animate-fade-up mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
-              style={{ animationDelay: "140ms" }}
-            >
-              Cổng thông tin đầu tư chính thống cho{" "}
-              <strong className="font-semibold text-foreground">34 tỉnh thành</strong> Việt Nam sau sáp nhập đơn vị hành chính. Bản đồ, dữ liệu, chính sách ưu đãi và cơ hội đầu tư — tất cả ở một nơi.
+            <p className="mt-8 max-w-3xl text-xl font-medium leading-[1.45] text-[#454745] sm:text-2xl">
+              Khám phá bản đồ cơ hội đầu tư, hồ sơ 34 tỉnh thành, chính sách ưu đãi và tài liệu xúc tiến đa ngôn ngữ trong một cổng dữ liệu duy nhất.
             </p>
-            <div
-              className="animate-fade-up mt-9 flex flex-col gap-3 sm:flex-row"
-              style={{ animationDelay: "220ms" }}
-            >
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/ban-do-dau-tu"
-                className="btn-gradient inline-flex items-center justify-center gap-2 rounded-lg px-7 py-3.5 text-sm font-semibold"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#9FE870] px-7 text-base font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)] transition-transform hover:scale-105 active:scale-95"
               >
-                <Map className="h-4 w-4" />
-                Khám phá bản đồ đầu tư
+                <Map className="h-5 w-5" />
+                Khám phá bản đồ
               </Link>
               <Link
-                to="/nha-dau-tu/tai-lieu"
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-7 py-3.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:text-primary"
+                to="/du-an"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[rgba(22,51,0,0.08)] px-7 text-base font-bold text-[#0E0F0C] transition-transform hover:scale-105 active:scale-95"
               >
-                <FileText className="h-4 w-4" />
-                Tải tài liệu xúc tiến
+                Xem cơ hội đầu tư
+                <ArrowRight className="h-5 w-5" />
               </Link>
             </div>
           </div>
-        </div>
 
-        {/* Stats — clean white card grid */}
-        <div className="relative">
-          <div className="mx-auto -mt-16 max-w-7xl px-6 pb-2">
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-              {STATS.map((s, i) => (
-                <div
-                  key={s.label}
-                  className="reveal card-soft flex items-center gap-4 p-6"
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <div
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-primary-foreground"
-                    style={{ backgroundImage: "var(--gradient-primary)" }}
-                  >
-                    <s.icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-display text-3xl font-semibold tracking-tight text-foreground">{s.value}</p>
-                    <p className="text-xs text-muted-foreground">{s.label}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* INTERACTIVE MAP TEASER */}
-      <section className="mx-auto max-w-7xl px-6 py-24 lg:py-28">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="reveal">
-            <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-              Bản đồ tương tác
-            </span>
-            <h2 className="mt-3 font-display text-4xl font-semibold leading-tight tracking-tight text-foreground lg:text-5xl">
-              34 tỉnh thành — <br />
-              <span className="text-gradient">một bản đồ, vô số cơ hội</span>
-            </h2>
-            <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-              Click vào bất kỳ tỉnh nào để xem dữ liệu kinh tế, chính sách ưu đãi và dự án kêu gọi đầu tư. Lọc theo ngành, quy mô vốn hoặc loại ưu đãi để tìm địa phương phù hợp với chiến lược của bạn.
-            </p>
-            <ul className="mt-6 space-y-3">
-              {[
-                "Color-coded theo FDI, GRDP, PCI và năng lực cạnh tranh",
-                "Layer toggle: Khu công nghiệp, Cảng biển, Sân bay, Cao tốc",
-                "So sánh nhanh 2-4 tỉnh trên 20+ tiêu chí",
-              ].map((f) => (
-                <li key={f} className="flex items-start gap-3 text-sm text-foreground">
-                  <span
-                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
-                    style={{ backgroundImage: "var(--gradient-primary)" }}
-                  />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <Link
-              to="/ban-do-dau-tu"
-              className="btn-gradient mt-8 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold"
-            >
-              Mở bản đồ đầu tư <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          {/* Decorative map preview */}
-          <div className="reveal card-soft relative aspect-[4/5] overflow-hidden rounded-2xl bg-mesh">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <svg
-                viewBox="0 0 200 320"
-                className="h-full w-auto opacity-95"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+          <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {STATS.map((item) => (
+              <div
+                key={item.label}
+                className="rounded-[28px] bg-white p-5 ring-1 ring-[rgba(14,15,12,0.12)]"
               >
-                <defs>
-                  <linearGradient id="vn-grad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="oklch(0.52 0.22 280)" />
-                    <stop offset="100%" stopColor="oklch(0.62 0.2 250)" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M85 15 Q95 10 105 18 Q115 30 110 50 Q108 70 95 85 Q88 100 85 120 Q80 145 90 165 Q105 185 100 205 Q95 225 85 240 Q70 260 60 280 Q55 295 70 305 Q90 310 105 300 Q120 285 130 265 Q140 240 130 215 Q120 195 130 175 Q145 155 140 130 Q135 110 145 90 Q150 70 140 50 Q130 30 115 20 Q100 12 85 15 Z"
-                  fill="url(#vn-grad)"
-                />
-                {[
-                  [95, 30], [110, 55], [105, 85], [95, 120], [110, 150],
-                  [115, 180], [105, 210], [85, 240], [75, 270], [95, 290],
-                ].map(([cx, cy], i) => (
-                  <g key={i}>
-                    <circle cx={cx} cy={cy} r="4" fill="oklch(0.7 0.15 220)" />
-                    <circle cx={cx} cy={cy} r="9" fill="oklch(0.7 0.15 220)" fillOpacity="0.25" />
-                  </g>
-                ))}
-              </svg>
-            </div>
-            <div className="absolute bottom-6 left-6 right-6 rounded-xl border border-border bg-card/95 p-4 shadow-[var(--shadow-soft)] backdrop-blur">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Đang xem</p>
-                  <p className="font-display text-base font-semibold tracking-tight text-foreground">TP. Hồ Chí Minh</p>
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#E2F6D5] text-[#163300]">
+                  <item.icon className="h-5 w-5" />
                 </div>
-                <div className="text-right">
-                  <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">FDI 2024</p>
-                  <p className="font-display text-base font-semibold text-gradient">$5.4B</p>
-                </div>
+                <p className="mt-5 font-display text-4xl font-black leading-none tracking-[-0.04em] text-[#0E0F0C]">
+                  {item.value}
+                </p>
+                <p className="mt-2 text-sm font-semibold text-[#454745]">{item.label}</p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* REGIONS */}
-      <section className="border-y border-border bg-secondary/40">
-        <div className="mx-auto max-w-7xl px-6 py-24">
-          <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
-            <div className="reveal">
-              <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-                6 vùng kinh tế
-              </span>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-foreground lg:text-4xl">
-                Khám phá theo vùng
-              </h2>
-            </div>
-            <Link
-              to="/tinh-thanh"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-glow"
-            >
-              Xem tất cả 34 tỉnh thành <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {REGIONS.map((r, i) => (
-              <Link
-                key={r.name}
-                to="/tinh-thanh"
-                className={`reveal group relative overflow-hidden rounded-2xl bg-gradient-to-br ${r.color} p-7 text-white shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]`}
-                style={{ transitionDelay: `${i * 70}ms` }}
-              >
-                <div className="relative z-10">
-                  <p className="font-display text-2xl font-semibold tracking-tight">{r.name}</p>
-                  <p className="mt-1 text-sm text-white/85">{r.count} tỉnh / thành phố</p>
-                  <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium">
-                    Khám phá vùng <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </div>
-                <div
-                  className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-white/10 transition-transform group-hover:scale-125"
-                  aria-hidden
-                />
-              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FEATURED NEWS */}
-      <section className="mx-auto max-w-7xl px-6 py-24">
-        <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
-          <div className="reveal">
-            <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-              Tin tức đầu tư
-            </span>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-foreground lg:text-4xl">
-              Cập nhật mới nhất
+      <section className="bg-[#F7F8F2] px-6 py-20 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#163300]">
+              Bản đồ cơ hội đầu tư
+            </p>
+            <h2 className="mt-4 max-w-2xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] lg:text-7xl">
+              Một bản đồ. Nhiều lớp dữ liệu.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-[#454745]">
+              Bật/tắt lớp tỉnh thành, khu công nghiệp, cảng biển, sân bay, cao tốc, năng lượng, du lịch và dự án trọng điểm để nhìn nhanh lợi thế từng vùng.
+            </p>
+            <Link
+              to="/ban-do-dau-tu"
+              className="mt-8 inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[#9FE870] px-6 py-3 text-base font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)] transition-transform hover:scale-105 active:scale-95"
+            >
+              Mở bản đồ đầu tư
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </div>
+
+          <div className="rounded-[36px] bg-white p-4 ring-1 ring-[rgba(14,15,12,0.12)]">
+            <div className="aspect-[4/5] overflow-hidden rounded-[28px] bg-[#E2F6D5] p-5 sm:aspect-[16/11]">
+              <div className="flex flex-wrap gap-2">
+                {["34 tỉnh", "KCN", "Cảng biển", "Sân bay", "Cao tốc", "Dự án"].map((chip) => (
+                  <span
+                    key={chip}
+                    className="rounded-full bg-white/80 px-3 py-1.5 text-xs font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)]"
+                  >
+                    {chip}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-10 flex h-[72%] items-center justify-center rounded-[30px] bg-[#F7F8F2] ring-1 ring-[rgba(14,15,12,0.12)]">
+                <div className="text-center">
+                  <Map className="mx-auto h-20 w-20 text-[#163300]" />
+                  <p className="mt-5 text-2xl font-black tracking-[-0.04em] text-[#0E0F0C]">
+                    Preview bản đồ đầu tư
+                  </p>
+                  <p className="mt-2 text-sm font-semibold text-[#454745]">
+                    Dùng bản đồ thật tại trang Bản đồ đầu tư
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-[rgba(14,15,12,0.12)] bg-white px-6 py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#163300]">
+                Cơ hội nổi bật
+              </p>
+              <h2 className="mt-4 font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] lg:text-7xl">
+                Dự án đang mở.
+              </h2>
+            </div>
+            <Link
+              to="/du-an"
+              className="inline-flex items-center gap-2 rounded-full bg-[rgba(22,51,0,0.08)] px-5 py-3 text-sm font-bold text-[#0E0F0C] transition-transform hover:scale-105 active:scale-95"
+            >
+              Xem tất cả dự án <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-3">
+            {OPPORTUNITIES.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-[30px] bg-[#F7F8F2] p-6 ring-1 ring-[rgba(14,15,12,0.12)] transition-transform hover:-translate-y-1"
+              >
+                <span className="inline-flex rounded-full bg-[#E2F6D5] px-3 py-1 text-xs font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)]">
+                  {item.status}
+                </span>
+                <p className="mt-8 text-sm font-bold uppercase tracking-[0.12em] text-[#454745]">
+                  {item.tag}
+                </p>
+                <h3 className="mt-3 font-display text-4xl font-black leading-[0.92] tracking-[-0.05em] text-[#0E0F0C]">
+                  {item.title}
+                </h3>
+                <div className="mt-8 grid gap-2 text-sm font-bold text-[#0E0F0C]">
+                  <div className="rounded-2xl bg-white p-4 ring-1 ring-[rgba(14,15,12,0.10)]">
+                    {item.province}
+                  </div>
+                  <div className="rounded-2xl bg-white p-4 ring-1 ring-[rgba(14,15,12,0.10)]">
+                    {item.scale}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#F7F8F2] px-6 py-20 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#163300]">
+              Hành trình nhà đầu tư
+            </p>
+            <h2 className="mt-4 font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] lg:text-7xl">
+              Từ dữ liệu đến quyết định.
             </h2>
           </div>
-          <Link
-            to="/tin-tuc"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary-glow"
-          >
-            Tất cả tin tức <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-
-        <div className="grid gap-6 lg:grid-cols-3">
-          {FEATURED_NEWS.map((n, i) => (
-            <article
-              key={n.title}
-              className="reveal card-soft group flex flex-col overflow-hidden"
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
+          <div className="rounded-[36px] bg-white p-4 ring-1 ring-[rgba(14,15,12,0.12)]">
+            {JOURNEY.map((step, index) => (
               <div
-                className="relative aspect-[16/10] overflow-hidden"
-                style={{ backgroundImage: "var(--gradient-primary)" }}
+                key={step}
+                className="flex gap-4 border-b border-[rgba(14,15,12,0.12)] px-2 py-5 last:border-b-0"
               >
-                <div
-                  className="absolute inset-0 opacity-40"
-                  style={{
-                    backgroundImage:
-                      "radial-gradient(circle at 30% 70%, oklch(0.85 0.15 220) 0%, transparent 60%)",
-                  }}
-                />
-                <span className="absolute left-4 top-4 rounded-full bg-card/95 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary backdrop-blur">
-                  {n.tag}
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#E2F6D5] text-lg font-black text-[#163300]">
+                  {index + 1}
                 </span>
+                <p className="pt-2 text-lg font-bold leading-snug text-[#0E0F0C]">{step}</p>
               </div>
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="font-display text-lg font-semibold leading-snug tracking-tight text-foreground transition-colors group-hover:text-primary">
-                  {n.title}
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{n.excerpt}</p>
-                <p className="mt-4 text-xs text-muted-foreground">{n.date}</p>
-              </div>
-            </article>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* MULTIMEDIA STRIP — light variant */}
-      <section className="border-y border-border bg-secondary/40 py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
-            <div className="reveal">
-              <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-                Series multimedia
-              </span>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-foreground lg:text-4xl">
-                "60 giây đầu tư" <br />
-                <span className="text-gradient">— Mỗi clip một con số</span>
-              </h2>
-              <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
-                Mini series video ngắn — mỗi tập chia sẻ một con số, một lợi thế hoặc một câu chuyện đầu tư của địa phương. Dễ hiểu, dễ chia sẻ, đăng đa nền tảng TikTok · YouTube · Facebook.
+      <section className="bg-white px-6 py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#163300]">
+                Tin tức & chính sách
               </p>
-              <Link
-                to="/multimedia/video"
-                className="btn-gradient mt-7 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold"
+              <h2 className="mt-4 font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] lg:text-7xl">
+                Cập nhật cần biết.
+              </h2>
+            </div>
+            <Link
+              to="/tin-tuc"
+              className="inline-flex items-center gap-2 rounded-full bg-[rgba(22,51,0,0.08)] px-5 py-3 text-sm font-bold text-[#0E0F0C] transition-transform hover:scale-105 active:scale-95"
+            >
+              Tất cả tin tức <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="grid gap-5 lg:grid-cols-3">
+            {FEATURED_NEWS.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-[30px] bg-[#F7F8F2] p-6 ring-1 ring-[rgba(14,15,12,0.12)]"
               >
-                <PlayCircle className="h-4 w-4" />
-                Xem playlist
+                <span className="rounded-full bg-[#E2F6D5] px-3 py-1 text-xs font-bold text-[#163300]">
+                  {item.tag}
+                </span>
+                <h3 className="mt-6 text-2xl font-black leading-tight tracking-[-0.035em] text-[#0E0F0C]">
+                  {item.title}
+                </h3>
+                <p className="mt-4 text-base font-medium leading-relaxed text-[#454745]">
+                  {item.excerpt}
+                </p>
+                <p className="mt-6 text-sm font-bold text-[#868685]">{item.date}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-[rgba(14,15,12,0.12)] bg-[#F7F8F2] px-6 py-20 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#163300]">
+              Multimedia
+            </p>
+            <h2 className="mt-4 font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] text-[#0E0F0C] lg:text-7xl">
+              Xem nhanh. Hiểu nhanh.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-[#454745]">
+              Video, infographic, podcast và e-magazine giúp nhà đầu tư nắm nhanh xu hướng, lợi thế địa phương và thông tin chính sách.
+            </p>
+            <Link
+              to="/multimedia/video"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#9FE870] px-6 py-3 text-base font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)] transition-transform hover:scale-105 active:scale-95"
+            >
+              <PlayCircle className="h-5 w-5" />
+              Xem video
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {["FDI", "KCN", "Logistics", "Chính sách", "Cao tốc", "PCI"].map((item) => (
+              <div
+                key={item}
+                className="flex aspect-[9/12] items-end rounded-[28px] bg-white p-4 ring-1 ring-[rgba(14,15,12,0.12)]"
+              >
+                <p className="text-2xl font-black leading-none tracking-[-0.04em] text-[#0E0F0C]">
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#0E0F0C] px-6 py-20 text-white lg:py-24">
+        <div className="mx-auto max-w-7xl rounded-[40px] bg-[#9FE870] p-8 text-[#163300] sm:p-10 lg:p-14">
+          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <h2 className="font-display text-5xl font-black leading-[0.88] tracking-[-0.055em] lg:text-7xl">
+                Bắt đầu từ dữ liệu đúng.
+              </h2>
+              <p className="mt-6 max-w-2xl text-lg font-bold leading-relaxed">
+                Khám phá bản đồ cơ hội đầu tư, so sánh tỉnh thành và đăng ký quan tâm các dự án đang kêu gọi vốn.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <Link
+                to="/ban-do-dau-tu"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#163300] px-7 text-base font-bold text-[#9FE870] transition-transform hover:scale-105 active:scale-95"
+              >
+                Khám phá bản đồ
+              </Link>
+              <Link
+                to="/nha-dau-tu/dang-ky-quan-tam"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-white/70 px-7 text-base font-bold text-[#163300] transition-transform hover:scale-105 active:scale-95"
+              >
+                <FileText className="h-5 w-5" />
+                Đăng ký quan tâm
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {[
-                "FDI Bình Dương",
-                "Cao tốc Trung Lương",
-                "KCN Vân Phong",
-                "Thuế ưu đãi Bắc Ninh",
-                "Logistics Hải Phòng",
-                "PCI 2025",
-              ].map((title, i) => (
-                <div
-                  key={title}
-                  className="reveal group relative aspect-[9/16] overflow-hidden rounded-xl shadow-[var(--shadow-card)] transition-transform hover:-translate-y-1"
-                  style={{
-                    transform: `translateY(${i % 2 ? 12 : 0}px)`,
-                    backgroundImage: "var(--gradient-primary)",
-                    transitionDelay: `${i * 60}ms`,
-                  }}
-                >
-                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-foreground/85 via-transparent to-transparent p-3">
-                    <p className="font-display text-xs font-semibold leading-tight text-background">
-                      {title}
-                    </p>
-                  </div>
-                  <PlayCircle className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 text-background/85 transition-all group-hover:scale-110" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* DUAL CTA — Investor / Locality */}
-      <section className="mx-auto max-w-7xl px-6 py-24">
-        <div className="grid gap-6 lg:grid-cols-2">
-          <div className="reveal card-soft relative overflow-hidden p-10">
-            <div
-              className="absolute -right-20 -top-20 h-60 w-60 rounded-full opacity-20 blur-3xl"
-              style={{ backgroundImage: "var(--gradient-primary)" }}
-              aria-hidden
-            />
-            <Users className="relative h-10 w-10 text-primary" />
-            <h3 className="relative mt-5 font-display text-2xl font-semibold tracking-tight text-foreground lg:text-3xl">
-              Bạn là <span className="text-gradient">Nhà đầu tư</span>?
-            </h3>
-            <p className="relative mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-              Truy cập thư viện tài liệu xúc tiến đa ngôn ngữ, đăng ký quan tâm dự án và kết nối trực tiếp với cơ quan xúc tiến đầu tư của 34 tỉnh thành.
-            </p>
-            <Link
-              to="/nha-dau-tu"
-              className="btn-gradient relative mt-6 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold"
-            >
-              Khu Nhà đầu tư <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          <div
-            className="reveal relative overflow-hidden rounded-2xl border border-border p-10 shadow-[var(--shadow-elegant)]"
-            style={{ backgroundImage: "var(--gradient-primary)", transitionDelay: "120ms" }}
-          >
-            <div
-              className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-white/15 blur-3xl"
-              aria-hidden
-            />
-            <Building2 className="relative h-10 w-10 text-white" />
-            <h3 className="relative mt-5 font-display text-2xl font-semibold tracking-tight text-white lg:text-3xl">
-              Bạn là <span className="text-white/95 underline decoration-white/40 decoration-2 underline-offset-4">Lãnh đạo địa phương</span>?
-            </h3>
-            <p className="relative mt-3 max-w-md text-sm leading-relaxed text-white/85">
-              Khám phá quy trình hợp tác minh bạch và các case study thực tế — đồng hành cùng tỉnh của bạn trong truyền thông xúc tiến đầu tư hiệu quả.
-            </p>
-            <Link
-              to="/dia-phuong"
-              className="relative mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-primary shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-lg"
-            >
-              Khu Địa phương <ArrowRight className="h-4 w-4" />
-            </Link>
           </div>
         </div>
       </section>
