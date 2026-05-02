@@ -48,15 +48,6 @@ export const PRIMARY_NAV: NavItem[] = [
       { labelKey: "nav.investor.events", to: "/nha-dau-tu/su-kien" },
     ],
   },
-  {
-    labelKey: "nav.locality",
-    to: "/dia-phuong",
-    children: [
-      { labelKey: "nav.locality.process", to: "/dia-phuong/quy-trinh-hop-tac" },
-      { labelKey: "nav.locality.casestudy", to: "/dia-phuong/case-study" },
-      { labelKey: "nav.locality.consult", to: "/dia-phuong/dang-ky-tu-van" },
-    ],
-  },
 ];
 
 export const FOOTER_NAV: Record<string, { labelKey: string; to: string }[]> = {
@@ -71,11 +62,6 @@ export const FOOTER_NAV: Record<string, { labelKey: string; to: string }[]> = {
     { labelKey: "footer.l.library", to: "/nha-dau-tu/tai-lieu" },
     { labelKey: "footer.l.register", to: "/nha-dau-tu/dang-ky-quan-tam" },
     { labelKey: "footer.l.events", to: "/su-kien" },
-  ],
-  "footer.h.locality": [
-    { labelKey: "footer.l.process", to: "/dia-phuong/quy-trinh-hop-tac" },
-    { labelKey: "footer.l.casestudy", to: "/dia-phuong/case-study" },
-    { labelKey: "footer.l.consult", to: "/dia-phuong/dang-ky-tu-van" },
   ],
   "footer.h.about": [
     { labelKey: "footer.l.intro", to: "/gioi-thieu" },
