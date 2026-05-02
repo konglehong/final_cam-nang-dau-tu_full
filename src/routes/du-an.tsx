@@ -1,9 +1,19 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { PageHero } from "@/components/layout/PageHero";
 import { KEY_PROJECTS, type KeyProject } from "@/data/map-layers";
 import { fmtNumber, SECTOR_LABEL, STATUS_LABEL } from "@/lib/format";
-import { ArrowRight, Building2, Search } from "lucide-react";
+import {
+  Anchor,
+  ArrowRight,
+  Briefcase,
+  Building2,
+  Factory,
+  Filter,
+  MapPin,
+  Plane,
+  Search,
+  SlidersHorizontal,
+} from "lucide-react";
 
 export const Route = createFileRoute("/du-an")({
   head: () => ({
@@ -12,12 +22,12 @@ export const Route = createFileRoute("/du-an")({
       {
         name: "description",
         content:
-          "Tra cứu các dự án FDI và hạ tầng trọng điểm tại Việt Nam: Samsung, LG, Intel, NVIDIA, LEGO, sân bay Long Thành, metro TP.HCM…",
+          "Tra cứu các dự án FDI và hạ tầng trọng điểm tại Việt Nam: vốn, ngành, vị trí, trạng thái và chủ đầu tư.",
       },
       { property: "og:title", content: "Dự án FDI & Hạ tầng trọng điểm Việt Nam" },
       {
         property: "og:description",
-        content: "15+ siêu dự án — vốn, ngành, vị trí, trạng thái và chủ đầu tư.",
+        content: "Cơ sở dữ liệu dự án đầu tư: vốn, ngành, vị trí, trạng thái và chủ đầu tư.",
       },
     ],
   }),
@@ -49,8 +59,9 @@ function DuAnPage() {
     return KEY_PROJECTS.filter((p) => {
       if (sector !== "all" && p.sector !== sector) return false;
       if (status !== "all" && p.status !== status) return false;
-      if (q && !`${p.name} ${p.investor} ${p.province}`.toLowerCase().includes(q.toLowerCase()))
+      if (q && !`${p.name} ${p.investor} ${p.province}`.toLowerCase().includes(q.toLowerCase())) {
         return false;
+      }
       return true;
     }).sort((a, b) => b.capital - a.capital);
   }, [sector, status, q]);
@@ -58,151 +69,233 @@ function DuAnPage() {
   const totalCapital = list.reduce((s, p) => s + p.capital, 0);
 
   return (
-    <>
-      <PageHero
-        eyebrow="Cơ sở dữ liệu dự án"
-        title="Dự án FDI & Hạ tầng trọng điểm"
-        description="Tra cứu siêu dự án FDI tỷ USD và công trình hạ tầng quốc gia tại 34 tỉnh thành — vốn, ngành, vị trí và trạng thái triển khai."
-      />
+    <main className="min-h-screen bg-[#F7F8F2] text-[#0E0F0C]">
+      <section className="border-b border-[rgba(14,15,12,0.12)] bg-white">
+        <div className="mx-auto max-w-[1800px] px-5 py-7 lg:px-8 lg:py-9">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#163300]">
+                Cơ sở dữ liệu dự án
+              </p>
+              <h1 className="mt-3 font-display text-[34px] font-extrabold leading-[1.12] tracking-normal text-[#0E0F0C] sm:text-[44px] lg:text-[54px]">
+                Dự án đang kêu gọi đầu tư
+              </h1>
+              <p className="mt-3 max-w-2xl text-base font-medium leading-relaxed text-[#454745]">
+                Tìm kiếm cơ hội theo địa phương, ngành, quy mô vốn và tình trạng triển khai — dạng dữ liệu nhưng vẫn dễ đọc, dễ so sánh.
+              </p>
+            </div>
 
-      <section className="border-b border-border bg-muted/40">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-8 md:grid-cols-4">
-          <Stat label="Dự án trong danh mục" value={fmtNumber(KEY_PROJECTS.length, 0)} />
-          <Stat
-            label="Tổng vốn (đã chọn)"
-            value={`${fmtNumber(totalCapital, 1)} tỷ USD`}
-          />
-          <Stat
-            label="Đang vận hành"
-            value={fmtNumber(KEY_PROJECTS.filter((p) => p.status === "operating").length, 0)}
-          />
-          <Stat
-            label="Đang xây / phê duyệt"
-            value={fmtNumber(
-              KEY_PROJECTS.filter((p) => p.status !== "operating").length,
-              0,
-            )}
-          />
-        </div>
-      </section>
+            <div className="grid gap-2 rounded-[24px] bg-[#F7F8F2] p-4 ring-1 ring-[rgba(14,15,12,0.10)] sm:grid-cols-3">
+              <MiniStat label="Dự án" value={fmtNumber(list.length, 0)} />
+              <MiniStat label="Tổng vốn" value={`${fmtNumber(totalCapital, 1)} tỷ USD`} />
+              <MiniStat label="Đang vận hành" value={fmtNumber(KEY_PROJECTS.filter((p) => p.status === "operating").length, 0)} />
+            </div>
+          </div>
 
-      <section className="mx-auto max-w-7xl px-6 py-10">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="flex flex-wrap gap-2">
-            {SECTORS.map((s) => (
-              <button
-                key={s}
-                onClick={() => setSector(s)}
-                className={`rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors ${
-                  sector === s
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border text-foreground hover:border-primary/40"
-                }`}
-              >
-                {s === "all" ? "Tất cả ngành" : SECTOR_LABEL[s]}
+          <div className="mt-7 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+            <div className="relative w-full xl:max-w-md">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8A8D86]" />
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Tìm theo tên dự án, nhà đầu tư hoặc tỉnh..."
+                className="h-12 w-full rounded-full bg-[#F7F8F2] pl-11 pr-4 text-sm font-medium text-[#0E0F0C] ring-1 ring-[rgba(14,15,12,0.12)] placeholder:text-[#8A8D86] focus:outline-none focus:ring-2 focus:ring-[#9FE870]"
+              />
+            </div>
+
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              <button className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#163300] px-4 py-2.5 text-sm font-bold text-white">
+                <SlidersHorizontal className="h-4 w-4" />
+                Bộ lọc
               </button>
-            ))}
-          </div>
-          <div className="relative w-full max-w-sm">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder="Tìm theo tên dự án, nhà đầu tư hoặc tỉnh…"
-              className="h-10 w-full rounded-md border border-border bg-background pl-9 pr-3 text-sm focus:border-primary focus:outline-none"
-            />
-          </div>
-        </div>
-
-        <div className="mt-3 flex flex-wrap gap-2">
-          {STATUSES.map((st) => (
-            <button
-              key={st}
-              onClick={() => setStatus(st)}
-              className={`rounded-md border px-3 py-1 text-xs transition-colors ${
-                status === st
-                  ? "border-gold bg-gold/10 text-foreground"
-                  : "border-border text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {st === "all" ? "Mọi trạng thái" : STATUS_LABEL[st]}
-            </button>
-          ))}
-        </div>
-
-        <p className="mt-6 text-sm text-muted-foreground">
-          Hiển thị <span className="font-semibold text-foreground">{list.length}</span> dự án
-        </p>
-
-        <div className="mt-4 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {list.map((p) => (
-            <Link
-              key={p.id}
-              to="/du-an/$id"
-              params={{ id: p.id }}
-              className="group flex flex-col rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-card)] transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <span className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-primary">
-                  {SECTOR_LABEL[p.sector]}
-                </span>
-                <span
-                  className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-                    p.status === "operating"
-                      ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400"
-                      : p.status === "construction"
-                        ? "bg-amber-500/15 text-amber-700 dark:text-amber-400"
-                        : "bg-sky-500/15 text-sky-700 dark:text-sky-400"
+              {SECTORS.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSector(s)}
+                  className={`shrink-0 rounded-full px-4 py-2.5 text-sm font-bold ring-1 ring-[rgba(14,15,12,0.12)] transition-colors ${
+                    sector === s
+                      ? "bg-[#9FE870] text-[#163300]"
+                      : "bg-[#F7F8F2] text-[#0E0F0C] hover:bg-[#E2F6D5]"
                   }`}
                 >
-                  {STATUS_LABEL[p.status]}
-                </span>
-              </div>
-              <h3 className="mt-3 font-display text-lg font-bold leading-snug text-foreground group-hover:text-primary">
-                {p.name}
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">{p.investor}</p>
+                  {s === "all" ? "Tất cả ngành" : SECTOR_LABEL[s]}
+                </button>
+              ))}
+              {STATUSES.map((st) => (
+                <button
+                  key={st}
+                  onClick={() => setStatus(st)}
+                  className={`shrink-0 rounded-full px-4 py-2.5 text-sm font-bold ring-1 ring-[rgba(14,15,12,0.12)] transition-colors ${
+                    status === st
+                      ? "bg-[#163300] text-white"
+                      : "bg-white text-[#454745] hover:bg-[#E2F6D5] hover:text-[#163300]"
+                  }`}
+                >
+                  {st === "all" ? "Mọi trạng thái" : STATUS_LABEL[st]}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-4 text-sm">
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Vốn</p>
-                  <p className="font-display text-xl font-bold text-gold">
-                    {fmtNumber(p.capital, 1)} <span className="text-xs">tỷ USD</span>
-                  </p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Năm</p>
-                  <p className="font-display text-xl font-bold text-foreground">{p.year}</p>
-                </div>
-              </div>
+      <section className="mx-auto grid max-w-[1800px] lg:grid-cols-[minmax(0,1.5fr)_minmax(420px,0.9fr)]">
+        <div className="px-5 py-6 lg:px-8 lg:py-8">
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <p className="text-sm font-bold text-[#454745]">
+              Hiển thị <span className="text-[#0E0F0C]">{list.length}</span> dự án phù hợp
+            </p>
+            <button className="hidden rounded-full bg-white px-4 py-2 text-sm font-bold text-[#163300] ring-1 ring-[rgba(14,15,12,0.12)] sm:inline-flex">
+              Sắp xếp: Vốn lớn nhất
+            </button>
+          </div>
 
-              <div className="mt-4 flex items-center justify-between border-t border-border pt-3 text-xs">
-                <span className="inline-flex items-center gap-1 text-muted-foreground">
-                  <Building2 className="h-3.5 w-3.5" /> {p.province}
-                </span>
-                <span className="inline-flex items-center gap-1 text-primary">
-                  Chi tiết <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </Link>
-          ))}
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {list.map((project) => (
+              <ProjectListingCard key={project.id} project={project} />
+            ))}
+          </div>
+
+          {list.length === 0 && (
+            <div className="mt-10 rounded-[28px] border border-dashed border-[rgba(14,15,12,0.18)] bg-white p-10 text-center text-sm font-medium text-[#454745]">
+              Không tìm thấy dự án phù hợp với bộ lọc hiện tại.
+            </div>
+          )}
         </div>
 
-        {list.length === 0 && (
-          <div className="mt-10 rounded-xl border border-dashed border-border bg-muted/30 p-10 text-center text-sm text-muted-foreground">
-            Không tìm thấy dự án phù hợp với bộ lọc hiện tại.
+        <aside className="hidden border-l border-[rgba(14,15,12,0.12)] bg-[#EAF2E5] lg:block">
+          <div className="sticky top-0 h-screen p-4">
+            <InvestmentMapPanel projects={list} />
           </div>
-        )}
+        </aside>
       </section>
-    </>
+    </main>
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function MiniStat({ label, value }: { label: string; value: string }) {
   return (
-    <div>
-      <p className="text-[11px] uppercase tracking-widest text-muted-foreground">{label}</p>
-      <p className="mt-1 font-display text-2xl font-bold text-foreground">{value}</p>
+    <div className="min-w-[128px]">
+      <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#8A8D86]">{label}</p>
+      <p className="mt-1 font-display text-xl font-extrabold leading-tight text-[#163300]">{value}</p>
+    </div>
+  );
+}
+
+function ProjectListingCard({ project }: { project: KeyProject }) {
+  return (
+    <Link
+      to="/du-an/$id"
+      params={{ id: project.id }}
+      className="group overflow-hidden rounded-[28px] bg-white ring-1 ring-[rgba(14,15,12,0.12)] transition-transform hover:-translate-y-1"
+    >
+      <div className="relative h-44 bg-[linear-gradient(135deg,#DCEED8,#BEE4F0)]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(159,232,112,0.45),transparent_34%)]" />
+        <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-extrabold text-[#163300] ring-1 ring-[rgba(14,15,12,0.10)]">
+          {SECTOR_LABEL[project.sector]}
+        </span>
+        <span className="absolute right-4 top-4 rounded-full bg-[#9FE870] px-3 py-1 text-xs font-extrabold text-[#163300]">
+          {STATUS_LABEL[project.status]}
+        </span>
+      </div>
+
+      <div className="p-5">
+        <p className="flex items-center gap-2 text-sm font-semibold text-[#454745]">
+          <MapPin className="h-4 w-4 text-[#163300]" />
+          {project.province}
+        </p>
+
+        <h2 className="mt-2 font-display text-2xl font-extrabold leading-snug tracking-normal text-[#0E0F0C] group-hover:text-[#163300]">
+          {project.name}
+        </h2>
+
+        <p className="mt-2 line-clamp-2 text-sm font-medium leading-relaxed text-[#454745]">
+          {project.investor}
+        </p>
+
+        <div className="mt-5 grid grid-cols-2 gap-3 border-t border-[rgba(14,15,12,0.10)] pt-4 text-sm">
+          <p>
+            <span className="block text-xs font-semibold text-[#8A8D86]">Tổng vốn</span>
+            <strong>{fmtNumber(project.capital, 1)} tỷ USD</strong>
+          </p>
+          <p>
+            <span className="block text-xs font-semibold text-[#8A8D86]">Năm</span>
+            <strong>{project.year}</strong>
+          </p>
+        </div>
+
+        <div className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#163300]">
+          Xem chi tiết
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function InvestmentMapPanel({ projects }: { projects: KeyProject[] }) {
+  return (
+    <div className="relative h-full overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,#F7F8F2,#DDF4FF)] ring-1 ring-[rgba(14,15,12,0.12)]">
+      <div className="absolute left-6 top-6 z-10 rounded-[24px] bg-white/95 p-4 ring-1 ring-[rgba(14,15,12,0.10)]">
+        <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-[#454745]">
+          Lớp dữ liệu
+        </p>
+        <div className="mt-3 grid gap-2">
+          {[
+            ["Dự án", Briefcase],
+            ["KCN", Factory],
+            ["Cảng biển", Anchor],
+            ["Sân bay", Plane],
+          ].map(([layer, Icon]) => (
+            <button
+              key={String(layer)}
+              className="flex items-center gap-2 rounded-full bg-[#F7F8F2] px-3 py-2 text-left text-xs font-bold text-[#163300]"
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {layer}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="absolute left-[44%] top-[12%] h-[68%] w-[22%] rotate-[-15deg] rounded-[50%] bg-[#7AB98D] shadow-[inset_0_0_0_2px_rgba(255,255,255,0.55)]" />
+      <div className="absolute left-[50%] top-[18%] h-[58%] w-14 rotate-[-24deg] rounded-full border-r-[10px] border-[#2E7C67] opacity-60" />
+
+      {[18, 29, 42, 55, 67, 76].map((top, i) => (
+        <div
+          key={top}
+          className="absolute left-[53%] flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#163300] shadow-lg ring-1 ring-[rgba(14,15,12,0.12)]"
+          style={{ top: `${top}%`, transform: `translateX(${i % 2 === 0 ? -18 : 18}px)` }}
+        >
+          <Briefcase className="h-4 w-4" />
+        </div>
+      ))}
+
+      <div className="absolute bottom-6 left-6 right-6 rounded-[24px] bg-white/95 p-5 ring-1 ring-[rgba(14,15,12,0.10)]">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-sm font-extrabold text-[#0E0F0C]">Tổng quan kết quả</p>
+            <p className="mt-1 text-xs font-medium text-[#454745]">Theo bộ lọc đang chọn</p>
+          </div>
+          <span className="rounded-full bg-[#E2F6D5] px-3 py-1 text-xs font-extrabold text-[#163300]">
+            {projects.length} dự án
+          </span>
+        </div>
+        <div className="mt-4 grid grid-cols-3 gap-3 text-xs">
+          <p>
+            <span className="block text-[#8A8D86]">FDI</span>
+            <strong>{fmtNumber(projects.reduce((s, p) => s + p.capital, 0), 1)} tỷ USD</strong>
+          </p>
+          <p>
+            <span className="block text-[#8A8D86]">Ngành</span>
+            <strong>{new Set(projects.map((p) => p.sector)).size}</strong>
+          </p>
+          <p>
+            <span className="block text-[#8A8D86]">Tỉnh</span>
+            <strong>{new Set(projects.map((p) => p.province)).size}</strong>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
